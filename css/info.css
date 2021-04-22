@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'Arual';
+    src: url(fonts/Arual.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url(fonts/Roboto-Thin.ttf) format('truetype');
+}
+
+body {
+    background-color: #444; 
+    color: #eee;
+    font-family: 'Roboto';
+}
+
+h1, h2, h3 {
+    font-family: 'Arual';
+    color: #faa24e;
+}
+
+img {
+    max-width: 300px;
+}
+
+a {
+    color: #faa24e;
+    text-decoration: none;
+}
+
+.info {
+    display: inline-block;
+}
