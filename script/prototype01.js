@@ -26,6 +26,7 @@ var prototype01;
         ctx.strokeStyle = "white";
         ctx.rect(0, 0, width, height);
         ctx.stroke();
+        alert("Rotation");
         alert(_alpha + _beta + _gamma);
     }
 })(prototype01 || (prototype01 = {}));

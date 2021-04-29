@@ -31,6 +31,7 @@ namespace prototype01 {
         ctx.rect(0, 0, width, height);
         ctx.stroke();
 
+        alert("Rotation"); 
         alert(_alpha +  _beta + _gamma); 
     }
 }
