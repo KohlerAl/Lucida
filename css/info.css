@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Arual';
-    src: url(..\fonts/Arual.ttf) format('truetype');
+    src: url(https://kohleral.github.io/Lucida/fonts/Arual.ttf) format('truetype');
 }
 
 @font-face {
     font-family: 'Roboto';
-    src: url(..\fonts/Roboto-Thin.ttf) format('truetype');
+    src: url(https://kohleral.github.io/Lucida/fonts/Roboto-Thin.ttf) format('truetype');
 }
 
 body {
