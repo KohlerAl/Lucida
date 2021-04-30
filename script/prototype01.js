@@ -20,8 +20,7 @@ var prototype01;
         console.log(width, height);
         lastPos = width / 3;
         undoCanvas();
-        drawRectangle(width / 2 - 10);
-        div.innerHTML = height + "";
+        drawRectangle(width / 2);
     }
     function handleMove(_event) {
         if (_event.gamma) {
