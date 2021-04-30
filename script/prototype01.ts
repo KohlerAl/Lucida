@@ -4,6 +4,7 @@ namespace prototype01 {
     let width: number;
     let height: number;
     let div: HTMLDivElement;
+    let lastPos: number;
 
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
@@ -17,6 +18,7 @@ namespace prototype01 {
         canvas.style.width = width + "px";
         canvas.style.width = height + "px";
 
+        lastPos = width / 2;
         undoCanvas();
         drawRectangle(width / 2 - 5);
     }
@@ -24,7 +26,8 @@ namespace prototype01 {
     function handleMove(_event: DeviceOrientationEvent): void {
         if (_event.gamma) {
             undoCanvas();
-            drawRectangle(width / 2 + _event.gamma);
+            let newPos: number = lastPos + _event.gamma;
+            drawRectangle(newPos);
         }
     }
 

@@ -6,6 +6,7 @@ var prototype01;
     let width;
     let height;
     let div;
+    let lastPos;
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
     function handleLoad() {
@@ -16,13 +17,15 @@ var prototype01;
         height = window.innerHeight;
         canvas.style.width = width + "px";
         canvas.style.width = height + "px";
+        lastPos = width / 2;
         undoCanvas();
         drawRectangle(width / 2 - 5);
     }
     function handleMove(_event) {
         if (_event.gamma) {
             undoCanvas();
-            drawRectangle(width / 2 + _event.gamma);
+            let newPos = lastPos + _event.gamma;
+            drawRectangle(newPos);
         }
     }
     function undoCanvas() {
