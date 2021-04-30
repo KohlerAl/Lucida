@@ -1,11 +1,19 @@
 namespace prototype01 {
+    //canvas Element and rendering context to draw on canvas
     let canvas: HTMLCanvasElement;
     let ctx: CanvasRenderingContext2D;
+
+    //width and height of the window
     let width: number;
     let height: number;
-    let div: HTMLDivElement;
-    let lastPos: number;
 
+    //Div to output numbers for testing
+    let div: HTMLDivElement;
+
+    //The middle-position of the green box
+    let startPos: number;
+
+    // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
 
@@ -17,34 +25,40 @@ namespace prototype01 {
         startScreen.addResourceManager(motionManager);
         startScreen.start();
 
+        //Selecting the debugging-div, the canvas and the rendering divs and assigning the values to the prepared variables
         div = <HTMLDivElement>document.querySelector("#box");
         canvas = <HTMLCanvasElement>document.querySelector("canvas");
         ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
 
+        //To get the correct size of the screen, we select the html-Element and get its width and height
         let html: HTMLElement = <HTMLElement>document.querySelector("html");
         width = html.clientWidth;
-        canvas.setAttribute("width", width + "px");
         height = html.clientHeight;
+
+        //To make the canvas as big as the screen, the width and height of the html are applied to it
+        canvas.setAttribute("width", width + "px");
         canvas.setAttribute("height", height + "px");
 
-        lastPos = (width / 2) - 25;
+        //Preparing the position of the box. The box should be in the middle, 
+        //so we are dividing the width by two and subtracting half of the width the box will have
+        startPos = (width / 2) - 25;
+
+        //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
         undoCanvas();
-        drawRectangle(lastPos);
+        //Then the box is drawn
+        drawRectangle(startPos);
     }
 
+    //Function called when the mobile device is moving
     function handleMove(_event: DeviceOrientationEvent): void {
+        //Check if the value we need is there
         if (_event.gamma) {
+            //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             undoCanvas();
 
-            let isPos: number = Math.sign(_event.gamma); 
-
-            let newPos: number = lastPos + (_event.gamma * 2);
-            if (newPos < 0 && isPos == -1) {
-                newPos = 0;
-            }
-            else if (newPos > width - 50 && isPos == 1) {
-                newPos = width - 50;
-            }
+            //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
+            let newPos: number = startPos + (_event.gamma * 1.5);
+            //And the box is drawn
             drawRectangle(newPos);
         }
     }
