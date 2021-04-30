@@ -2,20 +2,29 @@ namespace prototype01 {
     let canvas: HTMLCanvasElement;
     let ctx: CanvasRenderingContext2D;
     let width: number;
-    let height: number; 
+    let height: number;
+    let div: HTMLDivElement;
 
     const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
+    motionManager.onAccelerationIncludingGravity = onAccelerationIncludingGravity;
+    motionManager.onAcceleration = onAcceleration;
     motionManager.onRotationRate = onRotationRate;
+    motionManager.onOrientation = onOrientation;
+
+    const startScreen: StartScreen = new StartScreen("start-screen");
+    startScreen.addResourceManager(motionManager);
+    startScreen.start();
 
     window.addEventListener("load", handleLoad);
 
     function handleLoad(): void {
+        div = <HTMLDivElement>document.querySelector("#box");
         canvas = <HTMLCanvasElement>document.querySelector("canvas");
         ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
         width = window.innerWidth;
-        height = window.innerHeight; 
-        canvas.style.width = width + "px"; 
-        canvas.style.width = height + "px"; 
+        height = window.innerHeight;
+        canvas.style.width = width + "px";
+        canvas.style.width = height + "px";
 
         ctx.beginPath();
         ctx.strokeStyle = "red";
@@ -25,13 +34,24 @@ namespace prototype01 {
     }
 
     function onRotationRate(_alpha: number, _beta: number, _gamma: number): void {
-        ctx.beginPath();
+        /* ctx.beginPath();
         ctx.fillStyle = "white"; 
         ctx.strokeStyle = "white";
         ctx.rect(0, 0, width, height);
-        ctx.stroke();
+        ctx.stroke(); */
 
-        alert("Rotation"); 
-        alert(_alpha +  _beta + _gamma); 
+        div.innerHTML = "onRotationRate";
+    }
+
+    function onAccelerationIncludingGravity(): void {
+        div.innerHTML = "onAccelerationIncluding Gravity";
+    }
+
+    function onAcceleration(): void {
+        div.innerHTML = "onAcceleration";
+    }
+
+    function onOrientation(): void {
+        div.innerHTML = "onOrientation";
     }
 }
