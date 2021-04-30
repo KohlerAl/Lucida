@@ -18,18 +18,18 @@ namespace prototype01 {
         canvas.style.width = 100 + "%";
         canvas.style.width = 100 + "%";
 
-        console.log(width, height); 
+        console.log(width, height);
         lastPos = width / 3;
         undoCanvas();
-        drawRectangle(width / 2 - 5);
+        drawRectangle(width / 2 - 25);
     }
 
     function handleMove(_event: DeviceOrientationEvent): void {
         if (_event.gamma) {
             undoCanvas();
             let newPos: number = lastPos + _event.gamma;
-            div.innerHTML = width + ""; 
-            div.innerHTML += newPos + "<br>"; 
+            div.innerHTML = width + "";
+            div.innerHTML += newPos + "<br>";
             drawRectangle(newPos);
         }
     }
@@ -44,10 +44,11 @@ namespace prototype01 {
     }
 
     function drawRectangle(_startX: number): void {
+        let _startY: number = height / 3;
         ctx.beginPath();
         ctx.strokeStyle = "lightgreen";
         ctx.fillStyle = "lightgreen";
-        ctx.rect(_startX, 20, 10, 20);
+        ctx.rect(_startX, _startY, 50, 20);
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
