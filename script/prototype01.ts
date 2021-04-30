@@ -19,7 +19,7 @@ namespace prototype01 {
         canvas.setAttribute("height", height + "px");
 
         console.log(width, height);
-        lastPos = width / 3 + 25;
+        lastPos = width / 3 + 50;
         undoCanvas();
         drawRectangle(width / 2 + 50);
     }
@@ -27,7 +27,7 @@ namespace prototype01 {
     function handleMove(_event: DeviceOrientationEvent): void {
         if (_event.gamma) {
             undoCanvas();
-            let newPos: number = lastPos + _event.gamma;
+            let newPos: number = lastPos + (_event.gamma * 1.5);
             drawRectangle(newPos);
         }
     }

@@ -18,14 +18,14 @@ var prototype01;
         height = window.innerHeight;
         canvas.setAttribute("height", height + "px");
         console.log(width, height);
-        lastPos = width / 3 + 25;
+        lastPos = width / 3 + 50;
         undoCanvas();
         drawRectangle(width / 2 + 50);
     }
     function handleMove(_event) {
         if (_event.gamma) {
             undoCanvas();
-            let newPos = lastPos + _event.gamma;
+            let newPos = lastPos + (_event.gamma * 1.5);
             drawRectangle(newPos);
         }
     }
