@@ -33,16 +33,8 @@ var prototype01;
         ctx.stroke();
     }
     function handleMove(_event) {
-        if (_event.alpha) {
-            if (oldAlpha - _event.alpha > 0.1 || oldAlpha - _event.alpha < -0.1) {
-                div.innerHTML += " Alpha " + _event.alpha;
-            }
-        }
-        if (_event.gamma) {
-            if (oldGamma - _event.gamma > 0.1 || oldAlpha - _event.gamma < -0.1) {
-                div.innerHTML += " Gamma " + _event.gamma + "<br>";
-            }
-        }
+        div.innerHTML += " Alpha " + _event.alpha;
+        div.innerHTML += " Gamma " + _event.gamma + "<br>";
     }
     /* function onRotationRate(_alpha: number, _beta: number, _gamma: number): void {
         /* ctx.beginPath();
