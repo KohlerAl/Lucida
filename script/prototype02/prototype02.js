@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var prototype02;
 (function (prototype02) {
     //canvas Element and rendering context to draw on canvas
@@ -48,8 +49,9 @@ var prototype02;
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             undoCanvas();
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
-            let rotation = _event.gamma;
+            let rotation = _event.gamma / 0.5;
             drawCanonBarrel(startPos, startPosY, rotation);
+            drawCanon(startPos, startPosY);
         }
     }
     function undoCanvas() {

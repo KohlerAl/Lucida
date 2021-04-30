@@ -1,3 +1,5 @@
+import { start } from "repl";
+
 namespace prototype02 {
     //canvas Element and rendering context to draw on canvas
     let canvas: HTMLCanvasElement;
@@ -57,8 +59,9 @@ namespace prototype02 {
             undoCanvas();
 
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
-            let rotation: number =  _event.gamma;
+            let rotation: number =  _event.gamma / 0.5;
             drawCanonBarrel(startPos, startPosY, rotation); 
+            drawCanon(startPos, startPosY); 
         }
     }
 
