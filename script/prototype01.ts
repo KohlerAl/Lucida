@@ -14,9 +14,9 @@ namespace prototype01 {
         canvas = <HTMLCanvasElement>document.querySelector("canvas");
         ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
         width = window.innerWidth;
+        canvas.setAttribute("width", width + "px");
         height = window.innerHeight;
-        canvas.style.width = 100 + "%";
-        canvas.style.height = 100 + "%";
+        canvas.setAttribute("height", height + "px");
 
         console.log(width, height);
         lastPos = width / 3;
