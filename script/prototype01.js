@@ -31,11 +31,12 @@ var prototype01;
     function handleMove(_event) {
         if (_event.gamma) {
             undoCanvas();
+            let isPos = Math.sign(_event.gamma);
             let newPos = lastPos + (_event.gamma * 2);
-            if (newPos < 0) {
+            if (newPos < 0 && isPos == -1) {
                 newPos = 0;
             }
-            else if (newPos > width - 50) {
+            else if (newPos > width - 50 && isPos == 1) {
                 newPos = width - 50;
             }
             drawRectangle(newPos);

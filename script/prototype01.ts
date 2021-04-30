@@ -36,11 +36,13 @@ namespace prototype01 {
         if (_event.gamma) {
             undoCanvas();
 
+            let isPos: number = Math.sign(_event.gamma); 
+
             let newPos: number = lastPos + (_event.gamma * 2);
-            if (newPos < 0) {
+            if (newPos < 0 && isPos == -1) {
                 newPos = 0;
             }
-            else if (newPos > width - 50) {
+            else if (newPos > width - 50 && isPos == 1) {
                 newPos = width - 50;
             }
             drawRectangle(newPos);
