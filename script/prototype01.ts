@@ -28,8 +28,7 @@ namespace prototype01 {
         if (_event.gamma) {
             undoCanvas();
             let newPos: number = lastPos + _event.gamma;
-            div.innerHTML = width + "";
-            div.innerHTML += newPos + "<br>";
+            div.innerHTML += height / 3 + "<br>";
             drawRectangle(newPos);
         }
     }
