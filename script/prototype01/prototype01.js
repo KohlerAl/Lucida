@@ -7,8 +7,6 @@ var prototype01;
     //width and height of the window
     let width;
     let height;
-    //Div to output numbers for testing
-    let div;
     //The middle-position of the green box
     let startPos;
     // Installing a load- and a deviceorientation-Listener on window
@@ -21,8 +19,7 @@ var prototype01;
         const startScreen = new StartScreen("start-screen");
         startScreen.addResourceManager(motionManager);
         startScreen.start();
-        //Selecting the debugging-div, the canvas and the rendering divs and assigning the values to the prepared variables
-        div = document.querySelector("#box");
+        //Selecting the canvas and the rendering divs and assigning the values to the prepared variables
         canvas = document.querySelector("canvas");
         ctx = canvas.getContext("2d");
         //To get the correct size of the screen, we select the html-Element and get its width and height
@@ -47,7 +44,7 @@ var prototype01;
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             undoCanvas();
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
-            let newPos = startPos + (_event.gamma * 1.5);
+            let newPos = startPos + (_event.gamma * 2);
             //And the box is drawn
             drawRectangle(newPos);
         }

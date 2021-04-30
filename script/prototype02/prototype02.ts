@@ -1,4 +1,4 @@
-namespace prototype01 {
+namespace prototype02 {
     //canvas Element and rendering context to draw on canvas
     let canvas: HTMLCanvasElement;
     let ctx: CanvasRenderingContext2D;
@@ -7,11 +7,9 @@ namespace prototype01 {
     let width: number;
     let height: number;
 
-    //Div to output numbers for testing
-    let div: HTMLDivElement;
-
     //The middle-position of the green box
     let startPos: number;
+    let startPosY: number;
 
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
@@ -25,8 +23,7 @@ namespace prototype01 {
         startScreen.addResourceManager(motionManager);
         startScreen.start();
 
-        //Selecting the debugging-div, the canvas and the rendering divs and assigning the values to the prepared variables
-        div = <HTMLDivElement>document.querySelector("#box");
+        //The canvas and the rendering divs and assigning the values to the prepared variables
         canvas = <HTMLCanvasElement>document.querySelector("canvas");
         ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
 
@@ -42,45 +39,78 @@ namespace prototype01 {
         //Preparing the position of the box. The box should be in the middle, 
         //so we are dividing the width by two and subtracting half of the width the box will have
         startPos = (width / 2) - 25;
+        startPosY = height / 2 - 45;
 
         //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
         undoCanvas();
         //Then the box is drawn
-        drawRectangle(startPos);
+        drawCanon(startPos, startPosY);
+        drawCanonBarrel(startPos, startPosY);
     }
 
     //Function called when the mobile device is moving
     function handleMove(_event: DeviceOrientationEvent): void {
+        console.log("Mooooove"); 
         //Check if the value we need is there
         if (_event.gamma) {
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             undoCanvas();
 
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
-            let newPos: number = startPos + (_event.gamma * 1.5);
-            //And the box is drawn
-            drawRectangle(newPos);
+            let rotation: number =  _event.gamma;
+            drawCanonBarrel(startPos, startPosY, rotation); 
         }
     }
 
     function undoCanvas(): void {
         ctx.beginPath();
-        ctx.fillStyle = "white";
-        ctx.strokeStyle = "white";
+        ctx.fillStyle = "#777777";
+        ctx.strokeStyle = "#777777";
         ctx.rect(0, 0, width, height);
         ctx.fill();
         ctx.closePath();
     }
 
-    function drawRectangle(_startX: number): void {
-        let _startY: number = height / 2 - 45;
+    function drawCanon(_startX: number, _startY: number): void {
         ctx.beginPath();
-        ctx.strokeStyle = "lightgreen";
-        ctx.fillStyle = "lightgreen";
-        ctx.rect(_startX, _startY, 50, 50);
+        ctx.strokeStyle = "darkgrey";
+        ctx.fillStyle = "lightgrey";
+        ctx.lineWidth = 10;
+        ctx.arc(_startX, _startY, 50, 0, 1 * Math.PI, true);
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "darkgrey";
+        ctx.fillStyle = "grey";
+        ctx.rect(_startX - 100, _startY, 200, 50);
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+
     }
 
+    function drawCanonBarrel(_startX: number, _startY: number, _rotation: number = 0): void {
+        ctx.beginPath();
+        ctx.strokeStyle = "red";
+        ctx.fillStyle = "red";
+        ctx.lineWidth = 2;
+        ctx.arc(_startX, _startY - 50, 5, 0, 2 * Math.PI, true);
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.save();
+        ctx.beginPath(); 
+        ctx.translate(_startX, _startY - 55); 
+        ctx.rotate(_rotation); 
+        ctx.strokeStyle = "black"; 
+        ctx.fillStyle = "black"; 
+        ctx.rect(0, 0, 100, 10); 
+        ctx.stroke(); 
+        ctx.fill(); 
+        ctx.closePath(); 
+        ctx.restore(); 
+    }
 }
