@@ -16,11 +16,11 @@ var prototype01;
         width = window.innerWidth;
         height = window.innerHeight;
         canvas.style.width = 100 + "%";
-        canvas.style.width = 100 + "%";
+        canvas.style.height = 100 + "%";
         console.log(width, height);
         lastPos = width / 3;
         undoCanvas();
-        drawRectangle(width / 2 - 35);
+        drawRectangle(width / 2 - 50);
     }
     function handleMove(_event) {
         if (_event.gamma) {
@@ -42,7 +42,7 @@ var prototype01;
         ctx.beginPath();
         ctx.strokeStyle = "lightgreen";
         ctx.fillStyle = "lightgreen";
-        ctx.rect(_startX, 150, 50, 70);
+        ctx.rect(_startX, _startY, 50, 70);
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
