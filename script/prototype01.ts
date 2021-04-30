@@ -5,19 +5,6 @@ namespace prototype01 {
     let height: number;
     let div: HTMLDivElement;
 
-    let oldAlpha: number;
-    let oldGamma: number;
-
-    /*  const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
-     motionManager.onAccelerationIncludingGravity = onAccelerationIncludingGravity;
-     motionManager.onAcceleration = onAcceleration;
-     motionManager.onRotationRate = onRotationRate;
-     motionManager.onOrientation = onOrientation;
- 
-     const startScreen: StartScreen = new StartScreen("start-screen");
-     startScreen.addResourceManager(motionManager);
-     startScreen.start(); */
-
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
 
@@ -30,38 +17,36 @@ namespace prototype01 {
         canvas.style.width = width + "px";
         canvas.style.width = height + "px";
 
-        ctx.beginPath();
-        ctx.strokeStyle = "red";
-        ctx.rect(20, 20, 10, 20);
-        ctx.stroke();
-
+        undoCanvas();
+        drawRectangle(width / 2 - 5);
     }
 
     function handleMove(_event: DeviceOrientationEvent): void {
-        div.innerHTML += " Alpha " + _event.alpha;
         div.innerHTML += " Gamma " + _event.gamma + "<br>";
-        
+
+        if (_event.gamma) {
+            undoCanvas();
+            drawRectangle(width / 2 + _event.gamma);
+        }
     }
 
-    /* function onRotationRate(_alpha: number, _beta: number, _gamma: number): void {
-        /* ctx.beginPath();
-        ctx.fillStyle = "white"; 
+    function undoCanvas(): void {
+        ctx.beginPath();
+        ctx.fillStyle = "white";
         ctx.strokeStyle = "white";
         ctx.rect(0, 0, width, height);
-        ctx.stroke(); 
-
-        div.innerHTML = "onRotationRate";
+        ctx.fill();
+        ctx.closePath();
     }
 
-    function onAccelerationIncludingGravity(): void {
-        div.innerHTML = "onAccelerationIncluding Gravity";
+    function drawRectangle(_startX: number): void {
+        ctx.beginPath();
+        ctx.strokeStyle = "lightgreen";
+        ctx.fillStyle = "lightgreen";
+        ctx.rect(20, 20, 10, 20);
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
     }
 
-    function onAcceleration(): void {
-        div.innerHTML = "onAcceleration";
-    }
-
-    function onOrientation(): void {
-        div.innerHTML = "onOrientation";
-    } */
 }
