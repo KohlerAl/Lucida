@@ -21,7 +21,7 @@ namespace prototype01 {
         console.log(width, height);
         lastPos = width / 3;
         undoCanvas();
-        drawRectangle(width / 2 + 25);
+        drawRectangle(width / 2 + 50);
     }
 
     function handleMove(_event: DeviceOrientationEvent): void {
