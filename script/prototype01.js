@@ -26,7 +26,6 @@ var prototype01;
         if (_event.gamma) {
             undoCanvas();
             let newPos = lastPos + _event.gamma;
-            div.innerHTML += height / 3 + "<br>";
             drawRectangle(newPos);
         }
     }
@@ -43,7 +42,7 @@ var prototype01;
         ctx.beginPath();
         ctx.strokeStyle = "lightgreen";
         ctx.fillStyle = "lightgreen";
-        ctx.rect(_startX, _startY, 50, 20);
+        ctx.rect(_startX, 257, 50, 70);
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
