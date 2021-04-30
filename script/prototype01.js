@@ -20,7 +20,7 @@ var prototype01;
         console.log(width, height);
         lastPos = width / 3;
         undoCanvas();
-        drawRectangle(width / 2 - 50);
+        drawRectangle(width / 2 - 25);
         div.innerHTML = height + "";
     }
     function handleMove(_event) {
@@ -39,7 +39,7 @@ var prototype01;
         ctx.closePath();
     }
     function drawRectangle(_startX) {
-        let _startY = height / 3;
+        let _startY = height / 2 - 45;
         ctx.beginPath();
         ctx.strokeStyle = "lightgreen";
         ctx.fillStyle = "lightgreen";
