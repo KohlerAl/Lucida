@@ -35,7 +35,7 @@ namespace prototype01 {
     function handleMove(_event: DeviceOrientationEvent): void {
         if (_event.gamma) {
             undoCanvas();
-            let newPos: number = lastPos + (_event.gamma * 1.5);
+            let newPos: number = lastPos + (_event.gamma * 2);
             drawRectangle(newPos);
         }
     }

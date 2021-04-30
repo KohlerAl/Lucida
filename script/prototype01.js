@@ -32,7 +32,7 @@ var prototype01;
     function handleMove(_event) {
         if (_event.gamma) {
             undoCanvas();
-            let newPos = lastPos + (_event.gamma * 1.5);
+            let newPos = lastPos + (_event.gamma * 2);
             drawRectangle(newPos);
         }
     }
