@@ -20,9 +20,11 @@ namespace prototype01 {
         div = <HTMLDivElement>document.querySelector("#box");
         canvas = <HTMLCanvasElement>document.querySelector("canvas");
         ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
-        width = window.screen.width;
+
+        let html: HTMLElement = <HTMLElement>document.querySelector("html"); 
+        width = html.clientWidth;
         canvas.setAttribute("width", width + "px");
-        height = window.screen.height;
+        height = html.clientHeight;
         canvas.setAttribute("height", height + "px");
 
         console.log(width, height);
