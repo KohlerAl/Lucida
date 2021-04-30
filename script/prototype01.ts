@@ -26,9 +26,10 @@ namespace prototype01 {
         canvas.setAttribute("height", height + "px");
 
         console.log(width, height);
-        lastPos = width / 3 + 25;
+        lastPos = (width / 2) - 25;
+        console.log(lastPos); 
         undoCanvas();
-        drawRectangle(width / 2 + 50);
+        drawRectangle(lastPos);
     }
 
     function handleMove(_event: DeviceOrientationEvent): void {
@@ -53,7 +54,8 @@ namespace prototype01 {
         ctx.beginPath();
         ctx.strokeStyle = "lightgreen";
         ctx.fillStyle = "lightgreen";
-        ctx.rect(_startX, _startY, 50, 70);
+        ctx.rect(_startX, _startY, 50, 50);
+        console.log(_startX, _startY, 50, 50); 
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
