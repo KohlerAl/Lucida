@@ -17,7 +17,7 @@ var prototype01;
         height = window.innerHeight;
         canvas.style.width = width + "px";
         canvas.style.width = height + "px";
-        lastPos = width / 2;
+        lastPos = width / 4;
         undoCanvas();
         drawRectangle(width / 2 - 5);
     }
@@ -42,7 +42,7 @@ var prototype01;
         ctx.beginPath();
         ctx.strokeStyle = "lightgreen";
         ctx.fillStyle = "lightgreen";
-        ctx.rect(_startX, height / 2, 10, 20);
+        ctx.rect(_startX, 20, 10, 20);
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
