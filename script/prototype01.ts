@@ -22,8 +22,6 @@ namespace prototype01 {
     }
 
     function handleMove(_event: DeviceOrientationEvent): void {
-        div.innerHTML += " Gamma " + _event.gamma + "<br>";
-
         if (_event.gamma) {
             undoCanvas();
             drawRectangle(width / 2 + _event.gamma);

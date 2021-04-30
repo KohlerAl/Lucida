@@ -20,7 +20,6 @@ var prototype01;
         drawRectangle(width / 2 - 5);
     }
     function handleMove(_event) {
-        div.innerHTML += " Gamma " + _event.gamma + "<br>";
         if (_event.gamma) {
             undoCanvas();
             drawRectangle(width / 2 + _event.gamma);
