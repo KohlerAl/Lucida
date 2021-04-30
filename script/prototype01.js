@@ -20,7 +20,7 @@ var prototype01;
         console.log(width, height);
         lastPos = width / 3;
         undoCanvas();
-        drawRectangle(width / 2 - 25);
+        drawRectangle(width / 2 - 35);
     }
     function handleMove(_event) {
         if (_event.gamma) {
@@ -42,7 +42,7 @@ var prototype01;
         ctx.beginPath();
         ctx.strokeStyle = "lightgreen";
         ctx.fillStyle = "lightgreen";
-        ctx.rect(_startX, 100, 50, 70);
+        ctx.rect(_startX, 150, 50, 70);
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
