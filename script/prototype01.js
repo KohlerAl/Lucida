@@ -31,10 +31,10 @@ var prototype01;
         ctx.stroke();
     }
     function handleMove(_event) {
-        div.innerHTML += _event.absolute;
-        div.innerHTML += _event.alpha;
-        div.innerHTML += _event.beta;
-        div.innerHTML += _event.gamma;
+        div.innerHTML += "Absolute " + _event.absolute;
+        div.innerHTML += "Alpha " + _event.alpha;
+        div.innerHTML += "Beta " + _event.beta;
+        div.innerHTML += "Gamma " + _event.gamma + "<br>";
     }
     /* function onRotationRate(_alpha: number, _beta: number, _gamma: number): void {
         /* ctx.beginPath();
