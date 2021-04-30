@@ -15,10 +15,11 @@ namespace prototype01 {
         ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
         width = window.innerWidth;
         height = window.innerHeight;
-        canvas.style.width = width + "px";
-        canvas.style.width = height + "px";
+        canvas.style.width = 100 + "%";
+        canvas.style.width = 100 + "%";
 
-        lastPos = width / 4;
+        console.log(width, height); 
+        lastPos = width / 3;
         undoCanvas();
         drawRectangle(width / 2 - 5);
     }

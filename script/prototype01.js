@@ -15,9 +15,10 @@ var prototype01;
         ctx = canvas.getContext("2d");
         width = window.innerWidth;
         height = window.innerHeight;
-        canvas.style.width = width + "px";
-        canvas.style.width = height + "px";
-        lastPos = width / 4;
+        canvas.style.width = 100 + "%";
+        canvas.style.width = 100 + "%";
+        console.log(width, height);
+        lastPos = width / 3;
         undoCanvas();
         drawRectangle(width / 2 - 5);
     }
