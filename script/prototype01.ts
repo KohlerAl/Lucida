@@ -39,12 +39,12 @@ namespace prototype01 {
 
     function handleMove(_event: DeviceOrientationEvent): void {
         if (_event.alpha) {
-            if (oldAlpha - _event.alpha > 1 || oldAlpha - _event.alpha < -1) {
+            if (oldAlpha - _event.alpha > 0.1 || oldAlpha - _event.alpha < -0.1) {
                 div.innerHTML += " Alpha " + _event.alpha;
             }
         }
         if (_event.gamma) {
-            if (oldGamma - _event.gamma > 1 || oldAlpha - _event.gamma < -1) {
+            if (oldGamma - _event.gamma > 0.1 || oldAlpha - _event.gamma < -0.1) {
                 div.innerHTML += " Gamma " + _event.gamma + "<br>";
             }
         }
