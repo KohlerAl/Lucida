@@ -21,6 +21,7 @@ var prototype01;
         lastPos = width / 3;
         undoCanvas();
         drawRectangle(width / 2 - 50);
+        div.innerHTML = height + "";
     }
     function handleMove(_event) {
         if (_event.gamma) {
