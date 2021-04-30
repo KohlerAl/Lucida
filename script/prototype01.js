@@ -18,7 +18,7 @@ var prototype01;
         height = window.innerHeight;
         canvas.setAttribute("height", height + "px");
         console.log(width, height);
-        lastPos = width / 3;
+        lastPos = width / 3 + 25;
         undoCanvas();
         drawRectangle(width / 2 + 50);
     }
