@@ -18,7 +18,7 @@ namespace prototype01 {
         canvas.style.width = width + "px";
         canvas.style.width = height + "px";
 
-        lastPos = width / 4;
+        lastPos = width / 2;
         undoCanvas();
         drawRectangle(width / 2 - 5);
     }
