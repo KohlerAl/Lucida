@@ -25,6 +25,7 @@ var prototype01;
         if (_event.gamma) {
             undoCanvas();
             let newPos = lastPos + _event.gamma;
+            div.innerHTML = newPos + "<br>";
             drawRectangle(newPos);
         }
     }
