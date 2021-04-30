@@ -41,7 +41,7 @@ var prototype01;
         ctx.beginPath();
         ctx.strokeStyle = "lightgreen";
         ctx.fillStyle = "lightgreen";
-        ctx.rect(20, 20, 10, 20);
+        ctx.rect(_startX, 20, 10, 20);
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
