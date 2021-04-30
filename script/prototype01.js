@@ -6,6 +6,8 @@ var prototype01;
     let width;
     let height;
     let div;
+    let oldAlpha;
+    let oldGamma;
     /*  const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
      motionManager.onAccelerationIncludingGravity = onAccelerationIncludingGravity;
      motionManager.onAcceleration = onAcceleration;
@@ -31,10 +33,16 @@ var prototype01;
         ctx.stroke();
     }
     function handleMove(_event) {
-        div.innerHTML += "Absolute " + _event.absolute;
-        div.innerHTML += "Alpha " + _event.alpha;
-        div.innerHTML += "Beta " + _event.beta;
-        div.innerHTML += "Gamma " + _event.gamma + "<br>";
+        if (_event.alpha) {
+            if (oldAlpha - _event.alpha > 1 || oldAlpha - _event.alpha < -1) {
+                div.innerHTML += " Alpha " + _event.alpha;
+            }
+        }
+        if (_event.gamma) {
+            if (oldGamma - _event.gamma > 1 || oldAlpha - _event.gamma < -1) {
+                div.innerHTML += " Gamma " + _event.gamma + "<br>";
+            }
+        }
     }
     /* function onRotationRate(_alpha: number, _beta: number, _gamma: number): void {
         /* ctx.beginPath();

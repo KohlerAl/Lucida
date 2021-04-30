@@ -5,18 +5,21 @@ namespace prototype01 {
     let height: number;
     let div: HTMLDivElement;
 
-   /*  const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
-    motionManager.onAccelerationIncludingGravity = onAccelerationIncludingGravity;
-    motionManager.onAcceleration = onAcceleration;
-    motionManager.onRotationRate = onRotationRate;
-    motionManager.onOrientation = onOrientation;
+    let oldAlpha: number;
+    let oldGamma: number;
 
-    const startScreen: StartScreen = new StartScreen("start-screen");
-    startScreen.addResourceManager(motionManager);
-    startScreen.start(); */
+    /*  const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
+     motionManager.onAccelerationIncludingGravity = onAccelerationIncludingGravity;
+     motionManager.onAcceleration = onAcceleration;
+     motionManager.onRotationRate = onRotationRate;
+     motionManager.onOrientation = onOrientation;
+ 
+     const startScreen: StartScreen = new StartScreen("start-screen");
+     startScreen.addResourceManager(motionManager);
+     startScreen.start(); */
 
     window.addEventListener("load", handleLoad);
-    window.addEventListener("deviceorientation", handleMove); 
+    window.addEventListener("deviceorientation", handleMove);
 
     function handleLoad(): void {
         div = <HTMLDivElement>document.querySelector("#box");
@@ -35,10 +38,16 @@ namespace prototype01 {
     }
 
     function handleMove(_event: DeviceOrientationEvent): void {
-        div.innerHTML += "Absolute " +  _event.absolute; 
-        div.innerHTML += "Alpha " + _event.alpha; 
-        div.innerHTML += "Beta " + _event.beta; 
-        div.innerHTML += "Gamma " + _event.gamma + "<br>";  
+        if (_event.alpha) {
+            if (oldAlpha - _event.alpha > 1 || oldAlpha - _event.alpha < -1) {
+                div.innerHTML += " Alpha " + _event.alpha;
+            }
+        }
+        if (_event.gamma) {
+            if (oldGamma - _event.gamma > 1 || oldAlpha - _event.gamma < -1) {
+                div.innerHTML += " Gamma " + _event.gamma + "<br>";
+            }
+        }
     }
 
     /* function onRotationRate(_alpha: number, _beta: number, _gamma: number): void {
