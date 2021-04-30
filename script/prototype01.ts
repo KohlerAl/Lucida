@@ -10,6 +10,13 @@ namespace prototype01 {
     window.addEventListener("deviceorientation", handleMove);
 
     function handleLoad(): void {
+         // create device motion/orientation manager and register motion callbacks
+        const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
+        // create start screen and register device motion/orientation manager
+        const startScreen: StartScreen = new StartScreen("start-screen");
+        startScreen.addResourceManager(motionManager);
+        startScreen.start();
+
         div = <HTMLDivElement>document.querySelector("#box");
         canvas = <HTMLCanvasElement>document.querySelector("canvas");
         ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
@@ -52,4 +59,4 @@ namespace prototype01 {
         ctx.closePath();
     }
 
-}
+} 

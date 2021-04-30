@@ -10,6 +10,12 @@ var prototype01;
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
     function handleLoad() {
+        // create device motion/orientation manager and register motion callbacks
+        const motionManager = new DeviceMotionAndOrientationManager();
+        // create start screen and register device motion/orientation manager
+        const startScreen = new StartScreen("start-screen");
+        startScreen.addResourceManager(motionManager);
+        startScreen.start();
         div = document.querySelector("#box");
         canvas = document.querySelector("canvas");
         ctx = canvas.getContext("2d");
