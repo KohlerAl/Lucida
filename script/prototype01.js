@@ -6,15 +6,17 @@ var prototype01;
     let width;
     let height;
     let div;
-    const motionManager = new DeviceMotionAndOrientationManager();
-    motionManager.onAccelerationIncludingGravity = onAccelerationIncludingGravity;
-    motionManager.onAcceleration = onAcceleration;
-    motionManager.onRotationRate = onRotationRate;
-    motionManager.onOrientation = onOrientation;
-    const startScreen = new StartScreen("start-screen");
-    startScreen.addResourceManager(motionManager);
-    startScreen.start();
+    /*  const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
+     motionManager.onAccelerationIncludingGravity = onAccelerationIncludingGravity;
+     motionManager.onAcceleration = onAcceleration;
+     motionManager.onRotationRate = onRotationRate;
+     motionManager.onOrientation = onOrientation;
+ 
+     const startScreen: StartScreen = new StartScreen("start-screen");
+     startScreen.addResourceManager(motionManager);
+     startScreen.start(); */
     window.addEventListener("load", handleLoad);
+    window.addEventListener("deviceorientation", handleMove);
     function handleLoad() {
         div = document.querySelector("#box");
         canvas = document.querySelector("canvas");
@@ -28,22 +30,32 @@ var prototype01;
         ctx.rect(20, 20, 10, 20);
         ctx.stroke();
     }
-    function onRotationRate(_alpha, _beta, _gamma) {
+    function handleMove(_event) {
+        div.innerHTML += _event.absolute;
+        div.innerHTML += _event.alpha;
+        div.innerHTML += _event.beta;
+        div.innerHTML += _event.gamma;
+    }
+    /* function onRotationRate(_alpha: number, _beta: number, _gamma: number): void {
         /* ctx.beginPath();
         ctx.fillStyle = "white";
         ctx.strokeStyle = "white";
         ctx.rect(0, 0, width, height);
-        ctx.stroke(); */
+        ctx.stroke();
+
         div.innerHTML = "onRotationRate";
     }
-    function onAccelerationIncludingGravity() {
+
+    function onAccelerationIncludingGravity(): void {
         div.innerHTML = "onAccelerationIncluding Gravity";
     }
-    function onAcceleration() {
+
+    function onAcceleration(): void {
         div.innerHTML = "onAcceleration";
     }
-    function onOrientation() {
+
+    function onOrientation(): void {
         div.innerHTML = "onOrientation";
-    }
+    } */
 })(prototype01 || (prototype01 = {}));
 //# sourceMappingURL=prototype01.js.map

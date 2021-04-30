@@ -5,7 +5,7 @@ namespace prototype01 {
     let height: number;
     let div: HTMLDivElement;
 
-    const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
+   /*  const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
     motionManager.onAccelerationIncludingGravity = onAccelerationIncludingGravity;
     motionManager.onAcceleration = onAcceleration;
     motionManager.onRotationRate = onRotationRate;
@@ -13,9 +13,10 @@ namespace prototype01 {
 
     const startScreen: StartScreen = new StartScreen("start-screen");
     startScreen.addResourceManager(motionManager);
-    startScreen.start();
+    startScreen.start(); */
 
     window.addEventListener("load", handleLoad);
+    window.addEventListener("deviceorientation", handleMove); 
 
     function handleLoad(): void {
         div = <HTMLDivElement>document.querySelector("#box");
@@ -33,12 +34,19 @@ namespace prototype01 {
 
     }
 
-    function onRotationRate(_alpha: number, _beta: number, _gamma: number): void {
+    function handleMove(_event: DeviceOrientationEvent): void {
+        div.innerHTML += _event.absolute; 
+        div.innerHTML += _event.alpha; 
+        div.innerHTML += _event.beta; 
+        div.innerHTML += _event.gamma; 
+    }
+
+    /* function onRotationRate(_alpha: number, _beta: number, _gamma: number): void {
         /* ctx.beginPath();
         ctx.fillStyle = "white"; 
         ctx.strokeStyle = "white";
         ctx.rect(0, 0, width, height);
-        ctx.stroke(); */
+        ctx.stroke(); 
 
         div.innerHTML = "onRotationRate";
     }
@@ -53,5 +61,5 @@ namespace prototype01 {
 
     function onOrientation(): void {
         div.innerHTML = "onOrientation";
-    }
+    } */
 }
