@@ -19,7 +19,7 @@ namespace prototype01 {
         canvas.setAttribute("height", height + "px");
 
         console.log(width, height);
-        lastPos = width / 3 + 40;
+        lastPos = width / 3 + 25;
         undoCanvas();
         drawRectangle(width / 2 + 50);
     }
