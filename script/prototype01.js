@@ -10,7 +10,7 @@ var prototype01;
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
     function handleLoad() {
-        // create device motion/orientation manager and register motion callbacks
+        // create device motion/orientation manager
         const motionManager = new DeviceMotionAndOrientationManager();
         // create start screen and register device motion/orientation manager
         const startScreen = new StartScreen("start-screen");
@@ -24,9 +24,7 @@ var prototype01;
         canvas.setAttribute("width", width + "px");
         height = html.clientHeight;
         canvas.setAttribute("height", height + "px");
-        console.log(width, height);
         lastPos = (width / 2) - 25;
-        console.log(lastPos);
         undoCanvas();
         drawRectangle(lastPos);
     }
@@ -34,6 +32,12 @@ var prototype01;
         if (_event.gamma) {
             undoCanvas();
             let newPos = lastPos + (_event.gamma * 2);
+            if (newPos < 0) {
+                newPos = 0;
+            }
+            else if (newPos > width - 50) {
+                newPos = width - 50;
+            }
             drawRectangle(newPos);
         }
     }
@@ -51,7 +55,6 @@ var prototype01;
         ctx.strokeStyle = "lightgreen";
         ctx.fillStyle = "lightgreen";
         ctx.rect(_startX, _startY, 50, 50);
-        console.log(_startX, _startY, 50, 50);
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
