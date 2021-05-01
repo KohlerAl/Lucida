@@ -4,16 +4,15 @@ var prototype02;
     //canvas Element and rendering context to draw on canvas
     let canvas;
     let ctx;
-    //width and height of the window
-    let width;
-    let height;
     //The middle-position of the green box
     let startPos;
     let startPosY;
     let gamma = -90;
     let div;
+    let allBalls = [];
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
+    window.addEventListener("touchend", getStart);
     window.addEventListener("deviceorientation", handleMove);
     function handleLoad() {
         // create device motion/orientation manager
@@ -27,21 +26,21 @@ var prototype02;
         ctx = canvas.getContext("2d");
         //To get the correct size of the screen, we select the html-Element and get its width and height
         let html = document.querySelector("html");
-        width = html.clientWidth;
-        height = html.clientHeight;
+        prototype02.width = html.clientWidth;
+        prototype02.height = html.clientHeight;
         //To make the canvas as big as the screen, the width and height of the html are applied to it
-        canvas.setAttribute("width", width + "px");
-        canvas.setAttribute("height", height + "px");
+        canvas.setAttribute("width", prototype02.width + "px");
+        canvas.setAttribute("height", prototype02.height + "px");
         //Preparing the position of the box. The box should be in the middle, 
         //so we are dividing the width by two and subtracting half of the width the box will have
-        startPos = (width / 2) - 25;
-        startPosY = height / 2 - 45;
+        startPos = (prototype02.width / 2) - 25;
+        startPosY = prototype02.height / 2 - 45;
         //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
         undoCanvas();
         //Then the box is drawn
         drawCanon(startPos, startPosY);
         drawCanonBarrel(startPos, startPosY);
-        getStart();
+        window.setInterval(update, 40);
     }
     //Function called when the mobile device is moving
     function handleMove(_event) {
@@ -62,14 +61,13 @@ var prototype02;
             div.innerHTML = rotation + "";
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
-            getStart();
         }
     }
     function undoCanvas() {
         ctx.beginPath();
         ctx.fillStyle = "#777777";
         ctx.strokeStyle = "#777777";
-        ctx.rect(0, 0, width, height);
+        ctx.rect(0, 0, prototype02.width, prototype02.height);
         ctx.fill();
         ctx.closePath();
     }
@@ -104,7 +102,7 @@ var prototype02;
         ctx.closePath();
         ctx.restore();
     }
-    function getStart() {
+    function getStart(_event) {
         let startX = startPos;
         let startY = startPosY - 50;
         let distance = 100;
@@ -112,16 +110,18 @@ var prototype02;
         let y = distance * (Math.sin(gamma * Math.PI / 180));
         let endX = startX + x;
         let endY = startY + y;
-        ctx.beginPath();
-        ctx.strokeStyle = "red";
-        ctx.fillStyle = "red";
-        ctx.lineWidth = 2;
-        ctx.arc(endX, endY, 5, 0, 2 * Math.PI, true);
-        ctx.stroke();
-        ctx.fill();
-        ctx.closePath();
-        div.innerHTML += "  " + endX + "   " + endY;
-        console.log(endX, endY);
+        let ball = new prototype02.Ball(endX, endY);
+        ball.getElevation(_event.touches[0].clientX, _event.touches[0].clientY);
+        allBalls.push(ball);
+    }
+    function update() {
+        undoCanvas();
+        drawCanon(startPos, startPosY);
+        drawCanonBarrel(startPos, startPosY, gamma);
+        for (let ball of allBalls) {
+            ball.move();
+            ball.draw(ctx);
+        }
     }
 })(prototype02 || (prototype02 = {}));
 //# sourceMappingURL=prototype02.js.map
