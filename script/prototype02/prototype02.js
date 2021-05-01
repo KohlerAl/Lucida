@@ -90,6 +90,12 @@ var prototype02;
         ctx.save();
         ctx.beginPath();
         ctx.translate(_startX, _startY - 55);
+        if (_rotation > 90) {
+            _rotation = 90;
+        }
+        else if (_rotation < 0) {
+            _rotation = 0;
+        }
         ctx.rotate(_rotation);
         ctx.strokeStyle = "black";
         ctx.fillStyle = "black";
