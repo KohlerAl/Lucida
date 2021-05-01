@@ -48,6 +48,7 @@ namespace prototype03 {
         //Preparing the position of the box. The box should be in the middle, 
         //so we are dividing the width by two and subtracting half of the width the box will have
         startPos = (width / 2) - 25;
+        newPos = startPos; 
 
         //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
         //Then the box is drawn
