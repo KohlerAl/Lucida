@@ -147,8 +147,8 @@ namespace prototype03 {
 
 
     function movePlanets(): void {
-        ctx.putImageData(bgImage, 0, 0); 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.putImageData(bgImage, 0, 0); 
         for (let planet of allPlanets) {
             planet.move(2);
             planet.draw(ctx);
