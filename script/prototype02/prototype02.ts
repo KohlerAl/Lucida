@@ -104,18 +104,18 @@ namespace prototype02 {
     }
 
     function drawCanonBarrel(_startX: number, _startY: number, _rotation: number = 270): void {
-        ctx.beginPath();
+        /* ctx.beginPath();
         ctx.strokeStyle = "red";
         ctx.fillStyle = "red";
         ctx.lineWidth = 2;
         ctx.arc(_startX, _startY - 50, 5, 0, 2 * Math.PI, true);
         ctx.stroke();
         ctx.fill();
-        ctx.closePath();
+        ctx.closePath(); */
 
         ctx.save();
-        ctx.beginPath();
         ctx.translate(_startX, _startY - 55);
+        ctx.beginPath();
         ctx.rotate(_rotation);
         ctx.strokeStyle = "black";
         ctx.fillStyle = "black";
