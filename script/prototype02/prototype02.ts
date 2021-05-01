@@ -11,7 +11,7 @@ namespace prototype02 {
     let startPos: number;
     let startPosY: number;
 
-    let rotation: number; 
+    let gamma: number = 0; 
 
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
@@ -48,6 +48,7 @@ namespace prototype02 {
         //Then the box is drawn
         drawCanon(startPos, startPosY);
         drawCanonBarrel(startPos, startPosY);
+        getStart(); 
     }
 
     //Function called when the mobile device is moving
@@ -58,7 +59,8 @@ namespace prototype02 {
             undoCanvas();
 
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
-            rotation = 270 + _event.gamma;
+            let rotation: number = 270 + _event.gamma;
+            let gamma: number = _event.gamma; 
 
             if (rotation < 225) {
                 rotation = 225;
@@ -124,8 +126,8 @@ namespace prototype02 {
         let startX: number = startPos - 5;
         let startY: number = startPosY - 50;  
         let distance: number = 100; 
-        let x: number = distance * (Math.cos(rotation)); 
-        let y: number = distance * (Math.sin(rotation)); 
+        let x: number = distance * (Math.cos(gamma)); 
+        let y: number = distance * (Math.sin(gamma)); 
         let endX: number = startX + x; 
         let endY: number = startY + y; 
 
@@ -138,5 +140,6 @@ namespace prototype02 {
         ctx.fill();
         ctx.closePath();
 
+        console.log(endX, endY); 
     }
 }

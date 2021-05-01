@@ -10,7 +10,7 @@ var prototype02;
     //The middle-position of the green box
     let startPos;
     let startPosY;
-    let rotation;
+    let gamma = 0;
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
@@ -40,6 +40,7 @@ var prototype02;
         //Then the box is drawn
         drawCanon(startPos, startPosY);
         drawCanonBarrel(startPos, startPosY);
+        getStart();
     }
     //Function called when the mobile device is moving
     function handleMove(_event) {
@@ -48,7 +49,8 @@ var prototype02;
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             undoCanvas();
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
-            rotation = 270 + _event.gamma;
+            let rotation = 270 + _event.gamma;
+            let gamma = _event.gamma;
             if (rotation < 225) {
                 rotation = 225;
             }
@@ -105,8 +107,8 @@ var prototype02;
         let startX = startPos - 5;
         let startY = startPosY - 50;
         let distance = 100;
-        let x = distance * (Math.cos(rotation));
-        let y = distance * (Math.sin(rotation));
+        let x = distance * (Math.cos(gamma));
+        let y = distance * (Math.sin(gamma));
         let endX = startX + x;
         let endY = startY + y;
         ctx.beginPath();
@@ -117,6 +119,7 @@ var prototype02;
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
+        console.log(endX, endY);
     }
 })(prototype02 || (prototype02 = {}));
 //# sourceMappingURL=prototype02.js.map
