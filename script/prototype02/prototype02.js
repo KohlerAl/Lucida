@@ -104,8 +104,8 @@ var prototype02;
         ctx.restore();
     }
     function getStart() {
-        let startX = startPos + 45;
-        let startY = startPosY - 60;
+        let startX = startPos - 5;
+        let startY = startPosY - 50;
         let distance = 100;
         let x = distance * (Math.cos(gamma));
         let y = distance * (Math.sin(gamma));
