@@ -126,6 +126,7 @@ namespace prototype02 {
     }
 
     function getStart(_event: TouchEvent): void {
+        div.innerHTML = "trigger getStart"; 
         let startX: number = startPos;
         let startY: number = startPosY - 50;
         let distance: number = 100;
@@ -136,7 +137,7 @@ namespace prototype02 {
 
         let ball: Ball = new Ball(endX, endY); 
         ball.getElevation(_event.touches[0].clientX, _event.touches[0].clientY); 
-        div.innerHTML = "X: " + _event.touches[0].clientX + "\n" + "Y: " + _event.touches[0].clientY + "\n";
+        div.innerHTML += "X: " + _event.touches[0].clientX + "\n" + "Y: " + _event.touches[0].clientY + "\n";
         allBalls.push(ball); 
     }
     

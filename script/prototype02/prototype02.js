@@ -102,6 +102,7 @@ var prototype02;
         ctx.restore();
     }
     function getStart(_event) {
+        div.innerHTML = "trigger getStart";
         let startX = startPos;
         let startY = startPosY - 50;
         let distance = 100;
@@ -111,7 +112,7 @@ var prototype02;
         let endY = startY + y;
         let ball = new prototype02.Ball(endX, endY);
         ball.getElevation(_event.touches[0].clientX, _event.touches[0].clientY);
-        div.innerHTML = "X: " + _event.touches[0].clientX + "\n" + "Y: " + _event.touches[0].clientY + "\n";
+        div.innerHTML += "X: " + _event.touches[0].clientX + "\n" + "Y: " + _event.touches[0].clientY + "\n";
         allBalls.push(ball);
     }
     function update() {
