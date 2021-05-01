@@ -11,6 +11,8 @@ namespace prototype03 {
     let startPos: number;
     let newPos: number; 
 
+    let bgImage: ImageData; 
+
     //The canvas will be divides in three "lanes". This is where the planets will be
     //When a new planet is created, a random lane is picked
     let lanes: string[] = ["right", "right", "left", "left", "middle"];
@@ -96,6 +98,7 @@ namespace prototype03 {
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
+        bgImage = ctx.getImageData(0, 0, width, height); 
     }
 
     function createPlanet(): void {
@@ -144,8 +147,8 @@ namespace prototype03 {
 
 
     function movePlanets(): void {
+        ctx.putImageData(bgImage, 0, 0); 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawRectangle(newPos);
         for (let planet of allPlanets) {
             planet.move(2);
             planet.draw(ctx);

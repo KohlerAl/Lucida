@@ -9,6 +9,7 @@ var prototype03;
     //The middle-position of the green box
     let startPos;
     let newPos;
+    let bgImage;
     //The canvas will be divides in three "lanes". This is where the planets will be
     //When a new planet is created, a random lane is picked
     let lanes = ["right", "right", "left", "left", "middle"];
@@ -79,6 +80,7 @@ var prototype03;
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
+        bgImage = ctx.getImageData(0, 0, width, prototype03.height);
     }
     function createPlanet() {
         let numbr = Math.floor(Math.random() * lanes.length);
@@ -119,8 +121,8 @@ var prototype03;
         return answer;
     }
     function movePlanets() {
+        ctx.putImageData(bgImage, 0, 0);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawRectangle(newPos);
         for (let planet of prototype03.allPlanets) {
             planet.move(2);
             planet.draw(ctx);
