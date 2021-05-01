@@ -9,6 +9,7 @@ namespace prototype03 {
 
     //The middle-position of the green box
     let startPos: number;
+    let newPos: number; 
 
     //The canvas will be divides in three "lanes". This is where the planets will be
     //When a new planet is created, a random lane is picked
@@ -58,7 +59,6 @@ namespace prototype03 {
 
     function getAllImg(): void {
         let allImages: NodeListOf<HTMLImageElement> = document.querySelectorAll("img");
-        console.log(allImages);
 
         for (let i: number = 0; i < allImages.length; i++) {
             allImg.push(allImages[i]);
@@ -80,8 +80,7 @@ namespace prototype03 {
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
 
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
-            let newPos: number = startPos + (_event.gamma * 2);
-            startPos += newPos; 
+            newPos = startPos + (_event.gamma * 2);
             //And the box is drawn
             drawRectangle(newPos);
         }
@@ -145,7 +144,7 @@ namespace prototype03 {
 
     function movePlanets(): void {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        console.log(allPlanets); 
+        drawRectangle(newPos);
         for (let planet of allPlanets) {
             planet.move(2);
             planet.draw(ctx);
