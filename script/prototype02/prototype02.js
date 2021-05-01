@@ -55,6 +55,8 @@ var prototype02;
             else if (rotation > 315) {
                 rotation = 315;
             }
+            let div = document.querySelector("#box");
+            div.innerHTML = rotation + "";
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
         }

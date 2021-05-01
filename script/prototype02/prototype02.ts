@@ -66,6 +66,9 @@ namespace prototype02 {
                 rotation = 315; 
             }
 
+            let div: HTMLDivElement = <HTMLDivElement>document.querySelector("#box"); 
+            div.innerHTML = rotation + ""; 
+
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
         }
