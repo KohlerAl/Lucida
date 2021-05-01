@@ -17,7 +17,7 @@ canvas {
     position: absolute;
     top: 0;
     left: 0;
-    background: url("https://kohleral.github.io/Lucida/img/FirstPlanet.png");
+    background: url("https://kohleral.github.io/Lucida/img/bg.jpg");
     background-repeat: repeat;
     background-position: 0 0;
     background-size: cover;
@@ -31,6 +31,6 @@ canvas {
     }
   /*use negative width if you want it to flow right to left else and positive for left to right */
     to {
-      background-position:  0 -20000px;
+      background-position:  0 20000px;
     }
   } 
