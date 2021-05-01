@@ -50,13 +50,13 @@ var prototype02;
             undoCanvas();
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             let rotation = 270 + _event.gamma;
-            gamma = _event.gamma;
             if (rotation < 225) {
                 rotation = 225;
             }
             else if (rotation > 315) {
                 rotation = 315;
             }
+            gamma = rotation;
             let div = document.querySelector("#box");
             div.innerHTML = _event.gamma + "";
             drawCanonBarrel(startPos, startPosY, rotation);
