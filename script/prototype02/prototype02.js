@@ -35,6 +35,7 @@ var prototype02;
         //so we are dividing the width by two and subtracting half of the width the box will have
         startPos = (prototype02.width / 2) - 25;
         startPosY = prototype02.height / 2 - 45;
+        div = document.querySelector("#box");
         //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
         undoCanvas();
         //Then the box is drawn
@@ -57,7 +58,6 @@ var prototype02;
                 rotation = 315;
             }
             gamma = rotation;
-            div = document.querySelector("#box");
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
         }

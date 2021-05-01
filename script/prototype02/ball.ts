@@ -23,6 +23,7 @@ namespace prototype02 {
         }
 
         public draw(_ctx: CanvasRenderingContext2D): void {
+            _ctx.save(); 
             _ctx.beginPath();
             _ctx.strokeStyle = "red";
             _ctx.fillStyle = "red";
@@ -38,6 +39,7 @@ namespace prototype02 {
             _ctx.stroke();
             _ctx.fill();
             _ctx.closePath();
+            _ctx.restore(); 
         }
     }
 }

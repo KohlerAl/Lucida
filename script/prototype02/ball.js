@@ -17,6 +17,7 @@ var prototype02;
             this.positionY += this.elevation;
         }
         draw(_ctx) {
+            _ctx.save();
             _ctx.beginPath();
             _ctx.strokeStyle = "red";
             _ctx.fillStyle = "red";
@@ -32,6 +33,7 @@ var prototype02;
             _ctx.stroke();
             _ctx.fill();
             _ctx.closePath();
+            _ctx.restore();
         }
     }
     prototype02.Ball = Ball;

@@ -48,6 +48,7 @@ namespace prototype02 {
         startPosY = height / 2 - 45;
 
 
+        div = <HTMLDivElement>document.querySelector("#box");
         //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
         undoCanvas();
         //Then the box is drawn
@@ -74,7 +75,6 @@ namespace prototype02 {
                 rotation = 315;
             }
             gamma = rotation;
-            div = <HTMLDivElement>document.querySelector("#box");
 
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
