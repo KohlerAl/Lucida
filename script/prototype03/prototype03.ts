@@ -1,7 +1,9 @@
 namespace prototype03 {
     //canvas Element and rendering context to draw on canvas
-    let canvas: HTMLCanvasElement;
-    let ctx: CanvasRenderingContext2D;
+    let canvasPlanet: HTMLCanvasElement;
+    let canvasRocket: HTMLCanvasElement; 
+    let ctxP: CanvasRenderingContext2D;
+    let ctxR: CanvasRenderingContext2D;
 
     //width and height of the window
     let width: number;
@@ -33,17 +35,22 @@ namespace prototype03 {
         startScreen.start();
 
         //Selecting the canvas and the rendering divs and assigning the values to the prepared variables
-        canvas = <HTMLCanvasElement>document.querySelector("canvas");
-        ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
+        canvasPlanet = <HTMLCanvasElement>document.querySelector("#planet");
+        ctxP = <CanvasRenderingContext2D>canvasPlanet.getContext("2d");
 
+        canvasRocket = <HTMLCanvasElement>document.querySelector("#rocket"); 
+        ctxR = <CanvasRenderingContext2D>canvasRocket.getContext("2d");
         //To get the correct size of the screen, we select the html-Element and get its width and height
         let html: HTMLElement = <HTMLElement>document.querySelector("html");
         width = html.clientWidth;
         height = html.clientHeight;
 
         //To make the canvas as big as the screen, the width and height of the html are applied to it
-        canvas.setAttribute("width", width + "px");
-        canvas.setAttribute("height", height + "px");
+        canvasPlanet.setAttribute("width", width + "px");
+        canvasPlanet.setAttribute("height", height + "px");
+
+        canvasRocket.setAttribute("width", width + "px");
+        canvasRocket.setAttribute("height", height + "px");
 
         //Preparing the position of the box. The box should be in the middle, 
         //so we are dividing the width by two and subtracting half of the width the box will have
@@ -88,14 +95,15 @@ namespace prototype03 {
     }
 
     function drawRectangle(_startX: number): void {
+        ctxP.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
         let _startY: number = height / 2 - 45;
-        ctx.beginPath();
-        ctx.strokeStyle = "lightgreen";
-        ctx.fillStyle = "lightgreen";
-        ctx.rect(_startX, _startY, 50, 50);
-        ctx.stroke();
-        ctx.fill();
-        ctx.closePath();
+        ctxR.beginPath();
+        ctxR.strokeStyle = "lightgreen";
+        ctxR.fillStyle = "lightgreen";
+        ctxR.rect(_startX, _startY, 50, 50);
+        ctxR.stroke();
+        ctxR.fill();
+        ctxR.closePath();
     }
 
     function createPlanet(): void {
@@ -144,11 +152,10 @@ namespace prototype03 {
 
 
     function movePlanets(): void {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawRectangle(newPos);
+        ctxP.clearRect(0, 0, canvasPlanet.width, canvasPlanet.height);
         for (let planet of allPlanets) {
             planet.move(2);
-            planet.draw(ctx);
+            planet.draw(ctxP);
         }
     }
 
