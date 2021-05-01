@@ -69,6 +69,7 @@ namespace prototype03 {
     }
 
     function drawRectangle(_startX: number): void {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         let _startY: number = height / 2 - 45;
         ctx.beginPath();
         ctx.strokeStyle = "lightgreen";

@@ -58,6 +58,7 @@ var prototype03;
         ctx.closePath();
     }
     function drawRectangle(_startX) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         let _startY = height / 2 - 45;
         ctx.beginPath();
         ctx.strokeStyle = "lightgreen";
