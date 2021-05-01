@@ -10,7 +10,6 @@ var prototype02;
     //The middle-position of the green box
     let startPos;
     let startPosY;
-    let div;
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
@@ -35,7 +34,6 @@ var prototype02;
         //so we are dividing the width by two and subtracting half of the width the box will have
         startPos = (width / 2) - 25;
         startPosY = height / 2 - 45;
-        div = document.querySelector("#div");
         //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
         undoCanvas();
         //Then the box is drawn
@@ -44,13 +42,13 @@ var prototype02;
     }
     //Function called when the mobile device is moving
     function handleMove(_event) {
+        console.log("Mooooove");
         //Check if the value we need is there
         if (_event.gamma) {
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             undoCanvas();
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             let rotation = _event.gamma / 0.5;
-            div.innerHTML = rotation + "";
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
         }
@@ -92,12 +90,6 @@ var prototype02;
         ctx.save();
         ctx.beginPath();
         ctx.translate(_startX, _startY - 55);
-        if (_rotation > 90) {
-            _rotation = 90;
-        }
-        else if (_rotation < 0) {
-            _rotation = 0;
-        }
         ctx.rotate(_rotation);
         ctx.strokeStyle = "black";
         ctx.fillStyle = "black";

@@ -11,8 +11,6 @@ namespace prototype02 {
     let startPos: number;
     let startPosY: number;
 
-    let div: HTMLDivElement; 
-
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
@@ -43,8 +41,6 @@ namespace prototype02 {
         startPos = (width / 2) - 25;
         startPosY = height / 2 - 45;
 
-        div = <HTMLDivElement>document.querySelector("#div"); 
-
         //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
         undoCanvas();
         //Then the box is drawn
@@ -54,16 +50,16 @@ namespace prototype02 {
 
     //Function called when the mobile device is moving
     function handleMove(_event: DeviceOrientationEvent): void {
+        console.log("Mooooove"); 
         //Check if the value we need is there
         if (_event.gamma) {
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             undoCanvas();
 
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
-            let rotation: number = _event.gamma / 0.5;
-            div. innerHTML = rotation + ""; 
-            drawCanonBarrel(startPos, startPosY, rotation);
-            drawCanon(startPos, startPosY);
+            let rotation: number =  _event.gamma / 0.5;
+            drawCanonBarrel(startPos, startPosY, rotation); 
+            drawCanon(startPos, startPosY); 
         }
     }
 
@@ -107,23 +103,15 @@ namespace prototype02 {
         ctx.closePath();
 
         ctx.save();
-        ctx.beginPath();
-        ctx.translate(_startX, _startY - 55);
-
-        if (_rotation > 90) {
-            _rotation = 90;
-        }
-        else if (_rotation < 0) {
-            _rotation = 0;
-        }
-
-        ctx.rotate(_rotation);
-        ctx.strokeStyle = "black";
-        ctx.fillStyle = "black";
-        ctx.rect(0, 0, 100, 10);
-        ctx.stroke();
-        ctx.fill();
-        ctx.closePath();
-        ctx.restore();
+        ctx.beginPath(); 
+        ctx.translate(_startX, _startY - 55); 
+        ctx.rotate(_rotation); 
+        ctx.strokeStyle = "black"; 
+        ctx.fillStyle = "black"; 
+        ctx.rect(0, 0, 100, 10); 
+        ctx.stroke(); 
+        ctx.fill(); 
+        ctx.closePath(); 
+        ctx.restore(); 
     }
 }
