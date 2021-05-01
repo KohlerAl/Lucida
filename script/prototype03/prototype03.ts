@@ -95,7 +95,7 @@ namespace prototype03 {
     }
 
     function drawRectangle(_startX: number): void {
-        ctxP.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
+        ctxR.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
         let _startY: number = height / 2 - 45;
         ctxR.beginPath();
         ctxR.strokeStyle = "lightgreen";
