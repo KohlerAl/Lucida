@@ -50,7 +50,7 @@ var prototype02;
             undoCanvas();
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             let rotation = 270 + _event.gamma;
-            let gamma = _event.gamma;
+            gamma = _event.gamma;
             if (rotation < 225) {
                 rotation = 225;
             }
