@@ -11,6 +11,8 @@ namespace prototype02 {
     let startPos: number;
     let startPosY: number;
 
+    let div: HTMLDivElement; 
+
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
@@ -39,7 +41,9 @@ namespace prototype02 {
         //Preparing the position of the box. The box should be in the middle, 
         //so we are dividing the width by two and subtracting half of the width the box will have
         startPos = (width / 2) - 25;
-        startPosY = height / 2 - 45;
+        startPosY = height / 4 - 45;
+
+        div = <HTMLDivElement>document.querySelector("#div"); 
 
         //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
         undoCanvas();
@@ -50,7 +54,6 @@ namespace prototype02 {
 
     //Function called when the mobile device is moving
     function handleMove(_event: DeviceOrientationEvent): void {
-        console.log("Mooooove");
         //Check if the value we need is there
         if (_event.gamma) {
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
@@ -58,6 +61,7 @@ namespace prototype02 {
 
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             let rotation: number = _event.gamma / 0.5;
+            div. innerHTML = rotation + ""; 
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
         }
