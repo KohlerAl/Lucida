@@ -30,7 +30,7 @@ var prototype02;
         height = html.clientHeight;
         //To make the canvas as big as the screen, the width and height of the html are applied to it
         canvas.setAttribute("width", width + "px");
-        canvas.setAttribute("height", height + "px");
+        canvas.setAttribute("height", height / 2 + "px");
         //Preparing the position of the box. The box should be in the middle, 
         //so we are dividing the width by two and subtracting half of the width the box will have
         startPos = (width / 2) - 25;
@@ -50,7 +50,7 @@ var prototype02;
             undoCanvas();
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             let rotation = _event.gamma / 0.5;
-            div.innerHTML = rotation + "";
+            div.innerHTML += rotation + "";
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
         }
