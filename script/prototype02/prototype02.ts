@@ -125,7 +125,7 @@ namespace prototype02 {
     }
 
     function getStart(): void {
-        let startX: number = startPos - 5;
+        let startX: number = startPos + 5;
         let startY: number = startPosY - 50;  
         let distance: number = 100; 
         let x: number = distance * (Math.cos(gamma * Math.PI / 180)); 
