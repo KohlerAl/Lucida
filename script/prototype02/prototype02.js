@@ -56,7 +56,7 @@ var prototype02;
                 rotation = 315;
             }
             let div = document.querySelector("#box");
-            div.innerHTML = rotation + "";
+            div.innerHTML = _event.gamma + "";
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
         }

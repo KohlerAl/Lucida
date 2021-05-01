@@ -67,7 +67,7 @@ namespace prototype02 {
             }
 
             let div: HTMLDivElement = <HTMLDivElement>document.querySelector("#box");
-            div.innerHTML = rotation + "";
+            div.innerHTML = _event.gamma + "";
 
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
