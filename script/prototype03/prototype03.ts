@@ -81,6 +81,7 @@ namespace prototype03 {
 
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             let newPos: number = startPos + (_event.gamma * 2);
+            startPos += newPos; 
             //And the box is drawn
             drawRectangle(newPos);
         }
