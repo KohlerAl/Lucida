@@ -1,6 +1,6 @@
 class GeoLocationManager implements ResourceManager {
-  public onLocation: Function = null;
-  private timeout: NodeJS.Timeout = null;
+  public onLocation: Function;
+  private timeout: NodeJS.Timeout;
 
   getCheck(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
@@ -8,11 +8,10 @@ class GeoLocationManager implements ResourceManager {
 
         // set timeout in case that the API response, but no data is sent
         this.timeout = setTimeout(() => {
-          this.timeout = null;
           reject("no geolocation data");
-        }, 7000);
+        },                        7000);
 
-        navigator.geolocation.getCurrentPosition((position) => {
+        navigator.geolocation.getCurrentPosition( (position) => {
           if (this.timeout !== null) {
             resolve();
             clearTimeout(this.timeout);
@@ -25,9 +24,9 @@ class GeoLocationManager implements ResourceManager {
               this.onLocation(position.coords, position.timestamp);
             });
           }
-        }, () => {
-          reject("geolocation failed");
-        });
+        },                                        () => {
+                  reject("geolocation failed");
+          });
       } else {
         reject("geolocation not available");
       }

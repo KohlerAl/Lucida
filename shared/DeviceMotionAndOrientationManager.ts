@@ -1,12 +1,12 @@
 class DeviceMotionAndOrientationManager implements ResourceManager {
-  public onMotion: Function = null;
-  public onAccelerationIncludingGravity: Function = null;
-  public onAcceleration: Function = null;
-  public onRotationRate: Function = null;
-  public onOrientation: Function = null;
+  public onMotion: Function;
+  public onAccelerationIncludingGravity: Function;
+  public onAcceleration: Function;
+  public onRotationRate: Function;
+  public onOrientation: Function;
 
   private resolve: Function;
-  private timeout: NodeJS.Timeout = null;
+  private timeout: NodeJS.Timeout;
   private scaleAcc: number = 1; // scale factor to re-invert iOS acceleration
 
   constructor() {
@@ -19,10 +19,9 @@ class DeviceMotionAndOrientationManager implements ResourceManager {
       this.resolve = resolve;
 
       // set timeout in case that the API response, but no data is sent
-      this.timeout = setTimeout(() => {
-        this.timeout = null;
-        reject("no device motion/orientation data streams");
-      }, 1000);
+      this.timeout = setTimeout(  ()  => {
+          reject("no device motion/orientation data streams");
+      },                          1000);
 
       if (DeviceMotionEvent || DeviceOrientationEvent) {
         // ask device motion/orientation permission on iOS
@@ -78,28 +77,28 @@ class DeviceMotionAndOrientationManager implements ResourceManager {
     }
 
     if (this.onMotion !== null) {
-      const accig: DeviceMotionEventAcceleration = evt.accelerationIncludingGravity;
-      const acc: DeviceMotionEventAcceleration = evt.acceleration;
-      const rot: DeviceMotionEventRotationRate = evt.rotationRate;
+      const accig: DeviceMotionEventAcceleration = <DeviceMotionEventAcceleration>evt.accelerationIncludingGravity;
+      const acc: DeviceMotionEventAcceleration = <DeviceMotionEventAcceleration>evt.acceleration;
+      const rot: DeviceMotionEventRotationRate = <DeviceMotionEventRotationRate>evt.rotationRate;
 
-      this.onMotion(this.scaleAcc * accig.x, this.scaleAcc * accig.y, this.scaleAcc * accig.z,
-        this.scaleAcc * acc.x, this.scaleAcc * acc.y, this.scaleAcc * acc.z,
-        rot.alpha, rot.beta, rot.gamma,
-        evt.interval);
+      this.onMotion(this.scaleAcc * <number>accig.x, this.scaleAcc * <number>accig.y, this.scaleAcc * <number>accig.z,
+                    this.scaleAcc * <number>acc.x, this.scaleAcc * <number>acc.y, this.scaleAcc * <number>acc.z,
+                    rot.alpha, rot.beta, rot.gamma,
+                    evt.interval);
     }
 
     if (this.onAccelerationIncludingGravity !== null) {
-      const accig: DeviceMotionEventAcceleration = evt.accelerationIncludingGravity;
-      this.onAccelerationIncludingGravity(this.scaleAcc * accig.x, this.scaleAcc * accig.y, this.scaleAcc * accig.z, evt.interval);
+      const accig: DeviceMotionEventAcceleration = <DeviceMotionEventAcceleration>evt.accelerationIncludingGravity;
+      this.onAccelerationIncludingGravity(this.scaleAcc * <number>accig.x, this.scaleAcc * <number>accig.y, this.scaleAcc * <number>accig.z, evt.interval);
     }
 
     if (this.onAcceleration !== null) {
-      const acc: DeviceMotionEventAcceleration = evt.acceleration;
-      this.onAcceleration(this.scaleAcc * acc.x, this.scaleAcc * acc.y, this.scaleAcc * acc.z, evt.interval);
+      const acc: DeviceMotionEventAcceleration = <DeviceMotionEventAcceleration>evt.acceleration;
+      this.onAcceleration(this.scaleAcc * <number>acc.x, this.scaleAcc * <number>acc.y, this.scaleAcc * <number>acc.z, evt.interval);
     }
 
     if (this.onRotationRate !== null) {
-      const rot: DeviceMotionEventRotationRate = evt.rotationRate;
+      const rot: DeviceMotionEventRotationRate = <DeviceMotionEventRotationRate>evt.rotationRate;
       this.onRotationRate(rot.alpha, rot.beta, rot.gamma, evt.interval);
     }
   }

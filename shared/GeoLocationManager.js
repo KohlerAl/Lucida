@@ -1,15 +1,10 @@
 "use strict";
 class GeoLocationManager {
-    constructor() {
-        this.onLocation = null;
-        this.timeout = null;
-    }
     getCheck() {
         return new Promise((resolve, reject) => {
             if (navigator.geolocation) {
                 // set timeout in case that the API response, but no data is sent
                 this.timeout = setTimeout(() => {
-                    this.timeout = null;
                     reject("no geolocation data");
                 }, 7000);
                 navigator.geolocation.getCurrentPosition((position) => {
