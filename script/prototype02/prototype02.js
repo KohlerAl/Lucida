@@ -58,7 +58,6 @@ var prototype02;
             }
             gamma = rotation;
             div = document.querySelector("#box");
-            div.innerHTML = rotation + "";
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
         }
@@ -112,6 +111,7 @@ var prototype02;
         let endY = startY + y;
         let ball = new prototype02.Ball(endX, endY);
         ball.getElevation(_event.touches[0].clientX, _event.touches[0].clientY);
+        div.innerHTML = "X: " + _event.touches[0].clientX + "\n" + "Y: " + _event.touches[0].clientY + "\n";
         allBalls.push(ball);
     }
     function update() {
