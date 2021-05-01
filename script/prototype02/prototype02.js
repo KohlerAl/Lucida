@@ -11,6 +11,7 @@ var prototype02;
     let startPos;
     let startPosY;
     let gamma = -90;
+    let div;
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
@@ -57,8 +58,8 @@ var prototype02;
                 rotation = 315;
             }
             gamma = rotation;
-            let div = document.querySelector("#box");
-            div.innerHTML = _event.gamma + "";
+            div = document.querySelector("#box");
+            div.innerHTML = rotation + "";
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
             getStart();
@@ -119,6 +120,7 @@ var prototype02;
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
+        div.innerHTML += endX + "" + endY;
         console.log(endX, endY);
     }
 })(prototype02 || (prototype02 = {}));

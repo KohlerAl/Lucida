@@ -12,6 +12,7 @@ namespace prototype02 {
     let startPosY: number;
 
     let gamma: number = -90; 
+    let div: HTMLDivElement; 
 
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
@@ -42,6 +43,7 @@ namespace prototype02 {
         //so we are dividing the width by two and subtracting half of the width the box will have
         startPos = (width / 2) - 25;
         startPosY = height / 2 - 45;
+        
 
         //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
         undoCanvas();
@@ -69,8 +71,8 @@ namespace prototype02 {
                 rotation = 315;
             }
             gamma = rotation; 
-            let div: HTMLDivElement = <HTMLDivElement>document.querySelector("#box");
-            div.innerHTML = _event.gamma + "";
+            div = <HTMLDivElement>document.querySelector("#box");
+            div.innerHTML = rotation + "";
 
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
@@ -140,6 +142,7 @@ namespace prototype02 {
         ctx.fill();
         ctx.closePath();
 
+        div.innerHTML += endX + "" + endY; 
         console.log(endX, endY); 
     }
 }
