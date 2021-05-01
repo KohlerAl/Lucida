@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var prototype02;
 (function (prototype02) {
     //canvas Element and rendering context to draw on canvas

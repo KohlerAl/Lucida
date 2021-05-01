@@ -1,5 +1,3 @@
-import { start } from "repl";
-
 namespace prototype02 {
     //canvas Element and rendering context to draw on canvas
     let canvas: HTMLCanvasElement;
