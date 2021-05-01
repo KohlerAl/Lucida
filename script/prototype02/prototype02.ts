@@ -63,11 +63,11 @@ namespace prototype02 {
                 rotation = 225;
             }
             else if (rotation > 315) {
-                rotation = 315; 
+                rotation = 315;
             }
 
-            let div: HTMLDivElement = <HTMLDivElement>document.querySelector("#box"); 
-            div.innerHTML = rotation + ""; 
+            let div: HTMLDivElement = <HTMLDivElement>document.querySelector("#box");
+            div.innerHTML = rotation + "";
 
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
@@ -104,34 +104,17 @@ namespace prototype02 {
     }
 
     function drawCanonBarrel(_startX: number, _startY: number, _rotation: number = 270): void {
-        ctx.beginPath();
-        ctx.strokeStyle = "red";
-        ctx.fillStyle = "red";
-        ctx.lineWidth = 2;
-        ctx.arc(0, 0, 5, 0, 2 * Math.PI, true);
-        ctx.stroke();
-        ctx.fill();
-        ctx.closePath();
-        
         ctx.save();
-        ctx.translate(_startX, _startY - 55);
+        ctx.translate(_startX - 5, _startY - 50);
         ctx.beginPath();
         ctx.rotate(_rotation * Math.PI / 180);
         ctx.strokeStyle = "black";
+        ctx.lineWidth = 2;
         ctx.fillStyle = "black";
         ctx.rect(0, 0, 100, 10);
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
         ctx.restore();
-
-        ctx.beginPath();
-        ctx.strokeStyle = "#00ff0099";
-        ctx.fillStyle = "#00ff0099";
-        ctx.lineWidth = 2;
-        ctx.arc(0, 0, 5, 0, 2 * Math.PI, true);
-        ctx.stroke();
-        ctx.fill();
-        ctx.closePath();
     }
 }
