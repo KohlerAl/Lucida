@@ -10,7 +10,7 @@ var prototype02;
     //The middle-position of the green box
     let startPos;
     let startPosY;
-    let gamma = 0;
+    let gamma = -90;
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
@@ -104,8 +104,8 @@ var prototype02;
         ctx.restore();
     }
     function getStart() {
-        let startX = startPos - 5;
-        let startY = startPosY - 50;
+        let startX = startPos + 45;
+        let startY = startPosY - 60;
         let distance = 100;
         let x = distance * (Math.cos(gamma));
         let y = distance * (Math.sin(gamma));
@@ -115,7 +115,7 @@ var prototype02;
         ctx.strokeStyle = "red";
         ctx.fillStyle = "red";
         ctx.lineWidth = 2;
-        ctx.arc(endX, endY, 5, 0, 1 * Math.PI, true);
+        ctx.arc(endX, endY, 5, 0, 2 * Math.PI, true);
         ctx.stroke();
         ctx.fill();
         ctx.closePath();

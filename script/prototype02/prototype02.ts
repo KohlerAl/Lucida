@@ -11,7 +11,7 @@ namespace prototype02 {
     let startPos: number;
     let startPosY: number;
 
-    let gamma: number = 0; 
+    let gamma: number = -90; 
 
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
@@ -123,8 +123,8 @@ namespace prototype02 {
     }
 
     function getStart(): void {
-        let startX: number = startPos - 5;
-        let startY: number = startPosY - 50;  
+        let startX: number = startPos + 45;
+        let startY: number = startPosY - 60;  
         let distance: number = 100; 
         let x: number = distance * (Math.cos(gamma)); 
         let y: number = distance * (Math.sin(gamma)); 
@@ -135,7 +135,7 @@ namespace prototype02 {
         ctx.strokeStyle = "red";
         ctx.fillStyle = "red";
         ctx.lineWidth = 2;
-        ctx.arc(endX, endY, 5, 0, 1 * Math.PI, true);
+        ctx.arc(endX, endY, 5, 0, 2 * Math.PI, true);
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
