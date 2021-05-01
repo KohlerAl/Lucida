@@ -50,16 +50,24 @@ namespace prototype02 {
 
     //Function called when the mobile device is moving
     function handleMove(_event: DeviceOrientationEvent): void {
-        console.log("Mooooove"); 
+        console.log("Mooooove");
         //Check if the value we need is there
         if (_event.gamma) {
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             undoCanvas();
 
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
-            let rotation: number =  _event.gamma / 0.5;
-            drawCanonBarrel(startPos, startPosY, rotation); 
-            drawCanon(startPos, startPosY); 
+            let rotation: number = 270 + _event.gamma;
+
+            if (rotation < 270) {
+                rotation = 270;
+            }
+            else if (rotation > 315) {
+                rotation = 315; 
+            }
+
+            drawCanonBarrel(startPos, startPosY, rotation);
+            drawCanon(startPos, startPosY);
         }
     }
 
@@ -92,7 +100,7 @@ namespace prototype02 {
 
     }
 
-    function drawCanonBarrel(_startX: number, _startY: number, _rotation: number = 0): void {
+    function drawCanonBarrel(_startX: number, _startY: number, _rotation: number = 270): void {
         ctx.beginPath();
         ctx.strokeStyle = "red";
         ctx.fillStyle = "red";
@@ -103,15 +111,15 @@ namespace prototype02 {
         ctx.closePath();
 
         ctx.save();
-        ctx.beginPath(); 
-        ctx.translate(_startX, _startY - 55); 
-        ctx.rotate(_rotation); 
-        ctx.strokeStyle = "black"; 
-        ctx.fillStyle = "black"; 
-        ctx.rect(0, 0, 100, 10); 
-        ctx.stroke(); 
-        ctx.fill(); 
-        ctx.closePath(); 
-        ctx.restore(); 
+        ctx.beginPath();
+        ctx.translate(_startX, _startY - 55);
+        ctx.rotate(_rotation);
+        ctx.strokeStyle = "black";
+        ctx.fillStyle = "black";
+        ctx.rect(0, 0, 100, 10);
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+        ctx.restore();
     }
 }

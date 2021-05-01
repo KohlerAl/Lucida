@@ -48,7 +48,13 @@ var prototype02;
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             undoCanvas();
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
-            let rotation = _event.gamma / 0.5;
+            let rotation = 270 + _event.gamma;
+            if (rotation < 270) {
+                rotation = 270;
+            }
+            else if (rotation > 315) {
+                rotation = 315;
+            }
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
         }
@@ -78,7 +84,7 @@ var prototype02;
         ctx.stroke();
         ctx.closePath();
     }
-    function drawCanonBarrel(_startX, _startY, _rotation = 0) {
+    function drawCanonBarrel(_startX, _startY, _rotation = 270) {
         ctx.beginPath();
         ctx.strokeStyle = "red";
         ctx.fillStyle = "red";
