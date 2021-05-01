@@ -59,8 +59,8 @@ namespace prototype02 {
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             let rotation: number = 270 + _event.gamma;
 
-            if (rotation < 270) {
-                rotation = 270;
+            if (rotation < 225) {
+                rotation = 225;
             }
             else if (rotation > 315) {
                 rotation = 315; 
