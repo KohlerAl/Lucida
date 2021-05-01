@@ -3,8 +3,8 @@ interface ResourceManager {
 }
 
 class StartScreen {
-  private screenDiv: HTMLDivElement;
-  private textDiv: HTMLDivElement;
+  private screenDiv: HTMLDivElement = null;
+  private textDiv: HTMLDivElement = null;
   private managers: ResourceManager[] = [];
 
   constructor(id: string) {

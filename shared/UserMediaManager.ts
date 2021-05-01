@@ -1,6 +1,6 @@
 class UserMediaManager implements ResourceManager {
   public stream: MediaStream;
-  public videoElement: HTMLVideoElement;
+  public videoElement: HTMLVideoElementzz;
   private constraints: MediaStreamConstraints;
 
   constructor(constraints: MediaStreamConstraints) {

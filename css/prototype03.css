@@ -11,6 +11,10 @@ canvas {
     top: 0;
 }
 
+#images {
+    display: none;
+}
+
 #background {
     width: 100%;
     height: 100%;
@@ -21,16 +25,16 @@ canvas {
     background-repeat: repeat;
     background-position: 0 0;
     background-size: cover;
-  /*adjust s value for speed*/
+    /*adjust s value for speed*/
     animation: animatedBackground 500s linear infinite;
-  }
-  
-  @keyframes animatedBackground {
+}
+
+@keyframes animatedBackground {
     from {
-      background-position: 0 0;
+        background-position: 0 0;
     }
-  /*use negative width if you want it to flow right to left else and positive for left to right */
+    /*use negative width if you want it to flow right to left else and positive for left to right */
     to {
-      background-position:  0 20000px;
+        background-position: 0 20000px;
     }
-  } 
+}

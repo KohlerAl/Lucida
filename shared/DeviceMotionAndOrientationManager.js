@@ -1,6 +1,12 @@
 "use strict";
 class DeviceMotionAndOrientationManager {
     constructor() {
+        this.onMotion = null;
+        this.onAccelerationIncludingGravity = null;
+        this.onAcceleration = null;
+        this.onRotationRate = null;
+        this.onOrientation = null;
+        this.timeout = null;
         this.scaleAcc = 1; // scale factor to re-invert iOS acceleration
         this.onDeviceMotion = this.onDeviceMotion.bind(this);
         this.onDeviceOrientation = this.onDeviceOrientation.bind(this);
@@ -10,6 +16,7 @@ class DeviceMotionAndOrientationManager {
             this.resolve = resolve;
             // set timeout in case that the API response, but no data is sent
             this.timeout = setTimeout(() => {
+                this.timeout = null;
                 reject("no device motion/orientation data streams");
             }, 1000);
             if (DeviceMotionEvent || DeviceOrientationEvent) {
