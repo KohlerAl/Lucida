@@ -12,7 +12,7 @@ var prototype02;
     let allBalls = [];
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
-    window.addEventListener("touchend", getStart);
+    window.addEventListener("pointerup", getStart);
     window.addEventListener("deviceorientation", handleMove);
     function handleLoad() {
         // create device motion/orientation manager
@@ -111,8 +111,8 @@ var prototype02;
         let endX = startX + x;
         let endY = startY + y;
         let ball = new prototype02.Ball(endX, endY);
-        ball.getElevation(_event.touches[0].clientX, _event.touches[0].clientY);
-        div.innerHTML += "X: " + _event.touches[0].clientX + "\n" + "Y: " + _event.touches[0].clientY + "\n";
+        ball.getElevation(_event.clientX, _event.clientY);
+        div.innerHTML += "X: " + _event.clientX + "\n" + "Y: " + _event.clientY + "\n";
         allBalls.push(ball);
     }
     function update() {

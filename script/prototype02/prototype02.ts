@@ -18,7 +18,7 @@ namespace prototype02 {
 
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
-    window.addEventListener("touchend", getStart);
+    window.addEventListener("pointerup", getStart);
     window.addEventListener("deviceorientation", handleMove);
 
     function handleLoad(): void {
@@ -125,7 +125,7 @@ namespace prototype02 {
         ctx.restore();
     }
 
-    function getStart(_event: TouchEvent): void {
+    function getStart(_event: PointerEvent): void {
         div.innerHTML = "trigger getStart"; 
         let startX: number = startPos;
         let startY: number = startPosY - 50;
@@ -136,8 +136,8 @@ namespace prototype02 {
         let endY: number = startY + y;
 
         let ball: Ball = new Ball(endX, endY); 
-        ball.getElevation(_event.touches[0].clientX, _event.touches[0].clientY); 
-        div.innerHTML += "X: " + _event.touches[0].clientX + "\n" + "Y: " + _event.touches[0].clientY + "\n";
+        ball.getElevation(_event.clientX, _event.clientY); 
+        div.innerHTML += "X: " + _event.clientX + "\n" + "Y: " + _event.clientY + "\n";
         allBalls.push(ball); 
     }
     
