@@ -142,7 +142,7 @@ namespace prototype02 {
         ctx.fill();
         ctx.closePath();
 
-        div.innerHTML += endX + "" + endY; 
+        div.innerHTML += "  " + endX + "   " + endY; 
         console.log(endX, endY); 
     }
 }

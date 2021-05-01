@@ -120,7 +120,7 @@ var prototype02;
         ctx.stroke();
         ctx.fill();
         ctx.closePath();
-        div.innerHTML += endX + "" + endY;
+        div.innerHTML += "  " + endX + "   " + endY;
         console.log(endX, endY);
     }
 })(prototype02 || (prototype02 = {}));
