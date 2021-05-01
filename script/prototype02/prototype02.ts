@@ -128,8 +128,8 @@ namespace prototype02 {
         let startX: number = startPos - 5;
         let startY: number = startPosY - 50;  
         let distance: number = 100; 
-        let x: number = distance * (Math.cos(gamma)); 
-        let y: number = distance * (Math.sin(gamma)); 
+        let x: number = distance * (Math.cos(gamma * Math.PI / 180)); 
+        let y: number = distance * (Math.sin(gamma * Math.PI / 180)); 
         let endX: number = startX + x; 
         let endY: number = startY + y; 
 
