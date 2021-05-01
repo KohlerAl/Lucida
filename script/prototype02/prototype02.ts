@@ -11,6 +11,8 @@ namespace prototype02 {
     let startPos: number;
     let startPosY: number;
 
+    let rotation: number; 
+
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
@@ -50,14 +52,13 @@ namespace prototype02 {
 
     //Function called when the mobile device is moving
     function handleMove(_event: DeviceOrientationEvent): void {
-        console.log("Mooooove");
         //Check if the value we need is there
         if (_event.gamma) {
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             undoCanvas();
 
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
-            let rotation: number = 270 + _event.gamma;
+            rotation = 270 + _event.gamma;
 
             if (rotation < 225) {
                 rotation = 225;
@@ -71,6 +72,7 @@ namespace prototype02 {
 
             drawCanonBarrel(startPos, startPosY, rotation);
             drawCanon(startPos, startPosY);
+            getStart(); 
         }
     }
 
@@ -116,5 +118,25 @@ namespace prototype02 {
         ctx.fill();
         ctx.closePath();
         ctx.restore();
+    }
+
+    function getStart(): void {
+        let startX: number = startPos - 5;
+        let startY: number = startPosY - 50;  
+        let distance: number = 100; 
+        let x: number = distance * (Math.cos(rotation)); 
+        let y: number = distance * (Math.sin(rotation)); 
+        let endX: number = startX + x; 
+        let endY: number = startY + y; 
+
+        ctx.beginPath();
+        ctx.strokeStyle = "red";
+        ctx.fillStyle = "red";
+        ctx.lineWidth = 2;
+        ctx.arc(endX, endY, 5, 0, 1 * Math.PI, true);
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+
     }
 }
