@@ -102,7 +102,6 @@ var prototype02;
         ctx.restore();
     }
     function getStart(_event) {
-        div.innerHTML = "trigger getStart";
         let startX = startPos;
         let startY = startPosY - 50;
         let distance = 100;

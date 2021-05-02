@@ -126,7 +126,6 @@ namespace prototype02 {
     }
 
     function getStart(_event: PointerEvent): void {
-        div.innerHTML = "trigger getStart"; 
         let startX: number = startPos;
         let startY: number = startPosY - 50;
         let distance: number = 100;
