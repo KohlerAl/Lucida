@@ -9,14 +9,14 @@
 }
 
 body {
-    background-color: #444; 
+    background-color: #222222; 
     color: #eee;
     font-family: 'Roboto';
 }
 
 h1, h2, h3 {
     font-family: 'Arual';
-    color: #faa24e;
+    color: #c2ffc3;
 }
 
 img {
@@ -24,7 +24,7 @@ img {
 }
 
 a {
-    color: #faa24e;
+    color: #c2ffc3;
     text-decoration: none;
 }
 

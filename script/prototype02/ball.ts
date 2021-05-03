@@ -24,15 +24,15 @@ namespace prototype02 {
             //Getting the distance
             this.distance = Math.sqrt(x * x + y * y);
             //Getting the Angle
-            this.angle = (Math.atan2(x, y) * 180 / Math.PI) ;
+            this.angle = (Math.atan2(x, y) * 180 / Math.PI);
 
             let angleRadians: number = (this.angle * Math.PI) / 180;
             this.speedX = this.velocity * (Math.cos(angleRadians));
             this.speedY = this.velocity * (Math.sin(angleRadians));
 
             if (this.angle < 0) {
-                this.speedY = this.speedY - (this.speedY * 2); 
-                this.speedX = this.speedX - (this.speedX * 2);  
+                this.speedY = this.speedY - (this.speedY * 2);
+                this.speedX = this.speedX - (this.speedX * 2);
             }
 
             console.log(this.distance, this.angle, this.speedX, this.speedY);
