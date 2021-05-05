@@ -77,7 +77,7 @@ var prototype03;
         }
     }
     function drawRectangle(_startX) {
-        ctxR.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
+        ctxR.clearRect(0, 0, canvasRocket.width, canvasRocket.height + 150);
         let _startY = prototype03.height / 2 + 60;
         let rocket = document.querySelector(".rocket");
         ctxR.drawImage(rocket, _startX, _startY, 50, 100);
