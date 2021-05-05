@@ -96,7 +96,7 @@ namespace prototype03 {
 
     function drawRectangle(_startX: number): void {
         ctxR.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
-        let _startY: number = height / 2 - 45;
+        let _startY: number = height / 2 + 60;
         let rocket: HTMLImageElement = <HTMLImageElement>document.querySelector(".rocket"); 
         ctxR.drawImage(rocket, _startX, _startY, 50, 100);
     }
