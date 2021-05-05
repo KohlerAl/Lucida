@@ -53,7 +53,7 @@ var prototype03;
         update();
     }
     function getAllImg() {
-        let allImages = document.querySelectorAll("img");
+        let allImages = document.querySelectorAll(".planet");
         for (let i = 0; i < allImages.length; i++) {
             allImg.push(allImages[i]);
         }
@@ -79,13 +79,8 @@ var prototype03;
     function drawRectangle(_startX) {
         ctxR.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
         let _startY = prototype03.height / 2 - 45;
-        ctxR.beginPath();
-        ctxR.strokeStyle = "lightgreen";
-        ctxR.fillStyle = "lightgreen";
-        ctxR.rect(_startX, _startY, 50, 50);
-        ctxR.stroke();
-        ctxR.fill();
-        ctxR.closePath();
+        let rocket = document.querySelector(".rocket");
+        ctxR.drawImage(rocket, _startX, _startY, 50, 100);
     }
     function createPlanet() {
         let numbr = Math.floor(Math.random() * lanes.length);

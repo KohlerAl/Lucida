@@ -66,7 +66,7 @@ namespace prototype03 {
     }
 
     function getAllImg(): void {
-        let allImages: NodeListOf<HTMLImageElement> = document.querySelectorAll("img");
+        let allImages: NodeListOf<HTMLImageElement> = document.querySelectorAll(".planet");
 
         for (let i: number = 0; i < allImages.length; i++) {
             allImg.push(allImages[i]);
@@ -97,13 +97,8 @@ namespace prototype03 {
     function drawRectangle(_startX: number): void {
         ctxR.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
         let _startY: number = height / 2 - 45;
-        ctxR.beginPath();
-        ctxR.strokeStyle = "lightgreen";
-        ctxR.fillStyle = "lightgreen";
-        ctxR.rect(_startX, _startY, 50, 50);
-        ctxR.stroke();
-        ctxR.fill();
-        ctxR.closePath();
+        let rocket: HTMLImageElement = <HTMLImageElement>document.querySelector(".rocket"); 
+        ctxR.drawImage(rocket, _startX, _startY, 50, 100);
     }
 
     function createPlanet(): void {

@@ -11,7 +11,8 @@ canvas {
     top: 0;
 }
 
-#images {
+#images, 
+.rocket {
     display: none;
 }
 
