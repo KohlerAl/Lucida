@@ -72,7 +72,7 @@ var prototype03;
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             newPos = startPos + (_event.gamma * 2);
-            //And the box is drawn
+            //And then the box is drawn
             drawRectangle(newPos);
         }
     }

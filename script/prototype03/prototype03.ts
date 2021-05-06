@@ -9,15 +9,16 @@ namespace prototype03 {
     let width: number;
     export let height: number;
 
-    //The middle-position of the green box
+    //The start-position of the rocket and the current-position
     let startPos: number;
     let newPos: number; 
 
-    //The canvas will be divides in three "lanes". This is where the planets will be
+    //The canvas will be divided in three "lanes". This is where the planets will be
+    //The middle lane has a lower chance of being picked
     //When a new planet is created, a random lane is picked
     let lanes: string[] = ["right", "right", "left", "left", "middle"];
 
-    //All images for the planets are pushed into an array
+    //All images for the planets are pushed into an array. We need those to draw them onto the canvas
     let allImg: HTMLImageElement[] = [];
     //To be able to access all Planets, they are pushed into an array
     export let allPlanets: Planet[] = [];
@@ -40,6 +41,8 @@ namespace prototype03 {
 
         canvasRocket = <HTMLCanvasElement>document.querySelector("#rocket"); 
         ctxR = <CanvasRenderingContext2D>canvasRocket.getContext("2d");
+
+
         //To get the correct size of the screen, we select the html-Element and get its width and height
         let html: HTMLElement = <HTMLElement>document.querySelector("html");
         width = html.clientWidth;
@@ -52,20 +55,21 @@ namespace prototype03 {
         canvasRocket.setAttribute("width", width + "px");
         canvasRocket.setAttribute("height", height + "px");
 
-        //Preparing the position of the box. The box should be in the middle, 
-        //so we are dividing the width by two and subtracting half of the width the box will have
+        //Preparing the position of the rocket. Right now without any movement, the startPos and currentPos are the same
         startPos = (width / 2) - 25;
         newPos = startPos;
 
-        //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
-        //Then the box is drawn
-        drawRectangle(startPos);
+        //The rocket is drawn
+        drawRocket(startPos);
+        //We can now acces all the images. We need to select them first
         getAllImg();
 
+        //To create an Animation, we have to keep upadting the canvas
         update(); 
     }
 
     function getAllImg(): void {
+        //All Images with the class planet are selected and pushed into the prepared Array
         let allImages: NodeListOf<HTMLImageElement> = document.querySelectorAll(".planet");
 
         for (let i: number = 0; i < allImages.length; i++) {
@@ -74,10 +78,13 @@ namespace prototype03 {
     }
 
     function update(): void {
-        let random: number = getRandom(3000, 7000); 
+        //Every two to five seconds a new planet is drawn 
+        let random: number = getRandom(2000, 5000); 
         window.setInterval( function(): void {
             createPlanet(); 
+            random = getRandom(2000, 5000); 
         },                  random);  
+        //Every 40ms the image is updated 
         window.setInterval(movePlanets, 40); 
     }
 
@@ -85,17 +92,19 @@ namespace prototype03 {
     function handleMove(_event: DeviceOrientationEvent): void {
         //Check if the value we need is there
         if (_event.gamma) {
-            //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
-
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             newPos = startPos + (_event.gamma * 2);
-            //And the box is drawn
-            drawRectangle(newPos);
+            //And then the box is drawn
+            drawRocket(newPos);
         }
     }
 
-    function drawRectangle(_startX: number): void {
+    function drawRocket(_startX: number): void {
+        //First, we clear the canvas of the rocket
         ctxR.clearRect(0, 0, canvasRocket.width, canvasRocket.height + 150);
+
+        //Then we draw the rocket on its new position. The y-Position is a little bit further down than the middle 
+        
         let _startY: number = height / 2 + 60;
         let rocket: HTMLImageElement = <HTMLImageElement>document.querySelector(".rocket"); 
         ctxR.drawImage(rocket, _startX, _startY, 50, 100);
