@@ -8,13 +8,14 @@ var prototype03;
     let ctxR;
     //width and height of the window
     let width;
-    //The middle-position of the green box
+    //The start-position of the rocket and the current-position
     let startPos;
     let newPos;
-    //The canvas will be divides in three "lanes". This is where the planets will be
+    //The canvas will be divided in three "lanes". This is where the planets will be
+    //The middle lane has a lower chance of being picked
     //When a new planet is created, a random lane is picked
     let lanes = ["right", "right", "left", "left", "middle"];
-    //All images for the planets are pushed into an array
+    //All images for the planets are pushed into an array. We need those to draw them onto the canvas
     let allImg = [];
     //To be able to access all Planets, they are pushed into an array
     prototype03.allPlanets = [];
@@ -42,42 +43,47 @@ var prototype03;
         canvasPlanet.setAttribute("height", prototype03.height + "px");
         canvasRocket.setAttribute("width", width + "px");
         canvasRocket.setAttribute("height", prototype03.height + "px");
-        //Preparing the position of the box. The box should be in the middle, 
-        //so we are dividing the width by two and subtracting half of the width the box will have
+        //Preparing the position of the rocket. Right now without any movement, the startPos and currentPos are the same
         startPos = (width / 2) - 25;
         newPos = startPos;
-        //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
-        //Then the box is drawn
-        drawRectangle(startPos);
+        //The rocket is drawn
+        drawRocket(startPos);
+        //We can now acces all the images. We need to select them first
         getAllImg();
+        //To create an Animation, we have to keep upadting the canvas
         update();
     }
     function getAllImg() {
+        //All Images with the class planet are selected and pushed into the prepared Array
         let allImages = document.querySelectorAll(".planet");
         for (let i = 0; i < allImages.length; i++) {
             allImg.push(allImages[i]);
         }
     }
     function update() {
-        let random = getRandom(3000, 7000);
+        //Every two to five seconds a new planet is drawn 
+        let random = getRandom(2000, 5000);
         window.setInterval(function () {
             createPlanet();
+            random = getRandom(2000, 5000);
         }, random);
+        //Every 40ms the image is updated 
         window.setInterval(movePlanets, 40);
     }
     //Function called when the mobile device is moving
     function handleMove(_event) {
         //Check if the value we need is there
         if (_event.gamma) {
-            //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             newPos = startPos + (_event.gamma * 2);
             //And then the box is drawn
-            drawRectangle(newPos);
+            drawRocket(newPos);
         }
     }
-    function drawRectangle(_startX) {
+    function drawRocket(_startX) {
+        //First, we clear the canvas of the rocket
         ctxR.clearRect(0, 0, canvasRocket.width, canvasRocket.height + 150);
+        //Then we draw the rocket on its new position. The y-Position is a little bit further down than the middle 
         let _startY = prototype03.height / 2 + 60;
         let rocket = document.querySelector(".rocket");
         ctxR.drawImage(rocket, _startX, _startY, 50, 100);

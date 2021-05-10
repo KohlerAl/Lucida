@@ -11,6 +11,9 @@ namespace prototype02 {
         angle: number = 0;
         velocity: number = 2;
 
+        velocityX: number;
+        velocityY: number;
+
         constructor(_positionX: number, _positionY: number) {
             this.positionX = _positionX;
             this.positionY = _positionY;
@@ -18,29 +21,21 @@ namespace prototype02 {
 
         public getElevation(_endX: number, _endY: number): void {
             //Warning: Maths involved, i have no idea what i am doing 
-            let y: number = _endY - this.positionY;
-            let x: number = _endX - this.positionX;
+            let ty: number = _endY - this.positionY;
+            let tx: number = _endX - this.positionX;
 
-            //Getting the distance
-            this.distance = Math.sqrt(x * x + y * y);
-            //Getting the Angle
-            this.angle = (Math.atan2(x, y) * 180 / Math.PI);
+            let distance: number = Math.sqrt(tx * tx + ty * ty);
+            let rad: number = Math.atan2(ty, tx);
+            this.angle = rad / Math.PI * 180;
 
-            let angleRadians: number = (this.angle * Math.PI) / 180;
-            this.speedX = this.velocity * (Math.cos(angleRadians));
-            this.speedY = this.velocity * (Math.sin(angleRadians));
+            this.velocityX = (tx / distance) * this.velocity;
+            this.velocityY = (ty / distance) * this.velocity;
 
-            if (this.angle < 0) {
-                this.speedY = this.speedY - (this.speedY * 2);
-                this.speedX = this.speedX - (this.speedX * 2);
-            }
-
-            console.log(this.distance, this.angle, this.speedX, this.speedY);
         }
 
         public move(): void {
-            this.positionX += this.speedX;
-            this.positionY += this.speedY;
+            this.positionX += this.velocityX;
+            this.positionY += this.velocityY;
         }
 
         public draw(_ctx: CanvasRenderingContext2D): void {

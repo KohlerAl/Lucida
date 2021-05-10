@@ -12,7 +12,7 @@ namespace prototype02 {
     let startPosY: number;
 
     let gamma: number = -90;
-    let div: HTMLDivElement;
+    export let div: HTMLDivElement;
 
     let allBalls: Ball[] = []; 
 

@@ -8,7 +8,6 @@ var prototype02;
     let startPos;
     let startPosY;
     let gamma = -90;
-    let div;
     let allBalls = [];
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
@@ -35,7 +34,7 @@ var prototype02;
         //so we are dividing the width by two and subtracting half of the width the box will have
         startPos = (prototype02.width / 2) - 25;
         startPosY = prototype02.height / 2 - 45;
-        div = document.querySelector("#box");
+        prototype02.div = document.querySelector("#box");
         //To prepare the canvas, a white rectangle is drawn on it covering the whole canvas
         undoCanvas();
         //Then the box is drawn
@@ -111,7 +110,7 @@ var prototype02;
         let endY = startY + y;
         let ball = new prototype02.Ball(endX, endY);
         ball.getElevation(_event.clientX, _event.clientY);
-        div.innerHTML += "X: " + _event.clientX + "\n" + "Y: " + _event.clientY + "\n";
+        prototype02.div.innerHTML += "X: " + _event.clientX + "\n" + "Y: " + _event.clientY + "\n";
         allBalls.push(ball);
     }
     function update() {
