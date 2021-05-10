@@ -3,12 +3,9 @@ var prototype02;
 (function (prototype02) {
     class Ball {
         constructor(_positionX, _positionY) {
-            this.speedX = 0;
-            this.speedY = 0;
-            this.elevation = 0;
             this.distance = 0;
             this.angle = 0;
-            this.velocity = 2;
+            this.speed = 2;
             this.positionX = _positionX;
             this.positionY = _positionY;
         }
@@ -16,11 +13,11 @@ var prototype02;
             //Warning: Maths involved, i have no idea what i am doing 
             let ty = _endY - this.positionY;
             let tx = _endX - this.positionX;
-            let distance = Math.sqrt(tx * tx + ty * ty);
+            this.distance = Math.sqrt(tx * tx + ty * ty);
             let rad = Math.atan2(ty, tx);
             this.angle = rad / Math.PI * 180;
-            this.velocityX = (tx / distance) * this.velocity;
-            this.velocityY = (ty / distance) * this.velocity;
+            this.velocityX = (tx / this.distance) * this.speed;
+            this.velocityY = (ty / this.distance) * this.speed;
         }
         move() {
             this.positionX += this.velocityX;

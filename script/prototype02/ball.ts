@@ -3,13 +3,9 @@ namespace prototype02 {
         positionX: number;
         positionY: number;
 
-        speedX: number = 0;
-        speedY: number = 0;
-
-        elevation: number = 0;
         distance: number = 0;
         angle: number = 0;
-        velocity: number = 2;
+        speed: number = 2;
 
         velocityX: number;
         velocityY: number;
@@ -24,12 +20,12 @@ namespace prototype02 {
             let ty: number = _endY - this.positionY;
             let tx: number = _endX - this.positionX;
 
-            let distance: number = Math.sqrt(tx * tx + ty * ty);
+            this.distance = Math.sqrt(tx * tx + ty * ty);
             let rad: number = Math.atan2(ty, tx);
             this.angle = rad / Math.PI * 180;
 
-            this.velocityX = (tx / distance) * this.velocity;
-            this.velocityY = (ty / distance) * this.velocity;
+            this.velocityX = (tx / this.distance) * this.speed;
+            this.velocityY = (ty / this.distance) * this.speed;
 
         }
 
