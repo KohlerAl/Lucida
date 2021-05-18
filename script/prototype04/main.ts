@@ -144,6 +144,10 @@ namespace prototype04 {
         ctxRocket.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
         for (let planets of theGalaxy.planets) {
             planets.move(2);
+            if (planets.position.y > canvasBackground.height + 100) {
+                let pos: number = theGalaxy.planets.indexOf(planets); 
+                theGalaxy.planets.splice(pos, 1); 
+            }
             planets.draw();
         }
     }
@@ -177,9 +181,10 @@ namespace prototype04 {
         let randomNmbr: number = Math.floor(Math.random() * theGalaxy.imagesPlanet.length);
         let img: HTMLImageElement = theGalaxy.imagesPlanet[randomNmbr];
 
-        //let randomSize: number = this.getRandom(50, 120);
-        
-        let planet: Planet = new Planet(xPos, -50, img);
+        let randomSize: number = getRandom(50, 120);
+        let size: Vector = new Vector (randomSize, randomSize); 
+
+        let planet: Planet = new Planet(xPos, -50, img, size);
         theGalaxy.planets.push(planet);
 
         console.log(theGalaxy.planets);

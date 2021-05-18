@@ -2,8 +2,13 @@
 var prototype04;
 (function (prototype04) {
     class Planet extends prototype04.CanvasObject {
-        constructor(_x, _y, _image) {
-            super(_x, _y, _image);
+        constructor(_x, _y, _image, _size) {
+            if (_size) {
+                super(_x, _y, _image, _size);
+            }
+            else {
+                super(_x, _y, _image);
+            }
         }
         draw() {
             if (this.size)

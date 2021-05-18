@@ -4,9 +4,13 @@ namespace prototype04 {
         image: HTMLImageElement;
         size: Vector;
 
-        constructor(_x: number, _y: number, _image: HTMLImageElement) {
+        constructor(_x: number, _y: number, _image: HTMLImageElement, _size?: Vector) {
             this.position = new Vector(_x, _y);
             this.image = _image;
+
+            if (_size) {
+                this.size = _size; 
+            }
         }
 
         abstract draw(): void;
