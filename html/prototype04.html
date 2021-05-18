@@ -11,37 +11,62 @@
     <link rel="stylesheet" href="..\css/prototype04.css">
 
     <!-- Classes -->
-    <script src="..\script/prototype04/Vector/Vector.ts"></script>
+    <script src="..\shared/DeviceMotionAndOrientationManager.js"></script>
+    <script src="..\shared/StartScreen.js"></script>
+    <script src="..\script/prototype04/Vector/Vector.js"></script>
 
-    <script src="..\script/prototype04/CanvasObjects/CanvasObject.ts"></script>
-    <script src="..\script/prototype04/CanvasObjects/CanonBarrel/CanonBarrel.ts"></script>
-    <script src="..\script/prototype04/CanvasObjects/Planet/Planet.ts"></script>
-    <script src="..\script/prototype04/CanvasObjects/Rocket/Rocket.ts"></script>
-    <script src="..\script/prototype04/CanvasObjects/UFO/Ufo.ts"></script>
+    <script src="..\script/prototype04/CanvasObjects/CanvasObject.js"></script>
+    <script src="..\script/prototype04/CanvasObjects/CanonBarrel/CanonBarrel.js"></script>
+    <script src="..\script/prototype04/CanvasObjects/Planet/Planet.js"></script>
+    <script src="..\script/prototype04/CanvasObjects/Rocket/Rocket.js"></script>
+    <script src="..\script/prototype04/CanvasObjects/UFO/Ufo.js"></script>
 
-    <script src="..\script/prototype04/Galaxy/Galaxy.ts"></script>
-    <script src="..\script/prototype04/Laserpoint/Laserpoint.ts"></script>
+    <script src="..\script/prototype04/Galaxy/Galaxy.js"></script>
+    <script src="..\script/prototype04/Laserpoint/Laserpoint.js"></script>
 
     <!-- Main -->
-    <script src="..\script/prototype04/main.ts"></script>
+    <script src="..\script/prototype04/main.js"></script>
 
 </head>
 
 <body>
+    <div id="start-screen">
+        <h1>Not Rocket Science</h1>
+        <p></p>
+    </div>
+    <div id="getCode">
+        <h1>Not Rocket Science</h1>
+        <div class="code-container"></div>
+        <button type="button" id="gameCode">Get game code</button>
+    </div>
+    <div id="galaxy">
+            <p class="red-galaxy">Red Galaxy</p>
+            <p class="blue-galaxy">Blue Galaxy</p>
+            <p class="green-galaxy">Green Galaxy</p>
+    </div>
     <div id="choice">
         <button type="button" class="playerOne">Player One</button>
         <button type="button" class="playerTwo">Player Two</button>
     </div>
     <div id="game">
-        <div class="planet-container"></div>
+        <div class="planet-container">
+            <img class="red" src="..\img/red_planet_one.png">
+            <img class="red" src="..\img/red_planet_two.png">
+
+            <img class="blue" src="..\img/blue_planet_one.png">
+            <img class="blue" src="..\img/blue_planet_two.png">
+
+            <img class="green" src="..\img/green_planet_one.png">
+            <img class="green" src="..\img/green_planet_two.png">
+        </div>
         <div class="rocket-container"></div>
         <div class="barrel-container"></div>
         <div class="ufo-container"></div>
-
+        
+        <div class="background"></div>
         <canvas class="rocket-canvas"></canvas>
         <canvas class="background-canvas"></canvas>
         <canvas class="barrel-canvas"></canvas>
-        <div class="background"></div>
     </div>
 
 </body>
