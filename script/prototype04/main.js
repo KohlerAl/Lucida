@@ -3,10 +3,6 @@ var prototype04;
 (function (prototype04) {
     //Installing Listener
     window.addEventListener("load", handleLoad);
-    //Defining global Variables
-    let canvasRocket;
-    let canvasBackground;
-    let canvasBarrel;
     //#gameCode
     let codeBtn;
     //#galaxy
@@ -29,21 +25,21 @@ var prototype04;
     let intervalCreate;
     function handleLoad() {
         //Handle Load
-        canvasRocket = document.querySelector(".rocket-canvas");
-        canvasBackground = document.querySelector(".background-canvas");
-        canvasBarrel = document.querySelector(".barrel-canvas");
-        prototype04.ctxRocket = canvasRocket.getContext("2d");
-        prototype04.ctxBackground = canvasBackground.getContext("2d");
-        prototype04.ctxBarrel = canvasBackground.getContext("2d");
+        prototype04.canvasRocket = document.querySelector(".rocket-canvas");
+        prototype04.canvasBackground = document.querySelector(".background-canvas");
+        prototype04.canvasBarrel = document.querySelector(".barrel-canvas");
+        prototype04.ctxRocket = prototype04.canvasRocket.getContext("2d");
+        prototype04.ctxBackground = prototype04.canvasBackground.getContext("2d");
+        prototype04.ctxBarrel = prototype04.canvasBackground.getContext("2d");
         let html = document.querySelector("html");
         prototype04.width = html.clientWidth;
         prototype04.height = html.clientHeight;
-        canvasBackground.setAttribute("width", prototype04.width + "px");
-        canvasBackground.setAttribute("height", prototype04.height + "px");
-        canvasBarrel.setAttribute("width", prototype04.width + "px");
-        canvasBarrel.setAttribute("height", prototype04.height + "px");
-        canvasRocket.setAttribute("width", prototype04.width + "px");
-        canvasRocket.setAttribute("height", prototype04.height + "px");
+        prototype04.canvasBackground.setAttribute("width", prototype04.width + "px");
+        prototype04.canvasBackground.setAttribute("height", prototype04.height + "px");
+        prototype04.canvasBarrel.setAttribute("width", prototype04.width + "px");
+        prototype04.canvasBarrel.setAttribute("height", prototype04.height + "px");
+        prototype04.canvasRocket.setAttribute("width", prototype04.width + "px");
+        prototype04.canvasRocket.setAttribute("height", prototype04.height + "px");
         getUserPermission();
         installListeners();
     }
@@ -61,8 +57,8 @@ var prototype04;
         if (player == "playerOne") {
             if (_event.gamma) {
                 //newPos = startPos + (_event.gamma * 2);
-                rocketInfo.move(_event.gamma * 2);
-                prototype04.ctxRocket.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
+                rocketInfo.move(_event.gamma);
+                prototype04.ctxRocket.clearRect(0, 0, prototype04.canvasRocket.width, prototype04.canvasRocket.height);
                 rocketInfo.draw();
             }
         }
@@ -92,7 +88,6 @@ var prototype04;
         }
     }
     function createGalaxy(_event) {
-        console.log("createGalaxy");
         let target = _event.target;
         if (target.classList.contains("red-galaxy")) {
             galaxy = "red";
@@ -115,11 +110,11 @@ var prototype04;
         startGame();
     }
     function update() {
-        prototype04.ctxBackground.clearRect(0, 0, canvasBackground.width, canvasBackground.height);
-        prototype04.ctxBarrel.clearRect(0, 0, canvasBarrel.width, canvasBarrel.height);
+        prototype04.ctxBackground.clearRect(0, 0, prototype04.canvasBackground.width, prototype04.canvasBackground.height);
+        prototype04.ctxBarrel.clearRect(0, 0, prototype04.canvasBarrel.width, prototype04.canvasBarrel.height);
         for (let planets of theGalaxy.planets) {
             planets.move(2);
-            if (planets.position.y > canvasBackground.height + 100) {
+            if (planets.position.y > prototype04.canvasBackground.height + 100) {
                 let pos = theGalaxy.planets.indexOf(planets);
                 theGalaxy.planets.splice(pos, 1);
             }

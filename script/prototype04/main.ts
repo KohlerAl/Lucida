@@ -3,9 +3,9 @@ namespace prototype04 {
     window.addEventListener("load", handleLoad);
 
     //Defining global Variables
-    let canvasRocket: HTMLCanvasElement;
-    let canvasBackground: HTMLCanvasElement;
-    let canvasBarrel: HTMLCanvasElement;
+    export let canvasRocket: HTMLCanvasElement;
+    export let canvasBackground: HTMLCanvasElement;
+    export let canvasBarrel: HTMLCanvasElement;
 
     export let ctxRocket: CanvasRenderingContext2D;
     export let ctxBackground: CanvasRenderingContext2D;
@@ -83,7 +83,7 @@ namespace prototype04 {
         if (player == "playerOne") {
             if (_event.gamma) {
                 //newPos = startPos + (_event.gamma * 2);
-                rocketInfo.move(_event.gamma * 2);  
+                rocketInfo.move(_event.gamma);  
                 ctxRocket.clearRect(0, 0, canvasRocket.width, canvasRocket.height); 
                 rocketInfo.draw(); 
             }
@@ -127,7 +127,6 @@ namespace prototype04 {
     }
 
     function createGalaxy(_event: PointerEvent): void {
-        console.log("createGalaxy");
 
         let target: HTMLElement = <HTMLElement>_event.target;
 

@@ -9,8 +9,8 @@ namespace prototype04 {
             super(_x, _y, _image);
             this.imageStageTwo = _imageStageTwo;
             this.imageStageThree = _imageStageThree;
-            this.damageStatus = 0; 
-            this.size = new Vector(50, 100); 
+            this.damageStatus = 0;
+            this.size = new Vector(50, 100);
         }
 
         public draw(): void {
@@ -21,9 +21,9 @@ namespace prototype04 {
                 case (1):
                     ctxRocket.drawImage(this.imageStageTwo, this.position.x, this.position.y, this.size.x, this.size.y);
                     break;
-                case (2): 
+                case (2):
                     ctxRocket.drawImage(this.imageStageThree, this.position.x, this.position.y, this.size.x, this.size.y);
-                    break; 
+                    break;
             }
         }
 
@@ -32,7 +32,20 @@ namespace prototype04 {
         }
 
         public move(_add: number): void {
-            this.position.x = this.position.x + _add; 
+            let width: number = canvasRocket.width;
+            if (this.position.x < 50) {
+                this.position.x = 50;
+            }
+            else if (this.position.x > width - 50) {
+                this.position.x = width - 50; 
+            }
+            if (this.position.x < width / 5 || this.position.x > (width * 0.8)) {
+                this.position.x = this.position.x + _add;
+            }
+            else {
+                this.position.x = this.position.x + _add * 1.5;
+            }
+
         }
 
         public updateDamage(): void {

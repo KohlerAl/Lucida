@@ -26,7 +26,19 @@ var prototype04;
             super.setSize(_x, _y);
         }
         move(_add) {
-            this.position.x = this.position.x + _add;
+            let width = prototype04.canvasRocket.width;
+            if (this.position.x < 50) {
+                this.position.x = 50;
+            }
+            else if (this.position.x > width - 50) {
+                this.position.x = width - 50;
+            }
+            if (this.position.x < width / 5 || this.position.x > (width * 0.8)) {
+                this.position.x = this.position.x + _add;
+            }
+            else {
+                this.position.x = this.position.x + _add * 1.5;
+            }
         }
         updateDamage() {
             //Check if damage is fatal or update damageStatus
