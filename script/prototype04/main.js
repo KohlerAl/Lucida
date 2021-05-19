@@ -57,8 +57,8 @@ var prototype04;
         if (player == "playerOne") {
             if (_event.gamma) {
                 //newPos = startPos + (_event.gamma * 2);
-                rocketInfo.move(_event.gamma);
                 prototype04.ctxRocket.clearRect(0, 0, prototype04.canvasRocket.width, prototype04.canvasRocket.height);
+                rocketInfo.move(_event.gamma);
                 rocketInfo.draw();
             }
         }

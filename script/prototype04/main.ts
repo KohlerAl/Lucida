@@ -83,8 +83,8 @@ namespace prototype04 {
         if (player == "playerOne") {
             if (_event.gamma) {
                 //newPos = startPos + (_event.gamma * 2);
-                rocketInfo.move(_event.gamma);  
-                ctxRocket.clearRect(0, 0, canvasRocket.width, canvasRocket.height); 
+                ctxRocket.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
+                rocketInfo.move(_event.gamma);   
                 rocketInfo.draw(); 
             }
         }
