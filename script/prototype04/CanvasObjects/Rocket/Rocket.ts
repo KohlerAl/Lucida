@@ -49,7 +49,7 @@ namespace prototype04 {
             else {
                 this.position.x = this.position.x + _add * 1.5;
             } */
-            this.position.x = this.initalPos.x + (_add * 2); 
+            this.position.x = this.initalPos.x + (_add * 1.5); 
         }
 
         public updateDamage(): void {
