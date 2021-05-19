@@ -8,6 +8,7 @@ var prototype04;
             this.imageStageThree = _imageStageThree;
             this.damageStatus = 0;
             this.size = new prototype04.Vector(50, 100);
+            this.initalPos = this.position;
         }
         draw() {
             switch (this.damageStatus) {
@@ -26,7 +27,7 @@ var prototype04;
             super.setSize(_x, _y);
         }
         move(_add) {
-            let width = prototype04.canvasRocket.width;
+            /* let width: number = canvasRocket.width;
             if (this.position.x < 0) {
                 this.position.x = 0;
             }
@@ -38,7 +39,8 @@ var prototype04;
             }
             else {
                 this.position.x = this.position.x + _add * 1.5;
-            }
+            } */
+            this.position.x = this.initalPos.x + (_add * 2);
         }
         updateDamage() {
             //Check if damage is fatal or update damageStatus
