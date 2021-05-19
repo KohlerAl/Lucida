@@ -1,6 +1,6 @@
 namespace prototype04 {
     export class Rocket extends CanvasObject {
-        damgeStatus: number;
+        damageStatus: number;
         newPosition: Vector;
         imageStageTwo: HTMLImageElement;
         imageStageThree: HTMLImageElement;
@@ -9,11 +9,11 @@ namespace prototype04 {
             super(_x, _y, _image);
             this.imageStageTwo = _imageStageTwo;
             this.imageStageThree = _imageStageThree;
-            this.damgeStatus = 0; 
+            this.damageStatus = 0; 
         }
 
         public draw(): void {
-            switch (this.damgeStatus) {
+            switch (this.damageStatus) {
                 case (0):
                     ctxRocket.drawImage(this.image, this.position.x, this.position.y);
                     break;
