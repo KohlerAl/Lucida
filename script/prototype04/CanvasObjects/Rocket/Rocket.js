@@ -27,20 +27,20 @@ var prototype04;
             super.setSize(_x, _y);
         }
         move(_add) {
-            /* let width: number = canvasRocket.width;
+            let width = prototype04.canvasRocket.width;
             if (this.position.x < 0) {
                 this.position.x = 0;
             }
             else if (this.position.x > width - 50) {
                 this.position.x = width - 50;
             }
-            if (this.position.x < width / 10 || this.position.x > (width * 0.9)) {
+            /*if (this.position.x < width / 10 || this.position.x > (width * 0.9)) {
                 this.position.x = this.position.x + _add;
             }
             else {
                 this.position.x = this.position.x + _add * 1.5;
             } */
-            this.position.x = this.initalPos.x + (_add * 1.5);
+            this.position.x = this.initalPos.x + (_add * 2);
         }
         updateDamage() {
             //Check if damage is fatal or update damageStatus
