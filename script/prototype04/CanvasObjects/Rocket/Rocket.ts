@@ -37,7 +37,7 @@ namespace prototype04 {
                 this.position.x = 50;
             }
             else if (this.position.x > width - 50) {
-                this.position.x = width - 80; 
+                this.position.x = width - 50; 
             }
             if (this.position.x < width / 10 || this.position.x > (width * 0.9)) {
                 this.position.x = this.position.x + _add;
