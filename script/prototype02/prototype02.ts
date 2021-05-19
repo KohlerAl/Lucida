@@ -3,9 +3,6 @@ namespace prototype02 {
     let canvas: HTMLCanvasElement;
     let ctx: CanvasRenderingContext2D;
 
-    let canvas2: HTMLCanvasElement; 
-    export let ctx2: CanvasRenderingContext2D; 
-
     //width and height of the window
     export let width: number;
     export let height: number;
@@ -19,7 +16,7 @@ namespace prototype02 {
 
     let allBalls: Ball[] = []; 
 
-    // Installing a load- and a deviceorientation-Listener on window 
+    // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
     window.addEventListener("pointerup", getStart);
     window.addEventListener("deviceorientation", handleMove);
@@ -33,11 +30,8 @@ namespace prototype02 {
         startScreen.start();
 
         //The canvas and the rendering divs and assigning the values to the prepared variables
-        canvas = <HTMLCanvasElement>document.querySelector("#one");
+        canvas = <HTMLCanvasElement>document.querySelector("canvas");
         ctx = <CanvasRenderingContext2D>canvas.getContext("2d");
-
-        canvas2 = <HTMLCanvasElement>document.querySelector("#two"); 
-        ctx2 = <CanvasRenderingContext2D>canvas2.getContext("2d"); 
 
         //To get the correct size of the screen, we select the html-Element and get its width and height
         let html: HTMLElement = <HTMLElement>document.querySelector("html");
@@ -152,7 +146,7 @@ namespace prototype02 {
         drawCanonBarrel(startPos, startPosY, gamma);
         for (let ball of allBalls) {
             ball.move(); 
-            ball.draw(ctx2); 
+            ball.draw(ctx); 
         }
     }
 }
