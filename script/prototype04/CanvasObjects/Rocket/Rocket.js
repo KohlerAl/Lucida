@@ -6,6 +6,7 @@ var prototype04;
             super(_x, _y, _image);
             this.imageStageTwo = _imageStageTwo;
             this.imageStageThree = _imageStageThree;
+            this.damgeStatus = 0;
         }
         draw() {
             switch (this.damgeStatus) {
@@ -24,7 +25,7 @@ var prototype04;
             super.setSize(_x, _y);
         }
         move(_add) {
-            super.move(_add);
+            this.position.x = this.position.x + _add;
         }
         updateDamage() {
             //Check if damage is fatal or update damageStatus

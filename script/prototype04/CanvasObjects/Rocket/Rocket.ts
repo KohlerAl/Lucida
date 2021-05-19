@@ -9,6 +9,7 @@ namespace prototype04 {
             super(_x, _y, _image);
             this.imageStageTwo = _imageStageTwo;
             this.imageStageThree = _imageStageThree;
+            this.damgeStatus = 0; 
         }
 
         public draw(): void {
@@ -30,7 +31,7 @@ namespace prototype04 {
         }
 
         public move(_add: number): void {
-            super.move(_add);
+            this.position.x = this.position.x + _add; 
         }
 
         public updateDamage(): void {
