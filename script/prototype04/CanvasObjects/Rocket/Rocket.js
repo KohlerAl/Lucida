@@ -27,8 +27,8 @@ var prototype04;
         }
         move(_add) {
             let width = prototype04.canvasRocket.width;
-            if (this.position.x < 30) {
-                this.position.x = 30;
+            if (this.position.x < 0) {
+                this.position.x = 0;
             }
             else if (this.position.x > width - 50) {
                 this.position.x = width - 50;

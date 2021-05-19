@@ -5,12 +5,16 @@ namespace prototype04 {
         imageStageTwo: HTMLImageElement;
         imageStageThree: HTMLImageElement;
 
+        initalPos: Vector; 
+
         constructor(_x: number, _y: number, _image: HTMLImageElement, _imageStageTwo: HTMLImageElement, _imageStageThree: HTMLImageElement) {
             super(_x, _y, _image);
             this.imageStageTwo = _imageStageTwo;
             this.imageStageThree = _imageStageThree;
             this.damageStatus = 0;
             this.size = new Vector(50, 100);
+
+            this.initalPos = this.position; 
         }
 
         public draw(): void {
@@ -32,9 +36,9 @@ namespace prototype04 {
         }
 
         public move(_add: number): void {
-            let width: number = canvasRocket.width;
-            if (this.position.x < 30) {
-                this.position.x = 30;
+            /* let width: number = canvasRocket.width;
+            if (this.position.x < 0) {
+                this.position.x = 0;
             }
             else if (this.position.x > width - 50) {
                 this.position.x = width - 50; 
@@ -44,8 +48,8 @@ namespace prototype04 {
             }
             else {
                 this.position.x = this.position.x + _add * 1.5;
-            }
-
+            } */
+            this.position.x = this.initalPos.x + (_add * 2); 
         }
 
         public updateDamage(): void {
