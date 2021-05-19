@@ -2,11 +2,23 @@
 var prototype04;
 (function (prototype04) {
     class Rocket extends prototype04.CanvasObject {
-        constructor(_x, _y, _image) {
+        constructor(_x, _y, _image, _imageStageTwo, _imageStageThree) {
             super(_x, _y, _image);
+            this.imageStageTwo = _imageStageTwo;
+            this.imageStageThree = _imageStageThree;
         }
         draw() {
-            //draw UFO
+            switch (this.damgeStatus) {
+                case (0):
+                    prototype04.ctxRocket.drawImage(this.image, this.position.x, this.position.y);
+                    break;
+                case (1):
+                    prototype04.ctxRocket.drawImage(this.imageStageTwo, this.position.x, this.position.y);
+                    break;
+                case (2):
+                    prototype04.ctxRocket.drawImage(this.imageStageThree, this.position.x, this.position.y);
+                    break;
+            }
         }
         setSize(_x, _y) {
             super.setSize(_x, _y);

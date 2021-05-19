@@ -11,6 +11,20 @@ namespace prototype04 {
     export let ctxBackground: CanvasRenderingContext2D;
     export let ctxBarrel: CanvasRenderingContext2D;
 
+    //#gameCode
+    let codeBtn: HTMLButtonElement;
+    //#galaxy
+    let galaxyContainer: HTMLDivElement;
+    //#choice
+    let choice: HTMLDivElement;
+    //#getCode
+    let getCode: HTMLDivElement;
+    //.code-container
+    let containerCode: HTMLDivElement;
+    //gameContainer
+    let gameContainer: HTMLDivElement;
+
+
     let rocketInfo: Rocket;
     let ufoInfo: UFO[];
 
@@ -20,10 +34,9 @@ namespace prototype04 {
     let player: string;
 
     let code: string = "Your game code is: ";
-    let nextContainer: HTMLDivElement;
 
-    let intervalPlanet;
-    let intervalCreate;
+    let intervalPlanet: number;
+    let intervalCreate: number;
 
     export let width: number;
     export let height: number;
@@ -65,8 +78,16 @@ namespace prototype04 {
         startScreen.start();
     }
 
-    function handleMove(): void {
+    function handleMove(_event: DeviceOrientationEvent): void {
         //Handle Device Move
+        if (player == "playerOne") {
+            if (_event.gamma) {
+                //newPos = startPos + (_event.gamma * 2);
+                rocketInfo.move(_event.gamma * 2);  
+                ctxRocket.clearRect(0, 0, canvasRocket.width, canvasRocket.height); 
+                rocketInfo.draw(); 
+            }
+        }
     }
 
     function handleTouch(): void {
@@ -74,35 +95,33 @@ namespace prototype04 {
     }
 
     function installListeners(): void {
-        let codeBtn: HTMLButtonElement = <HTMLButtonElement>document.querySelector("#gameCode");
+        codeBtn = <HTMLButtonElement>document.querySelector("#gameCode");
         codeBtn.addEventListener("pointerup", createRandomCode);
 
-        let galaxyContainer: HTMLDivElement = <HTMLDivElement>document.querySelector("#galaxy");
+        galaxyContainer = <HTMLDivElement>document.querySelector("#galaxy");
         galaxyContainer.addEventListener("pointerup", createGalaxy);
 
-        let choice: HTMLDivElement = <HTMLDivElement>document.querySelector("#choice");
+        choice = <HTMLDivElement>document.querySelector("#choice");
         choice.addEventListener("pointerup", choosePlayerRoles);
 
-        let getCode: HTMLDivElement = <HTMLDivElement>document.querySelector("#getCode");
+        getCode = <HTMLDivElement>document.querySelector("#getCode");
         getCode.style.display = "block";
     }
 
     function createRandomCode(): void {
-        let btn: HTMLButtonElement = <HTMLButtonElement>document.querySelector("#gameCode");
 
-        if (btn.disabled == false) {
+        if (codeBtn.disabled == false) {
             for (let i: number = 0; i < 6; i++) {
                 let random: number = Math.floor(Math.random() * 8) + 1;
                 code += random.toString();
             }
 
-            let container: HTMLDivElement = <HTMLDivElement>document.querySelector(".code-container");
-            container.innerHTML += code + "";
+            containerCode = <HTMLDivElement>document.querySelector(".code-container");
+            containerCode.innerHTML += code + "";
 
-            nextContainer = <HTMLDivElement>document.querySelector("#galaxy");
-            nextContainer.style.display = "block";
+            choice.style.display = "block";
 
-            btn.disabled = true;
+            codeBtn.disabled = true;
         }
 
     }
@@ -114,28 +133,26 @@ namespace prototype04 {
 
         if (target.classList.contains("red-galaxy")) {
             galaxy = "red";
-            nextContainer.style.display = "none";
+            galaxyContainer.style.display = "none";
             theGalaxy = new Galaxy(galaxy);
         }
         else if (target.classList.contains("blue-galaxy")) {
             galaxy = "blue";
-            nextContainer.style.display = "none";
+            galaxyContainer.style.display = "none";
             theGalaxy = new Galaxy(galaxy);
         }
         else if (target.classList.contains("green-galaxy")) {
             galaxy = "green";
-            nextContainer.style.display = "none";
+            galaxyContainer.style.display = "none";
             theGalaxy = new Galaxy(galaxy);
         }
 
-        let gameCode: HTMLDivElement = <HTMLDivElement>document.querySelector("#getCode");
-        gameCode.style.display = "none";
+        getCode.style.display = "none";
 
-        let gameContainer: HTMLDivElement = <HTMLDivElement>document.querySelector("#game");
+        gameContainer = <HTMLDivElement>document.querySelector("#game");
         gameContainer.style.display = "block";
 
-        intervalPlanet = window.setInterval(update, 40);
-        intervalCreate = window.setInterval(newPlanet, 2500);
+        startGame();
     }
 
     function update(): void {
@@ -145,8 +162,8 @@ namespace prototype04 {
         for (let planets of theGalaxy.planets) {
             planets.move(2);
             if (planets.position.y > canvasBackground.height + 100) {
-                let pos: number = theGalaxy.planets.indexOf(planets); 
-                theGalaxy.planets.splice(pos, 1); 
+                let pos: number = theGalaxy.planets.indexOf(planets);
+                theGalaxy.planets.splice(pos, 1);
             }
             planets.draw();
         }
@@ -182,22 +199,42 @@ namespace prototype04 {
         let img: HTMLImageElement = theGalaxy.imagesPlanet[randomNmbr];
 
         let randomSize: number = getRandom(50, 120);
-        let size: Vector = new Vector (randomSize, randomSize); 
+        let size: Vector = new Vector(randomSize, randomSize);
 
         let planet: Planet = new Planet(xPos, -50, img, size);
         theGalaxy.planets.push(planet);
-
-        console.log(theGalaxy.planets);
     }
 
-    function choosePlayerRoles(): void {
+    function choosePlayerRoles(_event: PointerEvent): void {
+        let target: HTMLElement = <HTMLElement>_event.target;
+        if (target.classList.contains("playerOne")) {
+            player = "playerOne";
 
+            choice.style.display = "none";
+
+            galaxyContainer = <HTMLDivElement>document.querySelector("#galaxy");
+            galaxyContainer.style.display = "block";
+        }
+
+        else if (target.classList.contains("playerTwo")) {
+            player = "playerTwo";
+
+            choice.style.display = "none";
+
+            galaxyContainer = <HTMLDivElement>document.querySelector("#galaxy");
+            galaxyContainer.style.display = "block";
+        }
     }
 
     function startGame(): void {
         window.addEventListener("deviceorientation", handleMove);
         window.addEventListener("pointerup", handleTouch);
 
+        intervalPlanet = window.setInterval(update, 40);
+        intervalCreate = window.setInterval(newPlanet, 2500);
+
+        launchRocket();
+        createCanon();
     }
 
     function updateCounter(): void {
@@ -205,7 +242,13 @@ namespace prototype04 {
     }
 
     function launchRocket(): void {
+        let rocketImg: HTMLImageElement = <HTMLImageElement>document.querySelector("#rocketNormal");
+        let rocketDamageOne: HTMLImageElement = <HTMLImageElement>document.querySelector("#rocketDamageOne");
+        let rocketDamageTwo: HTMLImageElement = <HTMLImageElement>document.querySelector("#rocketDamageTwo");
 
+        let startX: number = (width / 2) - 25;
+        let startY: number = height / 2 + 60;
+        rocketInfo = new Rocket(startX, startY, rocketImg, rocketDamageOne, rocketDamageTwo);
     }
 
     function createCanon(): void {
@@ -213,7 +256,6 @@ namespace prototype04 {
     }
 
     function getRandom(_min: number, _max: number): number {
-        console.log("get random");
         let delta: number = _max - _min;
 
         let random: number = Math.random();

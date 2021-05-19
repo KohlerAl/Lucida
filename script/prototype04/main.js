@@ -7,13 +7,24 @@ var prototype04;
     let canvasRocket;
     let canvasBackground;
     let canvasBarrel;
+    //#gameCode
+    let codeBtn;
+    //#galaxy
+    let galaxyContainer;
+    //#choice
+    let choice;
+    //#getCode
+    let getCode;
+    //.code-container
+    let containerCode;
+    //gameContainer
+    let gameContainer;
     let rocketInfo;
     let ufoInfo;
     let galaxy;
     let theGalaxy;
     let player;
     let code = "Your game code is: ";
-    let nextContainer;
     let intervalPlanet;
     let intervalCreate;
     function handleLoad() {
@@ -45,33 +56,39 @@ var prototype04;
         startScreen.addResourceManager(motionManager);
         startScreen.start();
     }
-    function handleMove() {
+    function handleMove(_event) {
         //Handle Device Move
+        if (player == "playerOne") {
+            if (_event.gamma) {
+                //newPos = startPos + (_event.gamma * 2);
+                rocketInfo.move(_event.gamma * 2);
+                prototype04.ctxRocket.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
+                rocketInfo.draw();
+            }
+        }
     }
     function handleTouch() {
     }
     function installListeners() {
-        let codeBtn = document.querySelector("#gameCode");
+        codeBtn = document.querySelector("#gameCode");
         codeBtn.addEventListener("pointerup", createRandomCode);
-        let galaxyContainer = document.querySelector("#galaxy");
+        galaxyContainer = document.querySelector("#galaxy");
         galaxyContainer.addEventListener("pointerup", createGalaxy);
-        let choice = document.querySelector("#choice");
+        choice = document.querySelector("#choice");
         choice.addEventListener("pointerup", choosePlayerRoles);
-        let getCode = document.querySelector("#getCode");
+        getCode = document.querySelector("#getCode");
         getCode.style.display = "block";
     }
     function createRandomCode() {
-        let btn = document.querySelector("#gameCode");
-        if (btn.disabled == false) {
+        if (codeBtn.disabled == false) {
             for (let i = 0; i < 6; i++) {
                 let random = Math.floor(Math.random() * 8) + 1;
                 code += random.toString();
             }
-            let container = document.querySelector(".code-container");
-            container.innerHTML += code + "";
-            nextContainer = document.querySelector("#galaxy");
-            nextContainer.style.display = "block";
-            btn.disabled = true;
+            containerCode = document.querySelector(".code-container");
+            containerCode.innerHTML += code + "";
+            choice.style.display = "block";
+            codeBtn.disabled = true;
         }
     }
     function createGalaxy(_event) {
@@ -79,25 +96,23 @@ var prototype04;
         let target = _event.target;
         if (target.classList.contains("red-galaxy")) {
             galaxy = "red";
-            nextContainer.style.display = "none";
+            galaxyContainer.style.display = "none";
             theGalaxy = new prototype04.Galaxy(galaxy);
         }
         else if (target.classList.contains("blue-galaxy")) {
             galaxy = "blue";
-            nextContainer.style.display = "none";
+            galaxyContainer.style.display = "none";
             theGalaxy = new prototype04.Galaxy(galaxy);
         }
         else if (target.classList.contains("green-galaxy")) {
             galaxy = "green";
-            nextContainer.style.display = "none";
+            galaxyContainer.style.display = "none";
             theGalaxy = new prototype04.Galaxy(galaxy);
         }
-        let gameCode = document.querySelector("#getCode");
-        gameCode.style.display = "none";
-        let gameContainer = document.querySelector("#game");
+        getCode.style.display = "none";
+        gameContainer = document.querySelector("#game");
         gameContainer.style.display = "block";
-        intervalPlanet = window.setInterval(update, 40);
-        intervalCreate = window.setInterval(newPlanet, 2500);
+        startGame();
     }
     function update() {
         prototype04.ctxBackground.clearRect(0, 0, canvasBackground.width, canvasBackground.height);
@@ -143,22 +158,43 @@ var prototype04;
         let size = new prototype04.Vector(randomSize, randomSize);
         let planet = new prototype04.Planet(xPos, -50, img, size);
         theGalaxy.planets.push(planet);
-        console.log(theGalaxy.planets);
     }
-    function choosePlayerRoles() {
+    function choosePlayerRoles(_event) {
+        let target = _event.target;
+        if (target.classList.contains("playerOne")) {
+            player = "playerOne";
+            choice.style.display = "none";
+            galaxyContainer = document.querySelector("#galaxy");
+            galaxyContainer.style.display = "block";
+        }
+        else if (target.classList.contains("playerTwo")) {
+            player = "playerTwo";
+            choice.style.display = "none";
+            galaxyContainer = document.querySelector("#galaxy");
+            galaxyContainer.style.display = "block";
+        }
     }
     function startGame() {
         window.addEventListener("deviceorientation", handleMove);
         window.addEventListener("pointerup", handleTouch);
+        intervalPlanet = window.setInterval(update, 40);
+        intervalCreate = window.setInterval(newPlanet, 2500);
+        launchRocket();
+        createCanon();
     }
     function updateCounter() {
     }
     function launchRocket() {
+        let rocketImg = document.querySelector("#rocketNormal");
+        let rocketDamageOne = document.querySelector("#rocketDamageOne");
+        let rocketDamageTwo = document.querySelector("#rocketDamageTwo");
+        let startX = (prototype04.width / 2) - 25;
+        let startY = prototype04.height / 2 + 60;
+        rocketInfo = new prototype04.Rocket(startX, startY, rocketImg, rocketDamageOne, rocketDamageTwo);
     }
     function createCanon() {
     }
     function getRandom(_min, _max) {
-        console.log("get random");
         let delta = _max - _min;
         let random = Math.random();
         let multiplied = random * delta;
