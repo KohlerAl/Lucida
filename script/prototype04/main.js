@@ -117,7 +117,6 @@ var prototype04;
     function update() {
         prototype04.ctxBackground.clearRect(0, 0, canvasBackground.width, canvasBackground.height);
         prototype04.ctxBarrel.clearRect(0, 0, canvasBarrel.width, canvasBarrel.height);
-        prototype04.ctxRocket.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
         for (let planets of theGalaxy.planets) {
             planets.move(2);
             if (planets.position.y > canvasBackground.height + 100) {

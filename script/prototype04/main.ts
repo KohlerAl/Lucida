@@ -158,7 +158,6 @@ namespace prototype04 {
     function update(): void {
         ctxBackground.clearRect(0, 0, canvasBackground.width, canvasBackground.height);
         ctxBarrel.clearRect(0, 0, canvasBarrel.width, canvasBarrel.height);
-        ctxRocket.clearRect(0, 0, canvasRocket.width, canvasRocket.height);
         for (let planets of theGalaxy.planets) {
             planets.move(2);
             if (planets.position.y > canvasBackground.height + 100) {

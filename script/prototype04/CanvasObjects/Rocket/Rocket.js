@@ -7,17 +7,18 @@ var prototype04;
             this.imageStageTwo = _imageStageTwo;
             this.imageStageThree = _imageStageThree;
             this.damageStatus = 0;
+            this.size = new prototype04.Vector(50, 100);
         }
         draw() {
             switch (this.damageStatus) {
                 case (0):
-                    prototype04.ctxRocket.drawImage(this.image, this.position.x, this.position.y);
+                    prototype04.ctxRocket.drawImage(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
                     break;
                 case (1):
-                    prototype04.ctxRocket.drawImage(this.imageStageTwo, this.position.x, this.position.y);
+                    prototype04.ctxRocket.drawImage(this.imageStageTwo, this.position.x, this.position.y, this.size.x, this.size.y);
                     break;
                 case (2):
-                    prototype04.ctxRocket.drawImage(this.imageStageThree, this.position.x, this.position.y);
+                    prototype04.ctxRocket.drawImage(this.imageStageThree, this.position.x, this.position.y, this.size.x, this.size.y);
                     break;
             }
         }
