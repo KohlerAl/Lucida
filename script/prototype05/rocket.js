@@ -12,11 +12,11 @@ var prototype05;
             this.newPos = this.startPosX;
         }
         move(_add) {
-            this.newPos = _add;
+            this.newPos = this.startPosX + (_add * 2);
         }
         drawRocket() {
             prototype05.ctxR.clearRect(0, 0, prototype05.canvasRocket.width, prototype05.canvasRocket.height + 150);
-            prototype05.ctxR.drawImage(this.image, this.newPos, this.startPosY, 50, 100);
+            prototype05.ctxR.drawImage(this.image, this.newPos, this.startPosY, this.sizeX, this.sizeY);
         }
     }
     prototype05.Rocket = Rocket;

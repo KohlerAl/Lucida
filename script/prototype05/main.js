@@ -73,10 +73,11 @@ var prototype05;
         //Check if the value we need is there
         if (_event.gamma) {
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
-            let newPos = rocket.startPosX + (_event.gamma * 2);
+            /* let newPos: number = rocket.startPosX + (_event.gamma * 2);
             //And then the box is drawn
             rocket.move(newPos);
-            rocket.drawRocket();
+            rocket.drawRocket();  */
+            rocket.move(_event.gamma);
         }
     }
     function createPlanet() {

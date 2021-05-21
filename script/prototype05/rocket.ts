@@ -18,12 +18,12 @@ namespace prototype05 {
         }
 
         public move(_add: number): void {
-            this.newPos = _add; 
+            this.newPos = this.startPosX + (_add * 2); 
         }
 
         public drawRocket(): void {
             ctxR.clearRect(0, 0, canvasRocket.width, canvasRocket.height + 150);
-            ctxR.drawImage(this.image, this.newPos, this.startPosY, 50, 100);
+            ctxR.drawImage(this.image, this.newPos, this.startPosY, this.sizeX, this.sizeY);
         }
     }
 }
