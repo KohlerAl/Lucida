@@ -14,7 +14,6 @@ var prototype05;
     //To be able to access all Planets, they are pushed into an array
     prototype05.allPlanets = [];
     let rocket;
-    let box;
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
@@ -50,8 +49,7 @@ var prototype05;
         getAllImg();
         //To create an Animation, we have to keep upadting the canvas
         update();
-        box = document.querySelector("#box");
-        box.innerHTML = "Canvas Width: " + width + " Canvas Height: " + prototype05.height + "<br>" + "Rocket X: " + startPos + " Rocket Y: " + startY;
+        prototype05.box = document.querySelector("#box");
     }
     function getAllImg() {
         //All Images with the class planet are selected and pushed into the prepared Array

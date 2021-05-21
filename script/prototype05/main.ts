@@ -20,7 +20,7 @@ namespace prototype05 {
 
     let rocket: Rocket; 
 
-    let box: HTMLDivElement; 
+    export let box: HTMLDivElement; 
 
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
@@ -70,7 +70,6 @@ namespace prototype05 {
         update(); 
 
         box = <HTMLDivElement>document.querySelector("#box"); 
-        box.innerHTML = "Canvas Width: " + width + " Canvas Height: " + height + "<br>" + "Rocket X: " + startPos + " Rocket Y: " + startY;
     }
 
     function getAllImg(): void {

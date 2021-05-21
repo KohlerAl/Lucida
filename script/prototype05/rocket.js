@@ -13,6 +13,7 @@ var prototype05;
         }
         move(_add) {
             this.newPos = this.startPosX + _add;
+            prototype05.box.innerHTML += "NewPos: " + this.newPos + "  startPos: " + this.startPosX + " _add: " + _add;
         }
         drawRocket() {
             prototype05.ctxR.clearRect(0, 0, prototype05.canvasRocket.width, prototype05.canvasRocket.height + 150);
