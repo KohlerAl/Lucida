@@ -54,6 +54,7 @@ var prototype06;
     }
     function update() {
         barrel.draw();
+        prototype06.ctxPoint.clearRect(0, 0, prototype06.canvasPoint.width, prototype06.canvasPoint.height + 150);
         for (let ball of allBalls) {
             ball.move();
             ball.draw();

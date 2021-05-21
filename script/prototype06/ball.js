@@ -24,7 +24,6 @@ var prototype06;
             this.positionY += this.velocityY;
         }
         draw() {
-            //ctxPoint.clearRect(0, 0, canvasPoint.width, canvasPoint.height + 150);
             prototype06.ctxPoint.save();
             prototype06.ctxPoint.beginPath();
             prototype06.ctxPoint.strokeStyle = "red";

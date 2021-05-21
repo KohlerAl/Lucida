@@ -80,6 +80,7 @@ namespace prototype06 {
 
     function update(): void {
         barrel.draw(); 
+        ctxPoint.clearRect(0, 0, canvasPoint.width, canvasPoint.height + 150);
         for (let ball of allBalls) {
             ball.move(); 
             ball.draw(); 
