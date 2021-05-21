@@ -95,7 +95,6 @@ namespace prototype06 {
 
         let ball: Ball = new Ball(endX, endY); 
         ball.getElevation(_event.clientX, _event.clientY); 
-        div.innerHTML += "X: " + x + "\n" + "Y: " + y + "\n";
         allBalls.push(ball); 
     }
 }

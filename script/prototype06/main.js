@@ -67,7 +67,6 @@ var prototype06;
         let endY = startY + y;
         let ball = new prototype06.Ball(endX, endY);
         ball.getElevation(_event.clientX, _event.clientY);
-        prototype06.div.innerHTML += "X: " + x + "\n" + "Y: " + y + "\n";
         allBalls.push(ball);
     }
 })(prototype06 || (prototype06 = {}));
