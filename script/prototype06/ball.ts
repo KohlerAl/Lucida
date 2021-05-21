@@ -35,7 +35,7 @@ namespace prototype06 {
         }
 
         public draw(): void {
-            //ctxPoint.clearRect(0, 0, canvasPoint.width, canvasPoint.height + 150);
+            ctxPoint.clearRect(0, 0, canvasPoint.width, canvasPoint.height + 150);
             ctxPoint.save();
             ctxPoint.beginPath();
             ctxPoint.strokeStyle = "red";
