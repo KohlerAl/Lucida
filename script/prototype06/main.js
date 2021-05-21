@@ -50,6 +50,7 @@ var prototype06;
         }
     }
     function update() {
+        barrel.draw();
         for (let ball of allBalls) {
             ball.move();
             ball.draw();
