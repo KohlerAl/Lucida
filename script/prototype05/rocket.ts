@@ -23,7 +23,7 @@ namespace prototype05 {
 
         public drawRocket(): void {
             ctxR.clearRect(0, 0, canvasRocket.width, canvasRocket.height + 150);
-            ctxR.drawImage(this.image, this.newPos, this.sizeY, this.sizeX, this.sizeY);
+            ctxR.drawImage(this.image, this.newPos, this.startPosY, 50, 100);
         }
     }
 }

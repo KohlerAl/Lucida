@@ -70,7 +70,7 @@ namespace prototype05 {
         update(); 
 
         box = <HTMLDivElement>document.querySelector("#box"); 
-        box.innerHTML = "Canvas Width: " + width + " Canvas Height: " + height + "<br>" + "Rocket X: " + startPos + " Rocket Y: " + startY; 
+        box.innerHTML = "Canvas Width: " + width + " Canvas Height: " + height + "<br>" + "Rocket X: " + startPos + " Rocket Y: " + startY;
     }
 
     function getAllImg(): void {
