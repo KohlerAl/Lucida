@@ -12,7 +12,7 @@ var prototype05;
             this.newPos = this.startPosX;
         }
         move(_add) {
-            this.newPos = this.startPosX + _add;
+            this.newPos = _add;
             prototype05.box.innerHTML += "NewPos: " + this.newPos + "  startPos: " + this.startPosX + " _add: " + _add;
         }
         drawRocket() {

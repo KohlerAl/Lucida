@@ -18,7 +18,7 @@ namespace prototype05 {
         }
 
         public move(_add: number): void {
-            this.newPos = this.startPosX + _add; 
+            this.newPos = _add; 
             box.innerHTML += "NewPos: " + this.newPos + "  startPos: " + this.startPosX + " _add: " + _add;  
         }
 
