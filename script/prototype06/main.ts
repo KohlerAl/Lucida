@@ -77,7 +77,6 @@ namespace prototype06 {
     }
 
     function update(): void {
-        barrel.draw(); 
         for (let ball of allBalls) {
             ball.move(); 
             ball.draw(); 
