@@ -40,6 +40,7 @@ var prototype07;
                 if (planet.didDamage == false) {
                     if (this.newPos <= maxX && minX <= (this.newPos + this.sizeX) && this.startPosY <= maxY && minY <= (this.startPosY + this.sizeY)) {
                         console.log("rocket hit");
+                        this.damageUpdate();
                         planet.didDamage = true;
                     }
                 }
