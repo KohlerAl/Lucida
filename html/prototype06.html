@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype 06</title>
+
+    <script src="..\shared/DeviceMotionAndOrientationManager.js"></script>
+    <script src="..\shared/StartScreen.js"></script>
+    <script src="..\script/prototype06/barrel.js"></script>
+    <script src="..\script/prototype06/ball.js"></script>
+    <script src="..\script/prototype06/main.js"></script>
+
+    <link rel="stylesheet" href="..\shared/start-screen.css">
+</head>
+<style>
+    body {
+        overflow: hidden;
+    }
+    canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    #box {
+        position: absolute; 
+        z-index: 3;
+        left: 0;
+        top: 0;
+    }
+</style>
+
+<body>
+    <div id="box"></div>
+    <canvas id="barrel"></canvas>
+    <canvas id="point"></canvas>
+    <canvas id="background"></canvas>
+    <!-- <div id="start-screen">
+        <h1>Not Rocket Science</h1>
+        <p></p>
+    </div> -->
+
+
+</body>
+
+</html>

@@ -87,7 +87,6 @@ var prototype03;
         let _startY = prototype03.height / 2 + 60;
         let rocket = document.querySelector(".rocket");
         ctxR.drawImage(rocket, _startX, _startY, 50, 100);
-        console.log(_startX, _startY);
     }
     function createPlanet() {
         let numbr = Math.floor(Math.random() * lanes.length);

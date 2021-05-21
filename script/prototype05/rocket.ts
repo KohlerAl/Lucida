@@ -11,7 +11,6 @@ namespace prototype05 {
         constructor (_startPosX: number, _startPosY: number, _image: HTMLImageElement) {
             this.startPosX = _startPosX; 
             this.startPosY = _startPosY; 
-            console.log(_startPosX, _startPosY); 
             this.image = _image; 
 
             this.newPos = this.startPosX; 
