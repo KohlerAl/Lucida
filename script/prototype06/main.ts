@@ -1,7 +1,4 @@
 namespace prototype06 {
-    let canvasBG: HTMLCanvasElement;
-    let ctxBG: CanvasRenderingContext2D;
-
     export let canvasBarrel: HTMLCanvasElement;
     export let ctxBarrel: CanvasRenderingContext2D;
 
@@ -34,14 +31,12 @@ namespace prototype06 {
         startScreen.start(); */
 
         //The canvas and the rendering divs and assigning the values to the prepared variables
-        canvasBG = <HTMLCanvasElement>document.querySelector("#background");
-        ctxBG = <CanvasRenderingContext2D>canvasBG.getContext("2d");
 
         canvasBarrel = <HTMLCanvasElement>document.querySelector("#barrel");
-        ctxBarrel = <CanvasRenderingContext2D>canvasBG.getContext("2d");
+        ctxBarrel = <CanvasRenderingContext2D>canvasBarrel.getContext("2d");
 
         canvasPoint = <HTMLCanvasElement>document.querySelector("#point");
-        ctxPoint = <CanvasRenderingContext2D>canvasBG.getContext("2d");
+        ctxPoint = <CanvasRenderingContext2D>canvasBarrel.getContext("2d");
 
         //To get the correct size of the screen, we select the html-Element and get its width and height
         let html: HTMLElement = <HTMLElement>document.querySelector("html");
@@ -49,8 +44,6 @@ namespace prototype06 {
         height = html.clientHeight;
 
         //To make the canvas as big as the screen, the width and height of the html are applied to it
-        canvasBG.setAttribute("width", width + "px");
-        canvasBG.setAttribute("height", height + "px");
 
         canvasBarrel.setAttribute("width", width + "px");
         canvasBarrel.setAttribute("height", height + "px");
@@ -68,7 +61,6 @@ namespace prototype06 {
 
         div = <HTMLDivElement>document.querySelector("#box");
         //Then the box is drawn
-        drawCanon(startPos, startPosY);
         window.setInterval(update, 40); 
     }
 
@@ -81,33 +73,11 @@ namespace prototype06 {
             barrel.move(_event.gamma); 
             barrel.draw(); 
 
-            drawCanon(startPos, startPosY);
         }
-    }
-
-    function drawCanon(_startX: number, _startY: number): void {
-        ctxBG.clearRect(0, 0, canvasBG.width, canvasBG.height + 150);
-        ctxBG.beginPath();
-        ctxBG.strokeStyle = "darkgrey";
-        ctxBG.fillStyle = "lightgrey";
-        ctxBG.lineWidth = 10;
-        ctxBG.arc(_startX, _startY, 50, 0, 1 * Math.PI, true);
-        ctxBG.stroke();
-        ctxBG.fill();
-        ctxBG.closePath();
-
-        ctxBG.beginPath();
-        ctxBG.strokeStyle = "darkgrey";
-        ctxBG.fillStyle = "grey";
-        ctxBG.rect(_startX - 100, _startY, 200, 50);
-        ctxBG.fill();
-        ctxBG.stroke();
-        ctxBG.closePath();
     }
 
     function update(): void {
         barrel.draw(); 
-        drawCanon(startPos, startPosY); 
         for (let ball of allBalls) {
             ball.move(); 
             ball.draw(); 
