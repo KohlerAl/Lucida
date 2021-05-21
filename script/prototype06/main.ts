@@ -71,7 +71,7 @@ namespace prototype06 {
 
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             barrel.move(_event.gamma); 
-            update();
+            barrel.draw(); 
 
         }
     }

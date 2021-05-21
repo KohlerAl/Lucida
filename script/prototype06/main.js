@@ -46,7 +46,7 @@ var prototype06;
             //To remove the old rectangle, a white rectangle is drawn covering the whole canvas
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             barrel.move(_event.gamma);
-            update();
+            barrel.draw();
         }
     }
     function update() {
