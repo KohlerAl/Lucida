@@ -7,6 +7,7 @@ var prototype05;
             this.sizeY = 100;
             this.startPosX = _startPosX;
             this.startPosY = _startPosY;
+            console.log(_startPosX, _startPosY);
             this.image = _image;
             this.newPos = this.startPosX;
         }

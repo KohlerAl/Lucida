@@ -20,6 +20,8 @@ namespace prototype05 {
 
     let rocket: Rocket; 
 
+    let box: HTMLDivElement; 
+
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
@@ -66,6 +68,9 @@ namespace prototype05 {
 
         //To create an Animation, we have to keep upadting the canvas
         update(); 
+
+        box = <HTMLDivElement>document.querySelector("#box"); 
+        box.innerHTML = "Canvas Width: " + width + " Canvas Height: " + height + "<br>" + "Rocket X: " + startPos + " Rocket Y: " + startY; 
     }
 
     function getAllImg(): void {

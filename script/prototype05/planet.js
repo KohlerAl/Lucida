@@ -6,7 +6,6 @@ var prototype05;
             this.posX = _x;
             this.posY = _y;
             this.image = _image;
-            console.log(this.image);
             if (_size) {
                 this.size = _size;
             }
