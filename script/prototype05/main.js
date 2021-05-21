@@ -78,6 +78,7 @@ var prototype05;
             rocket.move(newPos);
             rocket.drawRocket();  */
             rocket.move(_event.gamma);
+            rocket.drawRocket();
         }
     }
     function createPlanet() {

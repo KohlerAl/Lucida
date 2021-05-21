@@ -103,6 +103,7 @@ namespace prototype05 {
             rocket.drawRocket();  */
 
             rocket.move(_event.gamma);
+            rocket.drawRocket(); 
         }
     }
 
