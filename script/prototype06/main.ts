@@ -73,9 +73,6 @@ namespace prototype06 {
             barrel.move(_event.gamma); 
             barrel.draw(); 
         }
-        for (let ball of allBalls) {
-            ball.draw(); 
-        }
     }
 
     function update(): void {
