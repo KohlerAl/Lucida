@@ -12,7 +12,6 @@ namespace prototype06 {
     let startPos: number;
     let startPosY: number;
 
-    let gamma: number = -90;
     export let div: HTMLDivElement;
 
     let barrel: Barrel; 
@@ -90,12 +89,13 @@ namespace prototype06 {
         let distance: number = 100;
         let x: number = distance * (Math.cos(barrel.rotation * Math.PI / 180));
         let y: number = distance * (Math.sin(barrel.rotation * Math.PI / 180));
+        console.log(x, y); 
         let endX: number = startX + x;
         let endY: number = startY + y;
 
         let ball: Ball = new Ball(endX, endY); 
         ball.getElevation(_event.clientX, _event.clientY); 
-        div.innerHTML += "X: " + _event.clientX + "\n" + "Y: " + _event.clientY + "\n";
+        div.innerHTML += "X: " + x + "\n" + "Y: " + y + "\n";
         allBalls.push(ball); 
     }
 }

@@ -3,7 +3,6 @@ var prototype06;
 (function (prototype06) {
     let startPos;
     let startPosY;
-    let gamma = -90;
     let barrel;
     let allBalls = [];
     window.addEventListener("load", handleLoad);
@@ -63,11 +62,12 @@ var prototype06;
         let distance = 100;
         let x = distance * (Math.cos(barrel.rotation * Math.PI / 180));
         let y = distance * (Math.sin(barrel.rotation * Math.PI / 180));
+        console.log(x, y);
         let endX = startX + x;
         let endY = startY + y;
         let ball = new prototype06.Ball(endX, endY);
         ball.getElevation(_event.clientX, _event.clientY);
-        prototype06.div.innerHTML += "X: " + _event.clientX + "\n" + "Y: " + _event.clientY + "\n";
+        prototype06.div.innerHTML += "X: " + x + "\n" + "Y: " + y + "\n";
         allBalls.push(ball);
     }
 })(prototype06 || (prototype06 = {}));
