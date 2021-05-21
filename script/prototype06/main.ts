@@ -36,7 +36,7 @@ namespace prototype06 {
         ctxBarrel = <CanvasRenderingContext2D>canvasBarrel.getContext("2d");
 
         canvasPoint = <HTMLCanvasElement>document.querySelector("#point");
-        ctxPoint = <CanvasRenderingContext2D>canvasBarrel.getContext("2d");
+        ctxPoint = <CanvasRenderingContext2D>canvasPoint.getContext("2d");
 
         //To get the correct size of the screen, we select the html-Element and get its width and height
         let html: HTMLElement = <HTMLElement>document.querySelector("html");
@@ -72,7 +72,9 @@ namespace prototype06 {
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             barrel.move(_event.gamma); 
             barrel.draw(); 
-
+        }
+        for (let ball of allBalls) {
+            ball.draw(); 
         }
     }
 

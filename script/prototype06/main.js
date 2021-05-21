@@ -20,7 +20,7 @@ var prototype06;
         prototype06.canvasBarrel = document.querySelector("#barrel");
         prototype06.ctxBarrel = prototype06.canvasBarrel.getContext("2d");
         prototype06.canvasPoint = document.querySelector("#point");
-        prototype06.ctxPoint = prototype06.canvasBarrel.getContext("2d");
+        prototype06.ctxPoint = prototype06.canvasPoint.getContext("2d");
         //To get the correct size of the screen, we select the html-Element and get its width and height
         let html = document.querySelector("html");
         prototype06.width = html.clientWidth;
@@ -47,6 +47,9 @@ var prototype06;
             //The new position (= movement of device on the y-Axis) is added to the startPosition (middle Position)
             barrel.move(_event.gamma);
             barrel.draw();
+        }
+        for (let ball of allBalls) {
+            ball.draw();
         }
     }
     function update() {
