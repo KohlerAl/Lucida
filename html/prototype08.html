@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype 08</title>
+
+    <script src="..\shared/DeviceMotionAndOrientationManager.js"></script>
+    <script src="..\shared/StartScreen.js"></script>
+    <script src="..\globals/Vector.js"></script>
+    <script src="..\script/prototype08/rocket.js"></script>
+    <script src="..\script/prototype08/planet.js"></script>
+    <script src="..\script/prototype08/ufo.js"></script>
+    <script src="..\script/prototype08/main.js"></script>
+    
+    <link rel="stylesheet" href="..\css/prototype08.css">
+    <link rel="stylesheet" href="..\shared/start-screen.css">
+</head>
+<body>
+    <div id="box"></div>
+    <div id="background"></div>
+    <canvas id="rocket"></canvas>
+    <canvas id="planet"></canvas>
+    <canvas id="point"></canvas>
+    <div id="start-screen">
+        <h1>Not Rocket Science</h1>
+        <p></p>
+    </div>
+    <div id="images">
+        <img class="planet" src="..\img/Planet_Pink.png">
+        <img class="planet" src="..\img/Planet_Orange.png">
+    </div>
+    <img class="rocket" id="normal" src="..\img/rocket.png">
+    <img class="rocket" id="damageOne" src="..\img/rocket_damage_one.png">
+    <img class="rocket" id="damageTwo" src="..\img/rocket_damage_two.png">
+    <img class="ufo" src="..\img/ufo.png">
+</body>
+</html>
