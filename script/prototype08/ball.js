@@ -6,6 +6,7 @@ var prototype08;
             this.distance = 0;
             this.angle = 0;
             this.speed = 2;
+            this.didDamage = false;
             this.positionX = _positionX;
             this.positionY = _positionY;
         }

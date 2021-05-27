@@ -13,7 +13,7 @@ namespace prototype08 {
     //The canvas will be divided in three "lanes". This is where the planets will be
     //The middle lane has a lower chance of being picked
     //When a new planet is created, a random lane is picked
-    let lanes: string[] = ["right", "right", "left", "left", "middle", "middle", "middle"];
+    let lanes: string[] = ["right", "right", "left", "left", "middle", "middle"];
 
     //All images for the planets are pushed into an array. We need those to draw them onto the canvas
     let allImg: HTMLImageElement[] = [];
@@ -21,8 +21,9 @@ namespace prototype08 {
     //To be able to access all Planets, they are pushed into an array
     export let allPlanets: Planet[] = [];
     export let allUFOs: UFO[] = [];
+    export let ufoLaserpoints: Ball[] = []; 
 
-    let rocket: Rocket;
+    export let rocket: Rocket;
 
     export let box: HTMLDivElement;
 
@@ -94,19 +95,29 @@ namespace prototype08 {
 
     function update(): void {
         //Every two to five seconds a new planet is drawn 
-        let random: number = getRandom(1000, 3500);
+        let random: number = getRandom(2000, 5000);
         window.setInterval(function (): void {
             createMoveable("planet");
             random = getRandom(1000, 3500);
         },                 random);
 
-        let randomUFO: number = getRandom(2000, 5000);
+        let randomUFO: number = getRandom(4000, 5000);
         window.setInterval(function(): void {
             createMoveable("ufo"); 
-            randomUFO = getRandom(5000, 8000); 
+            randomUFO = getRandom(1000, 2000); 
         },                 randomUFO); 
         //Every 40ms the image is updated 
         window.setInterval(movePlanets, 40);
+
+        let randomLaserpoint: number = getRandom(10000, 12000); 
+        let ufoShoots: number = Math.floor(Math.random() * allUFOs.length); 
+
+        window.setInterval( function(): void {
+            console.log(allUFOs.length, ufoShoots); 
+            allUFOs[ufoShoots].shoot(); 
+            randomLaserpoint = getRandom(10000, 12000); 
+        },                  randomLaserpoint); 
+
     }
 
     //Function called when the mobile device is moving
@@ -185,5 +196,11 @@ namespace prototype08 {
         }
 
         rocket.checkCollision();
+
+        ctxB.clearRect(0, 0, canvasBall.width, canvasBall.height); 
+        for (let ball of ufoLaserpoints) {
+            ball.move(); 
+            ball.draw(); 
+        }
     }
 }

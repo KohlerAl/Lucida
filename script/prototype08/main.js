@@ -9,14 +9,14 @@ var prototype08;
     //The canvas will be divided in three "lanes". This is where the planets will be
     //The middle lane has a lower chance of being picked
     //When a new planet is created, a random lane is picked
-    let lanes = ["right", "right", "left", "left", "middle", "middle", "middle"];
+    let lanes = ["right", "right", "left", "left", "middle", "middle"];
     //All images for the planets are pushed into an array. We need those to draw them onto the canvas
     let allImg = [];
     let allUFOImg;
     //To be able to access all Planets, they are pushed into an array
     prototype08.allPlanets = [];
     prototype08.allUFOs = [];
-    let rocket;
+    prototype08.ufoLaserpoints = [];
     // Installing a load- and a deviceorientation-Listener on window
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
@@ -51,10 +51,10 @@ var prototype08;
         let img = document.querySelector("#normal");
         let img2 = document.querySelector("#damageOne");
         let img3 = document.querySelector("#damageTwo");
-        rocket = new prototype08.Rocket(startPos, startY, img, img2, img3);
+        prototype08.rocket = new prototype08.Rocket(startPos, startY, img, img2, img3);
         allUFOImg = document.querySelector(".ufo");
         //The rocket is drawn
-        rocket.drawRocket();
+        prototype08.rocket.drawRocket();
         //We can now acces all the images. We need to select them first
         getAllImg();
         //To create an Animation, we have to keep upadting the canvas
@@ -70,25 +70,32 @@ var prototype08;
     }
     function update() {
         //Every two to five seconds a new planet is drawn 
-        let random = getRandom(1000, 3500);
+        let random = getRandom(2000, 5000);
         window.setInterval(function () {
             createMoveable("planet");
             random = getRandom(1000, 3500);
         }, random);
-        let randomUFO = getRandom(2000, 5000);
+        let randomUFO = getRandom(4000, 5000);
         window.setInterval(function () {
             createMoveable("ufo");
-            randomUFO = getRandom(5000, 8000);
+            randomUFO = getRandom(1000, 2000);
         }, randomUFO);
         //Every 40ms the image is updated 
         window.setInterval(movePlanets, 40);
+        let randomLaserpoint = getRandom(10000, 12000);
+        let ufoShoots = Math.floor(Math.random() * prototype08.allUFOs.length);
+        window.setInterval(function () {
+            console.log(prototype08.allUFOs.length, ufoShoots);
+            prototype08.allUFOs[ufoShoots].shoot();
+            randomLaserpoint = getRandom(10000, 12000);
+        }, randomLaserpoint);
     }
     //Function called when the mobile device is moving
     function handleMove(_event) {
         //Check if the value we need is there
         if (_event.gamma) {
-            rocket.move(_event.gamma);
-            rocket.drawRocket();
+            prototype08.rocket.move(_event.gamma);
+            prototype08.rocket.drawRocket();
         }
     }
     function createMoveable(_instance) {
@@ -146,7 +153,12 @@ var prototype08;
             ufo.move(2);
             ufo.draw(ctxP);
         }
-        rocket.checkCollision();
+        prototype08.rocket.checkCollision();
+        prototype08.ctxB.clearRect(0, 0, canvasBall.width, canvasBall.height);
+        for (let ball of prototype08.ufoLaserpoints) {
+            ball.move();
+            ball.draw();
+        }
     }
 })(prototype08 || (prototype08 = {}));
 //# sourceMappingURL=main.js.map

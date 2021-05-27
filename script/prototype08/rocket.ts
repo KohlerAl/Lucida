@@ -61,6 +61,39 @@ namespace prototype08 {
                     if (this.newPos <= maxX && minX <= (this.newPos + this.sizeX) && this.startPosY <= maxY && minY <= (this.startPosY + this.sizeY)) {
                         this.damageUpdate();
                         planet.didDamage = true;
+                        console.log("Planet did damage"); 
+                    }
+                }
+            }
+
+            for (let ufo of allUFOs) {
+                let minX: number = ufo.positionX;
+                let maxX: number = ufo.positionX + ufo.sizeX;
+
+                let minY: number = ufo.positionY;
+                let maxY: number = ufo.positionY + ufo.sizeY;
+
+                if (ufo.didDamage == false) {
+                    if (this.newPos <= maxX && minX <= (this.newPos + this.sizeX) && this.startPosY <= maxY && minY <= (this.startPosY + this.sizeY)) {
+                        this.damageUpdate();
+                        ufo.didDamage = true;
+                        console.log("UFO did damage"); 
+                    }
+                }
+            }
+
+            for (let ball of ufoLaserpoints) {
+                let minX: number = ball.positionX;
+                let maxX: number = ball.positionX + 10;
+
+                let minY: number = ball.positionY;
+                let maxY: number = ball.positionY + 10;
+
+                if (ball.didDamage == false) {
+                    if (this.newPos <= maxX && minX <= (this.newPos + this.sizeX) && this.startPosY <= maxY && minY <= (this.startPosY + this.sizeY)) {
+                        this.damageUpdate();
+                        console.log("Ball did damage"); 
+                        ball.didDamage = true;
                     }
                 }
             }

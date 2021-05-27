@@ -9,6 +9,8 @@ namespace prototype08 {
         damage: number = 0;
         image: HTMLImageElement;
 
+        didDamage: boolean; 
+
         constructor(_x: number, _y: number, _sizeX: number, _sizeY: number, _image: HTMLImageElement) {
             this.positionX = _x;
             this.positionY = _y;
@@ -17,10 +19,15 @@ namespace prototype08 {
             this.sizeY = _sizeY;
 
             this.image = _image;
+
+            this.didDamage = false; 
         }
 
         shoot(): void {
             //Pew pew
+            let ball: Ball = new Ball(this.positionX, this.positionY); 
+            ball.getElevation(rocket.newPos, rocket.startPosY); 
+            ufoLaserpoints.push(ball); 
         }
 
         draw(_ctx: CanvasRenderingContext2D): void {

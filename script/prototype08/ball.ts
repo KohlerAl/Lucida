@@ -10,6 +10,8 @@ namespace prototype08 {
         velocityX: number;
         velocityY: number;
 
+        didDamage: boolean = false; 
+
         constructor(_positionX: number, _positionY: number) {
             this.positionX = _positionX;
             this.positionY = _positionY;
