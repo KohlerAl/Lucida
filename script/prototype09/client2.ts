@@ -7,7 +7,5 @@ namespace prototype09 {
 
     function handleMessage(_event: any): void {
         console.log(_event.data); 
-        undoCanvas(); 
-        drawRectangle(Number(_event.data)); 
     }
 }
