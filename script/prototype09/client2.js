@@ -6,6 +6,8 @@ var prototype09;
     socket.addEventListener("message", handleMessage);
     function handleMessage(_event) {
         console.log(_event.data);
+        prototype09.undoCanvas();
+        prototype09.drawRectangle(Number(_event.data));
     }
 })(prototype09 || (prototype09 = {}));
 //# sourceMappingURL=client2.js.map
