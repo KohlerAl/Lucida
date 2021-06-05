@@ -1,0 +1,20 @@
+{
+  "name": "not-rocket-science",
+  "version": "0.1.0",
+  "description": "prototype 09 to test websockets",
+  "main": "server.js",
+  "dependencies": {
+    "ws": "^7.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/ws": "^7.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "transpile": "tsc *.ts",
+    "start": "node script/prototype09/server.js"
+  },
+  "author": "Alida",
+  "license": "ISC"
+}
