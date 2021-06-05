@@ -8,9 +8,7 @@ const clientSockets: Set<WebSocket> = new Set();
 
 
 
-server.addEventListener("connection", handleConnect); 
-
-function handleConnect(_socket: any): void {
+server.on("connection", (_socket: any) => {
     clientSockets.add(_socket); 
 
     _socket.on("message", (message: string) => {
@@ -22,4 +20,4 @@ function handleConnect(_socket: any): void {
     _socket.on("close", () => {
         clientSockets.delete(_socket); 
     }); 
-}
+}); 
