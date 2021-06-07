@@ -113,7 +113,7 @@ var prototype10_Two;
         ball.draw();
         console.log(x, y, endX, endY);
         prototype10_Two.rocketLaserpoints.push(ball);
-        info.innerHTML += endX + endY + gamma + prototype10_Two.rocket.newPos;
+        info.innerHTML += endX + "   " + endY + "    " + gamma + "    " + prototype10_Two.rocket.newPos;
         console.log("Pew pew");
     }
     function getLane() {
