@@ -21,14 +21,15 @@ var prototype10_Two;
         draw() {
             prototype10_Two.ctxBarrel.clearRect(0, 0, prototype10_Two.canvasBarrel.width, prototype10_Two.canvasBarrel.height + 150);
             prototype10_Two.ctxBarrel.save();
-            prototype10_Two.ctxBarrel.translate(prototype10_Two.rocket.newPos + 30, prototype10_Two.rocket.startPosY - 50);
+            prototype10_Two.ctxBarrel.translate(prototype10_Two.rocket.newPos + 30, prototype10_Two.rocket.startPosY + 50);
             prototype10_Two.ctxBarrel.beginPath();
             prototype10_Two.ctxBarrel.rotate(this.rotation * Math.PI / 180);
             prototype10_Two.ctxBarrel.strokeStyle = "black";
             prototype10_Two.ctxBarrel.lineWidth = 2;
             prototype10_Two.ctxBarrel.fillStyle = "black";
-            prototype10_Two.ctxBarrel.rect(0, 0, 100, 10);
+            prototype10_Two.ctxBarrel.rect(0, 0, -100, 10);
             prototype10_Two.ctxBarrel.stroke();
+            prototype10_Two.ctxBarrel.arc(0, 0, 5, 0, 2 * Math.PI);
             prototype10_Two.ctxBarrel.fill();
             prototype10_Two.ctxBarrel.closePath();
             prototype10_Two.ctxBarrel.restore();
