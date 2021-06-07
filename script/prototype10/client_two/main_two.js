@@ -103,7 +103,7 @@ var prototype10_Two;
         let distance = 100;
         let x = distance * (Math.cos(gamma * Math.PI / 180));
         let y = distance * (Math.sin(gamma * Math.PI / 180));
-        let endX = prototype10_Two.startX + x;
+        let endX = prototype10_Two.rocket.newPos + x;
         let endY = prototype10_Two.startY + y;
         let ball = new prototype10_Two.Ball(endX, endY, rocketBallIndex, "lightgreen");
         rocketBallIndex++;

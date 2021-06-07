@@ -164,7 +164,7 @@ namespace prototype10_Two {
         let distance: number = 100;
         let x: number = distance * (Math.cos(gamma * Math.PI / 180));
         let y: number = distance * (Math.sin(gamma * Math.PI / 180));
-        let endX: number = startX + x;
+        let endX: number = rocket.newPos + x;
         let endY: number = startY + y;
 
         let ball: Ball = new Ball(endX, endY, rocketBallIndex, "lightgreen"); 
