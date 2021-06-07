@@ -59,6 +59,8 @@ var prototype10_One;
                         this.damageUpdate();
                         ufo.didDamage = true;
                         console.log("UFO did damage");
+                        let index = prototype10_One.allUFOs.indexOf(ufo);
+                        prototype10_One.allUFOs.splice(index, 1);
                     }
                 }
             }
@@ -72,6 +74,8 @@ var prototype10_One;
                         this.damageUpdate();
                         console.log("Ball did damage");
                         ball.didDamage = true;
+                        let index = prototype10_One.ufoLaserpoints.indexOf(ball);
+                        prototype10_One.ufoLaserpoints.splice(index, 1);
                     }
                 }
             }

@@ -21,9 +21,16 @@ var prototype10_One;
         draw() {
             prototype10_One.ctxBarrel.clearRect(0, 0, prototype10_One.canvasBarrel.width, prototype10_One.canvasBarrel.height + 150);
             prototype10_One.ctxBarrel.save();
-            prototype10_One.ctxBarrel.translate(this.positionX - 5, this.positionY - 50);
+            prototype10_One.ctxBarrel.translate(prototype10_One.rocket.newPos + 20, prototype10_One.rocket.startPosY + 50);
+            prototype10_One.ctxBarrel.beginPath();
             prototype10_One.ctxBarrel.rotate(this.rotation * Math.PI / 180);
-            prototype10_One.ctxBarrel.drawImage(this.image, this.positionX, this.positionY, 5, 50);
+            prototype10_One.ctxBarrel.strokeStyle = "#88888888";
+            prototype10_One.ctxBarrel.lineWidth = 2;
+            prototype10_One.ctxBarrel.fillStyle = "#88888888";
+            prototype10_One.ctxBarrel.rect(0, 0, 100, 10);
+            prototype10_One.ctxBarrel.stroke();
+            prototype10_One.ctxBarrel.fill();
+            prototype10_One.ctxBarrel.closePath();
             prototype10_One.ctxBarrel.restore();
         }
     }

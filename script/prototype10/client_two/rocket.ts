@@ -78,6 +78,9 @@ namespace prototype10_Two {
                         this.damageUpdate();
                         ufo.didDamage = true;
                         console.log("UFO did damage"); 
+
+                        let index: number = allUFOs.indexOf(ufo); 
+                        allUFOs.splice(index, 1); 
                     }
                 }
             }
@@ -94,6 +97,9 @@ namespace prototype10_Two {
                         this.damageUpdate();
                         console.log("Ball did damage"); 
                         ball.didDamage = true;
+
+                        let index: number = ufoLaserpoints.indexOf(ball); 
+                        ufoLaserpoints.splice(index, 1); 
                     }
                 }
             }

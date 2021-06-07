@@ -1,6 +1,7 @@
 "use strict";
 var prototype10_One;
 (function (prototype10_One) {
+    let gamma = 90;
     prototype10_One.allImg = [];
     prototype10_One.allPlanets = [];
     prototype10_One.allUFOs = [];
@@ -21,6 +22,7 @@ var prototype10_One;
         prototype10_One.rocketImg = document.querySelector("#normal");
         prototype10_One.rocketImgO = document.querySelector("#damageOne");
         prototype10_One.rocketImgT = document.querySelector("#damageTwo");
+        prototype10_One.barrelImg = document.querySelector(".barrel");
         prototype10_One.ufoImg = document.querySelector(".ufo");
         let planetImgs = document.querySelectorAll(".planet");
         for (let i = 0; i < planetImgs.length; i++) {
@@ -49,11 +51,11 @@ var prototype10_One;
         prototype10_One.canvasRocket.setAttribute("height", prototype10_One.height + "px");
         prototype10_One.canvasUfo.setAttribute("width", prototype10_One.width + "px");
         prototype10_One.canvasUfo.setAttribute("height", prototype10_One.height + "px");
-        let startX = (prototype10_One.width / 2) - 25;
-        let startY = (prototype10_One.height / 2) + 60;
-        prototype10_One.rocket = new prototype10_One.Rocket(startX, startY, prototype10_One.rocketImg, prototype10_One.rocketImgO, prototype10_One.rocketImgT);
+        prototype10_One.startX = (prototype10_One.width / 2) - 25;
+        prototype10_One.startY = (prototype10_One.height / 2) + 60;
+        prototype10_One.rocket = new prototype10_One.Rocket(prototype10_One.startX, prototype10_One.startY, prototype10_One.rocketImg, prototype10_One.rocketImgO, prototype10_One.rocketImgT);
         prototype10_One.rocket.drawRocket();
-        prototype10_One.barrel = new prototype10_One.Barrel(startX, startY, 0, prototype10_One.barrelImg);
+        prototype10_One.barrel = new prototype10_One.Barrel(prototype10_One.startX, prototype10_One.startY, 0, prototype10_One.barrelImg);
         prototype10_One.barrel.draw();
         update();
     }
@@ -127,15 +129,21 @@ var prototype10_One;
             planet.move(2);
             planet.draw(prototype10_One.ctxPlanet);
         }
+        prototype10_One.ctxUfo.clearRect(0, 0, prototype10_One.canvasUfo.width, prototype10_One.canvasUfo.height);
         for (let ufo of prototype10_One.allUFOs) {
             ufo.move(2);
             ufo.draw(prototype10_One.ctxUfo);
+            ufo.checkCollision();
         }
         prototype10_One.rocket.checkCollision();
         prototype10_One.ctxPoint.clearRect(0, 0, prototype10_One.canvasPoint.width, prototype10_One.canvasPoint.height);
         for (let ball of prototype10_One.ufoLaserpoints) {
             ball.move();
             ball.draw();
+        }
+        for (let balls of prototype10_One.rocketLaserpoints) {
+            balls.move();
+            balls.draw();
         }
     }
 })(prototype10_One || (prototype10_One = {}));

@@ -16,6 +16,9 @@ namespace prototype10_One {
 
     export let width: number;
     export let height: number;
+    export let startY: number; 
+    export let startX: number; 
+    let gamma: number = 90; 
 
     export let allImg: HTMLImageElement[] = [];
     export let ufoImg: HTMLImageElement;
@@ -52,6 +55,7 @@ namespace prototype10_One {
         rocketImgO = <HTMLImageElement>document.querySelector("#damageOne");
         rocketImgT = <HTMLImageElement>document.querySelector("#damageTwo");
 
+        barrelImg = <HTMLImageElement>document.querySelector(".barrel");
         ufoImg = <HTMLImageElement>document.querySelector(".ufo");
 
         let planetImgs: NodeListOf<HTMLImageElement> = document.querySelectorAll(".planet");
@@ -93,8 +97,8 @@ namespace prototype10_One {
         canvasUfo.setAttribute("width", width + "px");
         canvasUfo.setAttribute("height", height + "px");
 
-        let startX: number = (width / 2) - 25;
-        let startY: number = (height / 2) + 60;
+        startX = (width / 2) - 25;
+        startY = (height / 2) + 60;
 
         rocket = new Rocket(startX, startY, rocketImg, rocketImgO, rocketImgT);
         rocket.drawRocket();
@@ -185,10 +189,12 @@ namespace prototype10_One {
             planet.move(2);
             planet.draw(ctxPlanet);
         }
-
+        
+        ctxUfo.clearRect(0, 0, canvasUfo.width, canvasUfo.height);
         for (let ufo of allUFOs) {
             ufo.move(2);
             ufo.draw(ctxUfo);
+            ufo.checkCollision(); 
         }
 
         rocket.checkCollision();
@@ -197,6 +203,11 @@ namespace prototype10_One {
         for (let ball of ufoLaserpoints) {
             ball.move();
             ball.draw();
+        }
+
+        for (let balls of rocketLaserpoints) {
+            balls.move();
+            balls.draw();
         }
     }
 }

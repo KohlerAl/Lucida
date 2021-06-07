@@ -27,7 +27,7 @@ namespace prototype10_One {
 
         shoot(_directionX?: number, _directionY?: number): void {
             //Pew pew
-            let ball: Ball = new Ball(this.positionX, this.positionY, ufoBallIndex);
+            let ball: Ball = new Ball(this.positionX, this.positionY, ufoBallIndex, "pink");
             if (_directionX && _directionY) {
                 ball.getElevation(_directionX, _directionY); 
             }
@@ -50,6 +50,22 @@ namespace prototype10_One {
                 allUFOs.splice(index, 1);
             }
 
+        }
+
+        checkCollision(): void {
+            for (let ball of rocketLaserpoints) {
+                let minX: number = ball.positionX;
+                let maxX: number = ball.positionX + 5;
+
+                let minY: number = ball.positionY;
+                let maxY: number = ball.positionY + 5;
+
+                if (this.positionX <= maxX && minX <= (this.positionX + this.sizeX) && this.positionY <= maxY && minY <= (this.positionY + this.sizeY)) {
+                    let index: number = allUFOs.indexOf(this); 
+                    allUFOs.splice(index, 1); 
+                }
+
+            }
         }
     }
 }

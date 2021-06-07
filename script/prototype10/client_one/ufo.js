@@ -14,7 +14,7 @@ var prototype10_One;
         }
         shoot(_directionX, _directionY) {
             //Pew pew
-            let ball = new prototype10_One.Ball(this.positionX, this.positionY, prototype10_One.ufoBallIndex);
+            let ball = new prototype10_One.Ball(this.positionX, this.positionY, prototype10_One.ufoBallIndex, "pink");
             if (_directionX && _directionY) {
                 ball.getElevation(_directionX, _directionY);
             }
@@ -31,6 +31,18 @@ var prototype10_One;
             if (this.positionY > prototype10_One.height * 2) {
                 let index = prototype10_One.allUFOs.indexOf(this);
                 prototype10_One.allUFOs.splice(index, 1);
+            }
+        }
+        checkCollision() {
+            for (let ball of prototype10_One.rocketLaserpoints) {
+                let minX = ball.positionX;
+                let maxX = ball.positionX + 5;
+                let minY = ball.positionY;
+                let maxY = ball.positionY + 5;
+                if (this.positionX <= maxX && minX <= (this.positionX + this.sizeX) && this.positionY <= maxY && minY <= (this.positionY + this.sizeY)) {
+                    let index = prototype10_One.allUFOs.indexOf(this);
+                    prototype10_One.allUFOs.splice(index, 1);
+                }
             }
         }
     }

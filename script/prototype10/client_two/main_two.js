@@ -1,6 +1,7 @@
 "use strict";
 var prototype10_Two;
 (function (prototype10_Two) {
+    let gamma = 90;
     prototype10_Two.allImg = [];
     prototype10_Two.allPlanets = [];
     prototype10_Two.allUFOs = [];
@@ -13,6 +14,7 @@ var prototype10_Two;
     let lanes = ["right", "right", "left", "left", "middle"];
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
+    window.addEventListener("pointerup", handleTouch);
     function handleLoad() {
         /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
         const startScreen: StartScreen = new StartScreen("start-screen");
@@ -50,16 +52,17 @@ var prototype10_Two;
         prototype10_Two.canvasRocket.setAttribute("height", prototype10_Two.height + "px");
         prototype10_Two.canvasUfo.setAttribute("width", prototype10_Two.width + "px");
         prototype10_Two.canvasUfo.setAttribute("height", prototype10_Two.height + "px");
-        let startX = (prototype10_Two.width / 2) - 25;
-        let startY = (prototype10_Two.height / 2) + 60;
-        prototype10_Two.rocket = new prototype10_Two.Rocket(startX, startY, prototype10_Two.rocketImg, prototype10_Two.rocketImgO, prototype10_Two.rocketImgT);
+        prototype10_Two.startX = (prototype10_Two.width / 2) - 25;
+        prototype10_Two.startY = (prototype10_Two.height / 2) + 60;
+        prototype10_Two.rocket = new prototype10_Two.Rocket(prototype10_Two.startX, prototype10_Two.startY, prototype10_Two.rocketImg, prototype10_Two.rocketImgO, prototype10_Two.rocketImgT);
         prototype10_Two.rocket.drawRocket();
-        prototype10_Two.barrel = new prototype10_Two.Barrel(startX, startY, 90, prototype10_Two.barrelImg);
+        prototype10_Two.barrel = new prototype10_Two.Barrel(prototype10_Two.startX, prototype10_Two.startY, 90, prototype10_Two.barrelImg);
         prototype10_Two.barrel.draw();
         update();
     }
     function handleMove(_event) {
         if (_event.gamma) {
+            gamma = _event.gamma;
             prototype10_Two.barrel.move(_event.gamma);
             prototype10_Two.barrel.draw();
         }
@@ -72,6 +75,13 @@ var prototype10_Two;
             createMoveable("ufo", pos);
             random = getRandom(2000, 5000);
         }, random);
+        let randomLaserpoint = getRandom(10000, 12000);
+        let ufoShoots = Math.floor(Math.random() * prototype10_Two.allUFOs.length);
+        window.setInterval(function () {
+            console.log(prototype10_Two.allUFOs.length, ufoShoots);
+            prototype10_Two.allUFOs[ufoShoots].shoot();
+            randomLaserpoint = getRandom(10000, 12000);
+        }, randomLaserpoint);
     }
     function createMoveable(_type, _xPos) {
         let randomNmbr = Math.floor(Math.random() * prototype10_Two.allImg.length);
@@ -88,6 +98,20 @@ var prototype10_Two;
             ufoIndex++;
             prototype10_Two.allUFOs.push(ufo);
         }
+    }
+    function handleTouch(_event) {
+        let distance = 100;
+        let x = distance * (Math.cos(gamma * Math.PI / 180));
+        let y = distance * (Math.sin(gamma * Math.PI / 180));
+        let endX = prototype10_Two.startX + x;
+        let endY = prototype10_Two.startY + y;
+        let ball = new prototype10_Two.Ball(endX, endY, rocketBallIndex, "lightgreen");
+        rocketBallIndex++;
+        ball.getElevation(_event.clientX, _event.clientY);
+        ball.draw();
+        console.log(x, y, endX, endY);
+        prototype10_Two.rocketLaserpoints.push(ball);
+        console.log("Pew pew");
     }
     function getLane() {
         let numbr = Math.floor(Math.random() * lanes.length);
@@ -132,12 +156,17 @@ var prototype10_Two;
         for (let ufo of prototype10_Two.allUFOs) {
             ufo.move(2);
             ufo.draw(prototype10_Two.ctxUfo);
+            ufo.checkCollision();
         }
         prototype10_Two.rocket.checkCollision();
         prototype10_Two.ctxPoint.clearRect(0, 0, prototype10_Two.canvasPoint.width, prototype10_Two.canvasPoint.height);
         for (let ball of prototype10_Two.ufoLaserpoints) {
             ball.move();
             ball.draw();
+        }
+        for (let balls of prototype10_Two.rocketLaserpoints) {
+            balls.move();
+            balls.draw();
         }
     }
 })(prototype10_Two || (prototype10_Two = {}));

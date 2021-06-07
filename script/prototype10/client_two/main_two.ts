@@ -16,6 +16,9 @@ namespace prototype10_Two {
 
     export let width: number;
     export let height: number;
+    export let startY: number; 
+    export let startX: number; 
+    let gamma: number = 90; 
 
     export let allImg: HTMLImageElement[] = [];
     export let ufoImg: HTMLImageElement;
@@ -41,6 +44,7 @@ namespace prototype10_Two {
 
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
+    window.addEventListener("pointerup", handleTouch); 
 
     function handleLoad(): void {
         /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
@@ -95,8 +99,8 @@ namespace prototype10_Two {
         canvasUfo.setAttribute("width", width + "px");
         canvasUfo.setAttribute("height", height + "px");
 
-        let startX: number = (width / 2) - 25;
-        let startY: number = (height / 2) + 60;
+        startX = (width / 2) - 25;
+        startY = (height / 2) + 60;
 
         rocket = new Rocket(startX, startY, rocketImg, rocketImgO, rocketImgT);
         rocket.drawRocket();
@@ -110,6 +114,7 @@ namespace prototype10_Two {
 
     function handleMove(_event: DeviceOrientationEvent): void {
         if (_event.gamma) {
+            gamma = _event.gamma; 
             barrel.move(_event.gamma);
             barrel.draw();
         }
@@ -119,12 +124,21 @@ namespace prototype10_Two {
         window.setInterval(movePlanets, 40);
 
         let random: number = getRandom(2000, 5000);
-        window.setInterval(function (): void {
+        window.setInterval( function (): void {
             let pos: number = getLane();
             createMoveable("ufo", pos);
             random = getRandom(2000, 5000);
 
-        }, random);
+        },                  random);
+
+        let randomLaserpoint: number = getRandom(10000, 12000); 
+        let ufoShoots: number = Math.floor(Math.random() * allUFOs.length); 
+
+        window.setInterval( function(): void {
+            console.log(allUFOs.length, ufoShoots); 
+            allUFOs[ufoShoots].shoot(); 
+            randomLaserpoint = getRandom(10000, 12000); 
+        },                  randomLaserpoint); 
     }
 
     function createMoveable(_type: string, _xPos: number): void {
@@ -143,6 +157,24 @@ namespace prototype10_Two {
             ufoIndex++;
             allUFOs.push(ufo);
         }
+    }
+
+
+    function handleTouch(_event: PointerEvent): void {
+        let distance: number = 100;
+        let x: number = distance * (Math.cos(gamma * Math.PI / 180));
+        let y: number = distance * (Math.sin(gamma * Math.PI / 180));
+        let endX: number = startX + x;
+        let endY: number = startY + y;
+
+        let ball: Ball = new Ball(endX, endY, rocketBallIndex, "lightgreen"); 
+        rocketBallIndex++; 
+        ball.getElevation(_event.clientX, _event.clientY); 
+        ball.draw(); 
+        console.log(x, y, endX, endY); 
+        rocketLaserpoints.push(ball); 
+
+        console.log("Pew pew"); 
     }
 
     function getLane(): number {
@@ -193,6 +225,7 @@ namespace prototype10_Two {
         for (let ufo of allUFOs) {
             ufo.move(2);
             ufo.draw(ctxUfo);
+            ufo.checkCollision(); 
         }
 
         rocket.checkCollision();
@@ -201,6 +234,11 @@ namespace prototype10_Two {
         for (let ball of ufoLaserpoints) {
             ball.move();
             ball.draw();
+        }
+
+        for (let balls of rocketLaserpoints) {
+            balls.move();
+            balls.draw();
         }
     }
 }

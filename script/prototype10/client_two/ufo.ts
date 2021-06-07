@@ -10,7 +10,7 @@ namespace prototype10_Two {
         image: HTMLImageElement;
 
         didDamage: boolean;
-        index: number; 
+        index: number;
 
         constructor(_x: number, _y: number, _sizeX: number, _sizeY: number, _image: HTMLImageElement, _index: number) {
             this.positionX = _x;
@@ -22,14 +22,14 @@ namespace prototype10_Two {
             this.image = _image;
 
             this.didDamage = false;
-            this.index = _index; 
+            this.index = _index;
         }
 
         shoot(_directionX?: number, _directionY?: number): void {
             //Pew pew
-            let ball: Ball = new Ball(this.positionX, this.positionY, ufoBallIndex);
+            let ball: Ball = new Ball(this.positionX, this.positionY, ufoBallIndex, "pink");
             if (_directionX && _directionY) {
-                ball.getElevation(_directionX, _directionY); 
+                ball.getElevation(_directionX, _directionY);
             }
             else {
                 ball.getElevation(rocket.newPos, rocket.startPosY);
@@ -50,6 +50,22 @@ namespace prototype10_Two {
                 allUFOs.splice(index, 1);
             }
 
+        }
+
+        checkCollision(): void {
+            for (let ball of rocketLaserpoints) {
+                let minX: number = ball.positionX;
+                let maxX: number = ball.positionX + 5;
+
+                let minY: number = ball.positionY;
+                let maxY: number = ball.positionY + 5;
+
+                if (this.positionX <= maxX && minX <= (this.positionX + this.sizeX) && this.positionY <= maxY && minY <= (this.positionY + this.sizeY)) {
+                    let index: number = allUFOs.indexOf(this); 
+                    allUFOs.splice(index, 1); 
+                }
+
+            }
         }
     }
 }

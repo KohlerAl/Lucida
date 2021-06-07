@@ -2,7 +2,7 @@
 var prototype10_One;
 (function (prototype10_One) {
     class Ball {
-        constructor(_positionX, _positionY, _index) {
+        constructor(_positionX, _positionY, _index, _color) {
             this.distance = 0;
             this.angle = 0;
             this.speed = 2;
@@ -10,6 +10,7 @@ var prototype10_One;
             this.positionX = _positionX;
             this.positionY = _positionY;
             this.index = _index;
+            this.color = _color;
         }
         getElevation(_endX, _endY) {
             //Warning: Maths involved, i have no idea what i am doing 
@@ -28,12 +29,12 @@ var prototype10_One;
         draw() {
             prototype10_One.ctxPoint.save();
             prototype10_One.ctxPoint.beginPath();
-            prototype10_One.ctxPoint.strokeStyle = "red";
-            prototype10_One.ctxPoint.fillStyle = "red";
+            prototype10_One.ctxPoint.strokeStyle = this.color;
+            prototype10_One.ctxPoint.fillStyle = this.color;
             prototype10_One.ctxPoint.lineWidth = 2;
             prototype10_One.ctxPoint.arc(this.positionX, this.positionY, 5, 0, 2 * Math.PI, true);
             prototype10_One.ctxPoint.globalCompositeOperation = "lighter";
-            prototype10_One.ctxPoint.shadowColor = "pink";
+            prototype10_One.ctxPoint.shadowColor = this.color;
             prototype10_One.ctxPoint.lineWidth = 8;
             prototype10_One.ctxPoint.shadowOffsetX = 2;
             prototype10_One.ctxPoint.shadowOffsetY = 2;

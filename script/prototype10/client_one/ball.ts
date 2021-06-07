@@ -13,11 +13,13 @@ namespace prototype10_One {
         didDamage: boolean = false; 
 
         index: number; 
+        color: string; 
 
-        constructor(_positionX: number, _positionY: number, _index: number) {
+        constructor(_positionX: number, _positionY: number, _index: number, _color: string) {
             this.positionX = _positionX;
             this.positionY = _positionY;
             this.index = _index; 
+            this.color = _color; 
         }
 
         public getElevation(_endX: number, _endY: number): void {
@@ -42,12 +44,12 @@ namespace prototype10_One {
         public draw(): void {
             ctxPoint.save();
             ctxPoint.beginPath();
-            ctxPoint.strokeStyle = "red";
-            ctxPoint.fillStyle = "red";
+            ctxPoint.strokeStyle = this.color;
+            ctxPoint.fillStyle = this.color;
             ctxPoint.lineWidth = 2;
             ctxPoint.arc(this.positionX, this.positionY, 5, 0, 2 * Math.PI, true);
             ctxPoint.globalCompositeOperation = "lighter";
-            ctxPoint.shadowColor = "pink";
+            ctxPoint.shadowColor = this.color;
             ctxPoint.lineWidth = 8;
             ctxPoint.shadowOffsetX = 2;
             ctxPoint.shadowOffsetY = 2;
