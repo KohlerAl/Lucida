@@ -31,9 +31,9 @@ namespace prototype10_Two {
             ctxBarrel.translate(rocket.newPos +  20, rocket.startPosY + 50);
             ctxBarrel.beginPath();
             ctxBarrel.rotate(this.rotation * Math.PI / 180);
-            ctxBarrel.strokeStyle = "black";
+            ctxBarrel.strokeStyle = "#88888888";
             ctxBarrel.lineWidth = 2;
-            ctxBarrel.fillStyle = "black";
+            ctxBarrel.fillStyle = "#88888888";
             ctxBarrel.rect(0, 0, 100, 10);
             ctxBarrel.stroke();
             ctxBarrel.fill();
