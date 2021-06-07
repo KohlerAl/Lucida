@@ -31,6 +31,7 @@ namespace prototype10_One {
     export let rocketLaserpoints: Ball[] = [];
 
     export let rocket: Rocket;
+    export let barrel: Barrel; 
 
     export let ufoBallIndex: number = 0;
     let planetIndex: number = 0;
@@ -98,6 +99,8 @@ namespace prototype10_One {
         rocket = new Rocket(startX, startY, rocketImg, rocketImgO, rocketImgT);
         rocket.drawRocket();
 
+        barrel = new Barrel(startX, startY, 0, barrelImg); 
+        barrel.draw(); 
 
         update();
     }
@@ -113,12 +116,12 @@ namespace prototype10_One {
         window.setInterval(movePlanets, 40);
 
         let random: number = getRandom(2000, 5000);
-        window.setInterval(function (): void {
+        window.setInterval(     function (): void {
             let pos: number = getLane();
             createMoveable("planet", pos);
             random = getRandom(2000, 5000);
 
-        }, random);
+        },                      random);
     }
 
     function createMoveable(_type: string, _xPos: number): void {
@@ -174,12 +177,6 @@ namespace prototype10_One {
 
         let answer: number = floored + _min;
         return answer;
-    }
-
-    function animate(): void {
-        window.setTimeout(function (): void {
-            movePlanets();
-        }, 50);
     }
 
     function movePlanets(): void {

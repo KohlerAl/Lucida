@@ -9,9 +9,10 @@ namespace prototype10_Two {
         damage: number = 0;
         image: HTMLImageElement;
 
-        didDamage: boolean; 
+        didDamage: boolean;
+        index: number; 
 
-        constructor(_x: number, _y: number, _sizeX: number, _sizeY: number, _image: HTMLImageElement) {
+        constructor(_x: number, _y: number, _sizeX: number, _sizeY: number, _image: HTMLImageElement, _index: number) {
             this.positionX = _x;
             this.positionY = _y;
 
@@ -20,14 +21,20 @@ namespace prototype10_Two {
 
             this.image = _image;
 
-            this.didDamage = false; 
+            this.didDamage = false;
+            this.index = _index; 
         }
 
-        shoot(): void {
+        shoot(_directionX?: number, _directionY?: number): void {
             //Pew pew
-            let ball: Ball = new Ball(this.positionX, this.positionY); 
-            ball.getElevation(rocket.newPos, rocket.startPosY); 
-            ufoLaserpoints.push(ball); 
+            let ball: Ball = new Ball(this.positionX, this.positionY, ufoBallIndex);
+            if (_directionX && _directionY) {
+                ball.getElevation(_directionX, _directionY); 
+            }
+            else {
+                ball.getElevation(rocket.newPos, rocket.startPosY);
+            }
+            ufoLaserpoints.push(ball);
         }
 
         draw(_ctx: CanvasRenderingContext2D): void {

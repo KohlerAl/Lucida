@@ -6,12 +6,14 @@ namespace prototype10_Two {
         size: number;
 
         didDamage: boolean = false; 
+        index: number; 
 
-        constructor(_x: number, _y: number, _image: HTMLImageElement, _size: number) {
+        constructor(_x: number, _y: number, _image: HTMLImageElement, _size: number, _index: number) {
             this.posX = _x;
             this.posY = _y;
             this.image = _image;
             this.size = _size;
+            this.index = _index; 
         }
 
         public move(_add: number): void {

@@ -12,9 +12,12 @@ namespace prototype10_Two {
 
         didDamage: boolean = false; 
 
-        constructor(_positionX: number, _positionY: number) {
+        index: number; 
+
+        constructor(_positionX: number, _positionY: number, _index: number) {
             this.positionX = _positionX;
             this.positionY = _positionY;
+            this.index = _index; 
         }
 
         public getElevation(_endX: number, _endY: number): void {

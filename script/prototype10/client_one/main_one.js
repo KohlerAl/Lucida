@@ -53,6 +53,8 @@ var prototype10_One;
         let startY = (prototype10_One.height / 2) + 60;
         prototype10_One.rocket = new prototype10_One.Rocket(startX, startY, prototype10_One.rocketImg, prototype10_One.rocketImgO, prototype10_One.rocketImgT);
         prototype10_One.rocket.drawRocket();
+        prototype10_One.barrel = new prototype10_One.Barrel(startX, startY, 0, prototype10_One.barrelImg);
+        prototype10_One.barrel.draw();
         update();
     }
     function handleMove(_event) {
@@ -118,11 +120,6 @@ var prototype10_One;
         let floored = Math.floor(multiplied);
         let answer = floored + _min;
         return answer;
-    }
-    function animate() {
-        window.setTimeout(function () {
-            movePlanets();
-        }, 50);
     }
     function movePlanets() {
         prototype10_One.ctxPlanet.clearRect(0, 0, prototype10_One.canvasPlanet.width, prototype10_One.canvasPlanet.height);

@@ -2,10 +2,11 @@
 var prototype10_Two;
 (function (prototype10_Two) {
     class Barrel {
-        constructor(_x, _y, _rotaion) {
+        constructor(_x, _y, _rotaion, _image) {
             this.positionX = _x;
             this.positionY = _y;
             this.rotation = _rotaion;
+            this.image = _image;
         }
         move(_gamma) {
             let rotation = 270 + _gamma;
@@ -20,7 +21,7 @@ var prototype10_Two;
         draw() {
             prototype10_Two.ctxBarrel.clearRect(0, 0, prototype10_Two.canvasBarrel.width, prototype10_Two.canvasBarrel.height + 150);
             prototype10_Two.ctxBarrel.save();
-            prototype10_Two.ctxBarrel.translate(this.positionX - 5, this.positionY - 50);
+            prototype10_Two.ctxBarrel.translate(this.positionX + 30, this.positionY - 50);
             prototype10_Two.ctxBarrel.beginPath();
             prototype10_Two.ctxBarrel.rotate(this.rotation * Math.PI / 180);
             prototype10_Two.ctxBarrel.strokeStyle = "black";

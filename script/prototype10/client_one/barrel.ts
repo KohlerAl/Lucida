@@ -3,11 +3,13 @@ namespace prototype10_One {
         positionX: number;
         positionY: number;
         rotation: number;
+        image: HTMLImageElement; 
 
-        constructor(_x: number, _y: number, _rotaion: number) {
+        constructor(_x: number, _y: number, _rotaion: number, _image: HTMLImageElement) {
             this.positionX = _x;
             this.positionY = _y;
             this.rotation = _rotaion;
+            this.image = _image;
         }
 
         move(_gamma: number): void {
@@ -25,17 +27,10 @@ namespace prototype10_One {
 
         draw(): void {
             ctxBarrel.clearRect(0, 0, canvasBarrel.width, canvasBarrel.height + 150);
-            ctxBarrel.save();
+            ctxBarrel.save(); 
             ctxBarrel.translate(this.positionX - 5, this.positionY - 50);
-            ctxBarrel.beginPath();
             ctxBarrel.rotate(this.rotation * Math.PI / 180);
-            ctxBarrel.strokeStyle = "black";
-            ctxBarrel.lineWidth = 2;
-            ctxBarrel.fillStyle = "black";
-            ctxBarrel.rect(0, 0, 100, 10);
-            ctxBarrel.stroke();
-            ctxBarrel.fill();
-            ctxBarrel.closePath();
+            ctxBarrel.drawImage(this.image, this.positionX, this.positionY, 5, 50); 
             ctxBarrel.restore();
         }
     }

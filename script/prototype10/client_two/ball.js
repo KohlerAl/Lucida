@@ -2,13 +2,14 @@
 var prototype10_Two;
 (function (prototype10_Two) {
     class Ball {
-        constructor(_positionX, _positionY) {
+        constructor(_positionX, _positionY, _index) {
             this.distance = 0;
             this.angle = 0;
             this.speed = 2;
             this.didDamage = false;
             this.positionX = _positionX;
             this.positionY = _positionY;
+            this.index = _index;
         }
         getElevation(_endX, _endY) {
             //Warning: Maths involved, i have no idea what i am doing 

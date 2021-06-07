@@ -26,7 +26,7 @@ namespace prototype06 {
         draw(): void {
             ctxBarrel.clearRect(0, 0, canvasBarrel.width, canvasBarrel.height + 150);
             ctxBarrel.save();
-            ctxBarrel.translate(this.positionX - 5, this.positionY - 50);
+            ctxBarrel.translate(this.positionX + 70, this.positionY - 50);
             ctxBarrel.beginPath();
             ctxBarrel.rotate(this.rotation * Math.PI / 180);
             ctxBarrel.strokeStyle = "black";

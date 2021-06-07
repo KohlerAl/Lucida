@@ -20,7 +20,7 @@ var prototype06;
         draw() {
             prototype06.ctxBarrel.clearRect(0, 0, prototype06.canvasBarrel.width, prototype06.canvasBarrel.height + 150);
             prototype06.ctxBarrel.save();
-            prototype06.ctxBarrel.translate(this.positionX - 5, this.positionY - 50);
+            prototype06.ctxBarrel.translate(this.positionX + 70, this.positionY - 50);
             prototype06.ctxBarrel.beginPath();
             prototype06.ctxBarrel.rotate(this.rotation * Math.PI / 180);
             prototype06.ctxBarrel.strokeStyle = "black";

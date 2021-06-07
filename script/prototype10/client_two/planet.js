@@ -2,12 +2,13 @@
 var prototype10_Two;
 (function (prototype10_Two) {
     class Planet {
-        constructor(_x, _y, _image, _size) {
+        constructor(_x, _y, _image, _size, _index) {
             this.didDamage = false;
             this.posX = _x;
             this.posY = _y;
             this.image = _image;
             this.size = _size;
+            this.index = _index;
         }
         move(_add) {
             this.posY += _add;
