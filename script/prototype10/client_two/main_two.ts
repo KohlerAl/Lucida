@@ -166,10 +166,10 @@ namespace prototype10_Two {
 
     function handleTouch(_event: PointerEvent): void {
         let distance: number = 100;
-        let x: number = distance * (Math.cos(gamma * Math.PI / 180));
-        let y: number = distance * (Math.sin(gamma * Math.PI / 180));
+        let x: number = distance * (Math.cos(barrel.rotation * Math.PI / 180));
+        let y: number = distance * (Math.sin(barrel.rotation * Math.PI / 180));
         let endX: number = rocket.newPos - 60  + x;
-        let endY: number = rocket.startPosY - 100 + y;
+        let endY: number = rocket.startPosY - 80 + y;
 
         let ball: Ball = new Ball(endX, endY, rocketBallIndex, "lightgreen");
         rocketBallIndex++;

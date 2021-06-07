@@ -103,10 +103,10 @@ var prototype10_Two;
     }
     function handleTouch(_event) {
         let distance = 100;
-        let x = distance * (Math.cos(gamma * Math.PI / 180));
-        let y = distance * (Math.sin(gamma * Math.PI / 180));
+        let x = distance * (Math.cos(prototype10_Two.barrel.rotation * Math.PI / 180));
+        let y = distance * (Math.sin(prototype10_Two.barrel.rotation * Math.PI / 180));
         let endX = prototype10_Two.rocket.newPos - 60 + x;
-        let endY = prototype10_Two.rocket.startPosY - 100 + y;
+        let endY = prototype10_Two.rocket.startPosY - 80 + y;
         let ball = new prototype10_Two.Ball(endX, endY, rocketBallIndex, "lightgreen");
         rocketBallIndex++;
         ball.getElevation(_event.clientX, _event.clientY);
