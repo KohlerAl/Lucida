@@ -105,15 +105,15 @@ var prototype10_Two;
         let distance = 100;
         let x = distance * (Math.cos(gamma * Math.PI / 180));
         let y = distance * (Math.sin(gamma * Math.PI / 180));
-        let endX = prototype10_Two.rocket.newPos + x;
-        let endY = prototype10_Two.startY + y;
+        let endX = prototype10_Two.rocket.newPos + 20 + x;
+        let endY = prototype10_Two.rocket.startPosY + 50 + y;
         let ball = new prototype10_Two.Ball(endX, endY, rocketBallIndex, "lightgreen");
         rocketBallIndex++;
         ball.getElevation(_event.clientX, _event.clientY);
         ball.draw();
         console.log(x, y, endX, endY);
         prototype10_Two.rocketLaserpoints.push(ball);
-        info.innerHTML += endX + "   " + endY + "    " + gamma + "    " + prototype10_Two.rocket.newPos;
+        info.innerHTML += endX + "   " + endY + "    " + gamma + "    " + prototype10_Two.rocket.newPos + "\n";
         console.log("Pew pew");
     }
     function getLane() {

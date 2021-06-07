@@ -168,8 +168,8 @@ namespace prototype10_Two {
         let distance: number = 100;
         let x: number = distance * (Math.cos(gamma * Math.PI / 180));
         let y: number = distance * (Math.sin(gamma * Math.PI / 180));
-        let endX: number = rocket.newPos + x;
-        let endY: number = startY + y;
+        let endX: number = rocket.newPos + 20  + x;
+        let endY: number = rocket.startPosY + 50 + y;
 
         let ball: Ball = new Ball(endX, endY, rocketBallIndex, "lightgreen");
         rocketBallIndex++;
@@ -178,7 +178,7 @@ namespace prototype10_Two {
         console.log(x, y, endX, endY);
         rocketLaserpoints.push(ball);
 
-        info.innerHTML += endX + "   " + endY + "    " + gamma + "    " + rocket.newPos;
+        info.innerHTML +=  endX + "   " + endY + "    " + gamma + "    " + rocket.newPos + "\n";
         console.log("Pew pew");
     }
 
