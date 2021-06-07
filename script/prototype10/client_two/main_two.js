@@ -15,6 +15,7 @@ var prototype10_Two;
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
     window.addEventListener("pointerup", handleTouch);
+    let info;
     function handleLoad() {
         /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
         const startScreen: StartScreen = new StartScreen("start-screen");
@@ -58,6 +59,7 @@ var prototype10_Two;
         prototype10_Two.rocket.drawRocket();
         prototype10_Two.barrel = new prototype10_Two.Barrel(prototype10_Two.startX, prototype10_Two.startY, 90, prototype10_Two.barrelImg);
         prototype10_Two.barrel.draw();
+        info = document.querySelector("#info");
         update();
     }
     function handleMove(_event) {
@@ -111,6 +113,7 @@ var prototype10_Two;
         ball.draw();
         console.log(x, y, endX, endY);
         prototype10_Two.rocketLaserpoints.push(ball);
+        info.innerHTML += endX + endY + gamma + prototype10_Two.rocket.newPos;
         console.log("Pew pew");
     }
     function getLane() {

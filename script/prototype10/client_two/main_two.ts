@@ -46,6 +46,8 @@ namespace prototype10_Two {
     window.addEventListener("deviceorientation", handleMove);
     window.addEventListener("pointerup", handleTouch); 
 
+    let info: HTMLDivElement;
+
     function handleLoad(): void {
         /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
         const startScreen: StartScreen = new StartScreen("start-screen");
@@ -108,7 +110,9 @@ namespace prototype10_Two {
 
         barrel = new Barrel(startX, startY, 90, barrelImg); 
         barrel.draw(); 
+        
 
+        info  = <HTMLDivElement>document.querySelector("#info"); 
         update();
     }
 
@@ -174,6 +178,7 @@ namespace prototype10_Two {
         console.log(x, y, endX, endY); 
         rocketLaserpoints.push(ball); 
 
+        info.innerHTML += endX + endY + gamma + rocket.newPos; 
         console.log("Pew pew"); 
     }
 
