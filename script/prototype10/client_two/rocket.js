@@ -32,7 +32,7 @@ var prototype10_Two;
             this.damageStatus++;
             this.drawRocket();
             if (this.damageStatus >= 3) {
-                window.alert("The Rocket is irreparable damaged");
+                //
             }
         }
         checkCollision() {

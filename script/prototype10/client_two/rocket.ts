@@ -45,7 +45,7 @@ namespace prototype10_Two {
             this.drawRocket(); 
 
             if (this.damageStatus >= 3) {
-                window.alert("The Rocket is irreparable damaged");
+                //
             }
         }
 
