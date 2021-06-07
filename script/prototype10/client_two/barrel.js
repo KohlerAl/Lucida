@@ -21,7 +21,7 @@ var prototype10_Two;
         draw() {
             prototype10_Two.ctxBarrel.clearRect(0, 0, prototype10_Two.canvasBarrel.width, prototype10_Two.canvasBarrel.height + 150);
             prototype10_Two.ctxBarrel.save();
-            prototype10_Two.ctxBarrel.translate(prototype10_Two.rocket.newPos + 30, prototype10_Two.rocket.startPosY + 50);
+            prototype10_Two.ctxBarrel.translate(prototype10_Two.rocket.newPos + 20, prototype10_Two.rocket.startPosY + 50);
             prototype10_Two.ctxBarrel.beginPath();
             prototype10_Two.ctxBarrel.rotate(this.rotation * Math.PI / 180);
             prototype10_Two.ctxBarrel.strokeStyle = "black";

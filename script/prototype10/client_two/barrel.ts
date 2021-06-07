@@ -28,7 +28,7 @@ namespace prototype10_Two {
         draw(): void {
             ctxBarrel.clearRect(0, 0, canvasBarrel.width, canvasBarrel.height + 150);
             ctxBarrel.save();
-            ctxBarrel.translate(rocket.newPos +  30, rocket.startPosY + 50);
+            ctxBarrel.translate(rocket.newPos +  20, rocket.startPosY + 50);
             ctxBarrel.beginPath();
             ctxBarrel.rotate(this.rotation * Math.PI / 180);
             ctxBarrel.strokeStyle = "black";
