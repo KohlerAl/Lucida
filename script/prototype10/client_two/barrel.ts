@@ -34,9 +34,8 @@ namespace prototype10_Two {
             ctxBarrel.strokeStyle = "black";
             ctxBarrel.lineWidth = 2;
             ctxBarrel.fillStyle = "black";
-            ctxBarrel.rect(0, 0, -100, 10);
+            ctxBarrel.rect(0, 0, 100, 10);
             ctxBarrel.stroke();
-            ctxBarrel.arc(0, 0, 5, 0, 2 * Math.PI);
             ctxBarrel.fill();
             ctxBarrel.closePath();
             ctxBarrel.restore();
