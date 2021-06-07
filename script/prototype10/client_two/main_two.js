@@ -1,7 +1,7 @@
 "use strict";
 var prototype10_Two;
 (function (prototype10_Two) {
-    let gamma = 90;
+    let gamma = -90;
     prototype10_Two.allImg = [];
     prototype10_Two.allPlanets = [];
     prototype10_Two.allUFOs = [];
@@ -103,10 +103,13 @@ var prototype10_Two;
     }
     function handleTouch(_event) {
         let distance = 100;
-        let x = distance * (Math.cos(prototype10_Two.barrel.rotation * Math.PI / 180));
-        let y = distance * (Math.sin(prototype10_Two.barrel.rotation * Math.PI / 180));
-        let endX = prototype10_Two.rocket.newPos - 60 + x;
-        let endY = prototype10_Two.rocket.startPosY - 80 + y;
+        let x = distance * (Math.cos(gamma * Math.PI / 180));
+        let y = distance * (Math.sin(gamma * Math.PI / 180));
+        /* let endX: number = rocket.newPos - 60  + x;
+        let endY: number = rocket.startPosY - 80 + y; */
+        let endX = prototype10_Two.startX + x;
+        let endY = prototype10_Two.startY + y;
+        gamma = prototype10_Two.barrel.rotation;
         let ball = new prototype10_Two.Ball(endX, endY, rocketBallIndex, "lightgreen");
         rocketBallIndex++;
         ball.getElevation(_event.clientX, _event.clientY);

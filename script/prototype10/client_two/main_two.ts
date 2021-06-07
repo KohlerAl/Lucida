@@ -18,7 +18,7 @@ namespace prototype10_Two {
     export let height: number;
     export let startY: number;
     export let startX: number;
-    let gamma: number = 90;
+    let gamma: number = -90;
 
     export let allImg: HTMLImageElement[] = [];
     export let ufoImg: HTMLImageElement;
@@ -166,10 +166,15 @@ namespace prototype10_Two {
 
     function handleTouch(_event: PointerEvent): void {
         let distance: number = 100;
-        let x: number = distance * (Math.cos(barrel.rotation * Math.PI / 180));
-        let y: number = distance * (Math.sin(barrel.rotation * Math.PI / 180));
-        let endX: number = rocket.newPos - 60  + x;
-        let endY: number = rocket.startPosY - 80 + y;
+        let x: number = distance * (Math.cos(gamma * Math.PI / 180));
+        let y: number = distance * (Math.sin(gamma * Math.PI / 180));
+        /* let endX: number = rocket.newPos - 60  + x;
+        let endY: number = rocket.startPosY - 80 + y; */
+
+        let endX: number = startX  + x;
+        let endY: number = startY + y; 
+
+        gamma = barrel.rotation; 
 
         let ball: Ball = new Ball(endX, endY, rocketBallIndex, "lightgreen");
         rocketBallIndex++;
