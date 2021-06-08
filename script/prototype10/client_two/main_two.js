@@ -16,6 +16,7 @@ var prototype10_Two;
     let lanes = ["right", "right", "left", "left", "middle"];
     window.addEventListener("load", handleLoad);
     window.addEventListener("pointerup", handleTouch);
+    socket.addEventListener("message", getData);
     function handleLoad() {
         /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
         const startScreen: StartScreen = new StartScreen("start-screen");
@@ -175,7 +176,7 @@ var prototype10_Two;
     function sendBall(_index, _color, _elevationX, _elevationY) {
         let update = {
             selector: "ball",
-            data: _index + "&a&" + _color + "&a&" + _elevationX + "&a&" + _elevationY
+            data: _index + "&a&" + _elevationX + "&a&" + _elevationY
         };
         socket.send(JSON.stringify(update));
     }
@@ -202,6 +203,7 @@ var prototype10_Two;
                     let planet = new prototype10_Two.Planet(posX, posY, orangePlanet, size, index, "orange");
                     prototype10_Two.allPlanets.push(planet);
                 }
+                planetIndex++;
                 break;
         }
     }

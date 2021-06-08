@@ -10,10 +10,10 @@ var prototype10_One;
     prototype10_One.ufoBallIndex = 0;
     let planetIndex = 0;
     let ufoIndex = 0;
-    let rocketBallIndex = 0;
     let lanes = ["right", "right", "left", "left", "middle"];
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
+    socket.addEventListener("message", getData);
     function handleLoad() {
         /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
         const startScreen: StartScreen = new StartScreen("start-screen");
@@ -57,6 +57,7 @@ var prototype10_One;
         if (_event.gamma) {
             prototype10_One.rocket.move(_event.gamma);
             prototype10_One.rocket.drawRocket();
+            sendRocketPosition(_event.gamma);
         }
     }
     function update() {
@@ -171,30 +172,25 @@ var prototype10_One;
                 let sizeY = Number(pretty[3]);
                 let index = Number(pretty[4]);
                 let newUfo = new prototype10_One.UFO(posX, posY, sizeX, sizeY, prototype10_One.ufoImg, index);
+                ufoIndex = index + 1;
                 prototype10_One.allUFOs.push(newUfo);
                 break;
             case "shoot":
-                let ufoIndex = Number(data);
+                let ufoIndexNmbr = Number(data);
                 for (let ufo of prototype10_One.allUFOs) {
-                    if (ufo.index == ufoIndex) {
+                    if (ufo.index == ufoIndexNmbr) {
                         ufo.shoot();
+                        prototype10_One.ufoBallIndex++;
                     }
                 }
                 break;
             case "ball":
                 let arr = data.split("&a&");
                 let ind = Number(arr[0]);
-                let color = arr[1];
-                let elevationX = Number(arr[2]);
-                let elevationY = Number(arr[3]);
-                let ball = new prototype10_One.Ball(prototype10_One.rocket.newPos, prototype10_One.rocket.startPosY, ind, color);
+                let elevationX = Number(arr[1]);
+                let elevationY = Number(arr[2]);
+                let ball = new prototype10_One.Ball(prototype10_One.rocket.newPos, prototype10_One.rocket.startPosY, ind, "lightgreen");
                 ball.getElevation(elevationX, elevationY);
-                if (color == "lightgreen") {
-                    prototype10_One.rocketLaserpoints.push(ball);
-                }
-                else {
-                    prototype10_One.ufoLaserpoints.push(ball);
-                }
         }
     }
 })(prototype10_One || (prototype10_One = {}));

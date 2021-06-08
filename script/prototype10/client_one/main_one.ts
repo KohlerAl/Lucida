@@ -41,11 +41,11 @@ namespace prototype10_One {
     export let ufoBallIndex: number = 0;
     let planetIndex: number = 0;
     let ufoIndex: number = 0;
-    let rocketBallIndex: number = 0;
     let lanes: string[] = ["right", "right", "left", "left", "middle"];
 
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
+    socket.addEventListener("message", getData); 
 
     function handleLoad(): void {
         /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
@@ -106,6 +106,7 @@ namespace prototype10_One {
         if (_event.gamma) {
             rocket.move(_event.gamma);
             rocket.drawRocket();
+            sendRocketPosition(_event.gamma); 
         }
     }
 
@@ -243,33 +244,27 @@ namespace prototype10_One {
                 let index: number = Number(pretty[4]); 
 
                 let newUfo: UFO = new UFO (posX, posY, sizeX, sizeY, ufoImg, index); 
+                ufoIndex = index + 1; 
                 allUFOs.push(newUfo); 
                 break;
 
             case "shoot": 
-                let ufoIndex: number = Number(data); 
+                let ufoIndexNmbr: number = Number(data); 
                 for (let ufo of allUFOs) {
-                    if (ufo.index == ufoIndex) {
+                    if (ufo.index == ufoIndexNmbr) {
                         ufo.shoot(); 
+                        ufoBallIndex++;
                     }
                 } 
                 break; 
             case "ball": 
                 let arr: string[] = data.split("&a&"); 
                 let ind: number = Number(arr[0]); 
-                let color: string = arr[1]; 
-                let elevationX: number = Number(arr[2]); 
-                let elevationY: number = Number(arr[3]); 
+                let elevationX: number = Number(arr[1]); 
+                let elevationY: number = Number(arr[2]); 
 
-                let ball: Ball = new Ball(rocket.newPos, rocket.startPosY, ind, color); 
+                let ball: Ball = new Ball(rocket.newPos, rocket.startPosY, ind, "lightgreen"); 
                 ball.getElevation(elevationX, elevationY); 
-
-                if (color == "lightgreen") {
-                    rocketLaserpoints.push(ball); 
-                }
-                else {
-                    ufoLaserpoints.push(ball); 
-                }
         }
     }
 }

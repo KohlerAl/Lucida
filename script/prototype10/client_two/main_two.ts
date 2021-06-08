@@ -49,7 +49,7 @@ namespace prototype10_Two {
 
     window.addEventListener("load", handleLoad);
     window.addEventListener("pointerup", handleTouch);
-
+    socket.addEventListener("message", getData); 
 
     function handleLoad(): void {
         /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
@@ -256,7 +256,7 @@ namespace prototype10_Two {
     function sendBall(_index: number, _color: string, _elevationX: number, _elevationY: number): void {
         let update: Update = {
             selector: "ball",
-            data: _index + "&a&" + _color + "&a&" + _elevationX + "&a&" + _elevationY
+            data: _index + "&a&" + _elevationX + "&a&" + _elevationY
         };
 
         socket.send(JSON.stringify(update));
@@ -287,6 +287,7 @@ namespace prototype10_Two {
                     let planet: Planet = new Planet(posX, posY, orangePlanet, size, index, "orange"); 
                     allPlanets.push(planet); 
                 }
+                planetIndex++; 
                 break; 
         }
     }
