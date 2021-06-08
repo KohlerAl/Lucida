@@ -61,7 +61,6 @@ namespace prototype10_Two {
                     if (this.newPos <= maxX && minX <= (this.newPos + this.sizeX) && this.startPosY <= maxY && minY <= (this.startPosY + this.sizeY)) {
                         this.damageUpdate();
                         planet.didDamage = true;
-                        console.log("Planet did damage"); 
                     }
                 }
             }
@@ -77,7 +76,6 @@ namespace prototype10_Two {
                     if (this.newPos <= maxX && minX <= (this.newPos + this.sizeX) && this.startPosY <= maxY && minY <= (this.startPosY + this.sizeY)) {
                         this.damageUpdate();
                         ufo.didDamage = true;
-                        console.log("UFO did damage"); 
 
                         let index: number = allUFOs.indexOf(ufo); 
                         allUFOs.splice(index, 1); 
@@ -95,7 +93,6 @@ namespace prototype10_Two {
                 if (ball.didDamage == false) {
                     if (this.newPos <= maxX && minX <= (this.newPos + this.sizeX) && this.startPosY <= maxY && minY <= (this.startPosY + this.sizeY)) {
                         this.damageUpdate();
-                        console.log("Ball did damage"); 
                         ball.didDamage = true;
 
                         let index: number = ufoLaserpoints.indexOf(ball); 
