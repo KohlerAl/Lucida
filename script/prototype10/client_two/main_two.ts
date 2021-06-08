@@ -18,7 +18,6 @@ namespace prototype10_Two {
     export let height: number;
     export let startY: number;
     export let startX: number;
-    let gamma: number = -90;
 
     export let allImg: HTMLImageElement[] = [];
     export let ufoImg: HTMLImageElement;
@@ -34,7 +33,6 @@ namespace prototype10_Two {
     export let rocketLaserpoints: Ball[] = [];
 
     export let rocket: Rocket;
-    export let barrel: Barrel;
 
     export let ufoBallIndex: number = 0;
     let planetIndex: number = 0;
@@ -43,7 +41,6 @@ namespace prototype10_Two {
     let lanes: string[] = ["right", "right", "left", "left", "middle"];
 
     window.addEventListener("load", handleLoad);
-    window.addEventListener("deviceorientation", handleMove);
     window.addEventListener("pointerup", handleTouch);
 
     let info: HTMLDivElement;
@@ -107,22 +104,11 @@ namespace prototype10_Two {
         rocket = new Rocket(startX, startY, rocketImg, rocketImgO, rocketImgT);
         rocket.drawRocket();
 
-
-        barrel = new Barrel(startX, startY, 90, barrelImg);
-        barrel.draw();
-
-
         info = <HTMLDivElement>document.querySelector("#info");
         update();
     }
 
-    function handleMove(_event: DeviceOrientationEvent): void {
-        if (_event.gamma) {
-            gamma = _event.gamma;
-            barrel.move(_event.gamma);
-            barrel.draw();
-        }
-    }
+    
 
     function update(): void {
         window.setInterval(movePlanets, 40);
@@ -165,25 +151,20 @@ namespace prototype10_Two {
 
 
     function handleTouch(_event: PointerEvent): void {
-        let distance: number = 100;
-        let x: number = distance * (Math.cos(gamma * Math.PI / 180));
-        let y: number = distance * (Math.sin(gamma * Math.PI / 180));
         /* let endX: number = rocket.newPos - 60  + x;
         let endY: number = rocket.startPosY - 80 + y; */
 
-        let endX: number = startX  + x;
-        let endY: number = startY + y; 
-
-        gamma = barrel.rotation; 
+        let endX: number = rocket.newPos;
+        let endY: number = rocket.startPosY;  
 
         let ball: Ball = new Ball(endX, endY, rocketBallIndex, "lightgreen");
         rocketBallIndex++;
         ball.getElevation(_event.clientX, _event.clientY);
         ball.draw();
-        console.log(x, y, endX, endY);
+        console.log(endX, endY);
         rocketLaserpoints.push(ball);
 
-        info.innerHTML +=  endX + "   " + endY + "    " + gamma + "    " + rocket.newPos + "\n";
+        info.innerHTML +=  endX + "   " + endY +  "    " + rocket.newPos + "\n";
         console.log("Pew pew");
     }
 

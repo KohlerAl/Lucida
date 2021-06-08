@@ -1,7 +1,6 @@
 "use strict";
 var prototype10_One;
 (function (prototype10_One) {
-    let gamma = 90;
     prototype10_One.allImg = [];
     prototype10_One.allPlanets = [];
     prototype10_One.allUFOs = [];
@@ -55,8 +54,6 @@ var prototype10_One;
         prototype10_One.startY = (prototype10_One.height / 2) + 60;
         prototype10_One.rocket = new prototype10_One.Rocket(prototype10_One.startX, prototype10_One.startY, prototype10_One.rocketImg, prototype10_One.rocketImgO, prototype10_One.rocketImgT);
         prototype10_One.rocket.drawRocket();
-        prototype10_One.barrel = new prototype10_One.Barrel(prototype10_One.startX, prototype10_One.startY, 0, prototype10_One.barrelImg);
-        prototype10_One.barrel.draw();
         update();
     }
     function handleMove(_event) {

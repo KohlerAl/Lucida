@@ -21,10 +21,11 @@ var prototype10_One;
             this.angle = rad / Math.PI * 180;
             this.velocityX = (tx / this.distance) * this.speed;
             this.velocityY = (ty / this.distance) * this.speed;
+            console.log(this.velocityX, this.velocityY);
         }
         move() {
-            this.positionX += this.velocityX;
-            this.positionY += this.velocityY;
+            this.positionX += this.velocityX * 5;
+            this.positionY += this.velocityY * 5;
         }
         draw() {
             prototype10_One.ctxPoint.save();

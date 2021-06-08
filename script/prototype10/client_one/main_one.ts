@@ -18,7 +18,6 @@ namespace prototype10_One {
     export let height: number;
     export let startY: number; 
     export let startX: number; 
-    let gamma: number = 90; 
 
     export let allImg: HTMLImageElement[] = [];
     export let ufoImg: HTMLImageElement;
@@ -34,7 +33,6 @@ namespace prototype10_One {
     export let rocketLaserpoints: Ball[] = [];
 
     export let rocket: Rocket;
-    export let barrel: Barrel; 
 
     export let ufoBallIndex: number = 0;
     let planetIndex: number = 0;
@@ -102,9 +100,6 @@ namespace prototype10_One {
 
         rocket = new Rocket(startX, startY, rocketImg, rocketImgO, rocketImgT);
         rocket.drawRocket();
-
-        barrel = new Barrel(startX, startY, 0, barrelImg); 
-        barrel.draw(); 
 
         update();
     }

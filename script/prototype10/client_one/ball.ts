@@ -33,12 +33,13 @@ namespace prototype10_One {
 
             this.velocityX = (tx / this.distance) * this.speed;
             this.velocityY = (ty / this.distance) * this.speed;
+            console.log(this.velocityX, this.velocityY); 
 
         }
 
         public move(): void {
-            this.positionX += this.velocityX;
-            this.positionY += this.velocityY;
+            this.positionX += this.velocityX * 5;
+            this.positionY += this.velocityY * 5;
         }
 
         public draw(): void {

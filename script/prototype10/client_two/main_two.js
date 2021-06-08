@@ -1,7 +1,6 @@
 "use strict";
 var prototype10_Two;
 (function (prototype10_Two) {
-    let gamma = -90;
     prototype10_Two.allImg = [];
     prototype10_Two.allPlanets = [];
     prototype10_Two.allUFOs = [];
@@ -13,7 +12,6 @@ var prototype10_Two;
     let rocketBallIndex = 0;
     let lanes = ["right", "right", "left", "left", "middle"];
     window.addEventListener("load", handleLoad);
-    window.addEventListener("deviceorientation", handleMove);
     window.addEventListener("pointerup", handleTouch);
     let info;
     function handleLoad() {
@@ -57,17 +55,8 @@ var prototype10_Two;
         prototype10_Two.startY = (prototype10_Two.height / 2) + 60;
         prototype10_Two.rocket = new prototype10_Two.Rocket(prototype10_Two.startX, prototype10_Two.startY, prototype10_Two.rocketImg, prototype10_Two.rocketImgO, prototype10_Two.rocketImgT);
         prototype10_Two.rocket.drawRocket();
-        prototype10_Two.barrel = new prototype10_Two.Barrel(prototype10_Two.startX, prototype10_Two.startY, 90, prototype10_Two.barrelImg);
-        prototype10_Two.barrel.draw();
         info = document.querySelector("#info");
         update();
-    }
-    function handleMove(_event) {
-        if (_event.gamma) {
-            gamma = _event.gamma;
-            prototype10_Two.barrel.move(_event.gamma);
-            prototype10_Two.barrel.draw();
-        }
     }
     function update() {
         window.setInterval(movePlanets, 40);
@@ -102,21 +91,17 @@ var prototype10_Two;
         }
     }
     function handleTouch(_event) {
-        let distance = 100;
-        let x = distance * (Math.cos(gamma * Math.PI / 180));
-        let y = distance * (Math.sin(gamma * Math.PI / 180));
         /* let endX: number = rocket.newPos - 60  + x;
         let endY: number = rocket.startPosY - 80 + y; */
-        let endX = prototype10_Two.startX + x;
-        let endY = prototype10_Two.startY + y;
-        gamma = prototype10_Two.barrel.rotation;
+        let endX = prototype10_Two.rocket.newPos;
+        let endY = prototype10_Two.rocket.startPosY;
         let ball = new prototype10_Two.Ball(endX, endY, rocketBallIndex, "lightgreen");
         rocketBallIndex++;
         ball.getElevation(_event.clientX, _event.clientY);
         ball.draw();
-        console.log(x, y, endX, endY);
+        console.log(endX, endY);
         prototype10_Two.rocketLaserpoints.push(ball);
-        info.innerHTML += endX + "   " + endY + "    " + gamma + "    " + prototype10_Two.rocket.newPos + "\n";
+        info.innerHTML += endX + "   " + endY + "    " + prototype10_Two.rocket.newPos + "\n";
         console.log("Pew pew");
     }
     function getLane() {

@@ -37,8 +37,8 @@ namespace prototype10_Two {
         }
 
         public move(): void {
-            this.positionX += this.velocityX;
-            this.positionY += this.velocityY;
+            this.positionX += this.velocityX * 5;
+            this.positionY += this.velocityY * 5;
         }
 
         public draw(): void {
