@@ -267,6 +267,7 @@ namespace prototype10_Two {
         let selector: string = carrier.selector;
         let data: string = carrier.data;
 
+        console.log(selector); 
         switch (selector) {
             case "rocket":
                 let nmbr: number = Number(data);

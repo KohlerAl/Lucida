@@ -184,6 +184,7 @@ var prototype10_Two;
         let carrier = JSON.parse(_event.data);
         let selector = carrier.selector;
         let data = carrier.data;
+        console.log(selector);
         switch (selector) {
             case "rocket":
                 let nmbr = Number(data);
