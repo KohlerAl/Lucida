@@ -36,6 +36,9 @@ namespace prototype10_One {
     export let ufoLaserpoints: Ball[] = [];
     export let rocketLaserpoints: Ball[] = [];
 
+    let pinkPlanet: HTMLImageElement;
+    let orangePlanet: HTMLImageElement;
+
     export let rocket: Rocket;
 
     export let ufoBallIndex: number = 0;
@@ -80,6 +83,9 @@ namespace prototype10_One {
         let html: HTMLElement = <HTMLElement>document.querySelector("html");
         width = html.clientWidth;
         height = html.clientHeight;
+        
+        pinkPlanet = <HTMLImageElement>document.querySelector(".pink");
+        orangePlanet = <HTMLImageElement>document.querySelector(".orange");
 
         canvasPlanet.setAttribute("width", width + "px");
         canvasPlanet.setAttribute("height", height + "px");
@@ -137,6 +143,8 @@ namespace prototype10_One {
             let planet: Planet = new Planet(_xPos, -50, img, randomSize, planetIndex, type);
             planetIndex++;
             allPlanets.push(planet);
+            
+            sendPlanetData(_xPos, -50, randomSize, planetIndex, type); 
         }
         else if (_type == "ufo") {
             let img: HTMLImageElement = ufoImg;
@@ -230,6 +238,7 @@ namespace prototype10_One {
     }
 
     function getData(_event: any): void {
+        console.log(_event.data); 
         let carrier: Update = <Update>JSON.parse(_event.data); 
         let selector: string = carrier.selector; 
         let data: string = carrier.data; 

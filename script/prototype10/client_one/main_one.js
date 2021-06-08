@@ -7,6 +7,8 @@ var prototype10_One;
     prototype10_One.allUFOs = [];
     prototype10_One.ufoLaserpoints = [];
     prototype10_One.rocketLaserpoints = [];
+    let pinkPlanet;
+    let orangePlanet;
     prototype10_One.ufoBallIndex = 0;
     let planetIndex = 0;
     let ufoIndex = 0;
@@ -39,6 +41,8 @@ var prototype10_One;
         let html = document.querySelector("html");
         prototype10_One.width = html.clientWidth;
         prototype10_One.height = html.clientHeight;
+        pinkPlanet = document.querySelector(".pink");
+        orangePlanet = document.querySelector(".orange");
         prototype10_One.canvasPlanet.setAttribute("width", prototype10_One.width + "px");
         prototype10_One.canvasPlanet.setAttribute("height", prototype10_One.height + "px");
         prototype10_One.canvasPoint.setAttribute("width", prototype10_One.width + "px");
@@ -81,6 +85,7 @@ var prototype10_One;
             let planet = new prototype10_One.Planet(_xPos, -50, img, randomSize, planetIndex, type);
             planetIndex++;
             prototype10_One.allPlanets.push(planet);
+            sendPlanetData(_xPos, -50, randomSize, planetIndex, type);
         }
         else if (_type == "ufo") {
             let img = prototype10_One.ufoImg;
@@ -160,6 +165,7 @@ var prototype10_One;
         socket.send(JSON.stringify(update));
     }
     function getData(_event) {
+        console.log(_event.data);
         let carrier = JSON.parse(_event.data);
         let selector = carrier.selector;
         let data = carrier.data;
