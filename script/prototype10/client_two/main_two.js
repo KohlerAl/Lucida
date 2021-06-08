@@ -93,7 +93,7 @@ var prototype10_Two;
     function handleTouch(_event) {
         /* let endX: number = rocket.newPos - 60  + x;
         let endY: number = rocket.startPosY - 80 + y; */
-        let endX = prototype10_Two.rocket.newPos;
+        let endX = prototype10_Two.rocket.newPos + 10;
         let endY = prototype10_Two.rocket.startPosY;
         let ball = new prototype10_Two.Ball(endX, endY, rocketBallIndex, "lightgreen");
         rocketBallIndex++;

@@ -23,8 +23,8 @@ var prototype10_Two;
             this.velocityY = (ty / this.distance) * this.speed;
         }
         move() {
-            this.positionX += this.velocityX * 5;
-            this.positionY += this.velocityY * 5;
+            this.positionX += this.velocityX * 4;
+            this.positionY += this.velocityY * 4;
         }
         draw() {
             prototype10_Two.ctxPoint.save();

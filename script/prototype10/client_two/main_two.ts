@@ -154,7 +154,7 @@ namespace prototype10_Two {
         /* let endX: number = rocket.newPos - 60  + x;
         let endY: number = rocket.startPosY - 80 + y; */
 
-        let endX: number = rocket.newPos;
+        let endX: number = rocket.newPos + 10;
         let endY: number = rocket.startPosY;  
 
         let ball: Ball = new Ball(endX, endY, rocketBallIndex, "lightgreen");
