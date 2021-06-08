@@ -7,13 +7,15 @@ namespace prototype10_One {
 
         didDamage: boolean = false; 
         index: number; 
+        type: string; 
 
-        constructor(_x: number, _y: number, _image: HTMLImageElement, _size: number, _index: number) {
+        constructor(_x: number, _y: number, _image: HTMLImageElement, _size: number, _index: number, _type: string) {
             this.posX = _x;
             this.posY = _y;
             this.image = _image;
             this.size = _size;
             this.index = _index; 
+            this.type = _type; 
         }
 
         public move(_add: number): void {

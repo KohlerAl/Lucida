@@ -16,8 +16,8 @@ namespace prototype10_One {
 
     export let width: number;
     export let height: number;
-    export let startY: number; 
-    export let startX: number; 
+    export let startY: number;
+    export let startX: number;
 
     export let allImg: HTMLImageElement[] = [];
     export let ufoImg: HTMLImageElement;
@@ -115,12 +115,14 @@ namespace prototype10_One {
         window.setInterval(movePlanets, 40);
 
         let random: number = getRandom(2000, 5000);
-        window.setInterval(     function (): void {
-            let pos: number = getLane();
-            createMoveable("planet", pos);
-            random = getRandom(2000, 5000);
+        window.setInterval(
+            function (): void {
+                let pos: number = getLane();
+                createMoveable("planet", pos);
+                random = getRandom(2000, 5000);
 
-        },                      random);
+            },
+            random);
     }
 
     function createMoveable(_type: string, _xPos: number): void {
@@ -129,7 +131,11 @@ namespace prototype10_One {
 
         if (_type == "planet") {
             let img: HTMLImageElement = allImg[randomNmbr];
-            let planet: Planet = new Planet(_xPos, -50, img, randomSize, planetIndex);
+            let type: string = "orange";
+            if (img.classList.contains("pink")) {
+                type = "pink";
+            }
+            let planet: Planet = new Planet(_xPos, -50, img, randomSize, planetIndex, type);
             planetIndex++;
             allPlanets.push(planet);
         }
@@ -184,12 +190,12 @@ namespace prototype10_One {
             planet.move(2);
             planet.draw(ctxPlanet);
         }
-        
+
         ctxUfo.clearRect(0, 0, canvasUfo.width, canvasUfo.height);
         for (let ufo of allUFOs) {
             ufo.move(2);
             ufo.draw(ctxUfo);
-            ufo.checkCollision(); 
+            ufo.checkCollision();
         }
 
         rocket.checkCollision();

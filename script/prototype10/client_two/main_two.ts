@@ -105,27 +105,31 @@ namespace prototype10_Two {
         update();
     }
 
-    
+
 
     function update(): void {
         window.setInterval(movePlanets, 40);
 
         let random: number = getRandom(2000, 5000);
-        window.setInterval(function (): void {
-            let pos: number = getLane();
-            createMoveable("ufo", pos);
-            random = getRandom(2000, 5000);
+        window.setInterval(
+            function (): void {
+                let pos: number = getLane();
+                createMoveable("ufo", pos);
+                random = getRandom(2000, 5000);
 
-        }, random);
+            },
+            random);
 
         let randomLaserpoint: number = getRandom(10000, 12000);
         let ufoShoots: number = Math.floor(Math.random() * allUFOs.length);
 
-        window.setInterval(function (): void {
-            console.log(allUFOs.length, ufoShoots);
-            allUFOs[ufoShoots].shoot();
-            randomLaserpoint = getRandom(10000, 12000);
-        }, randomLaserpoint);
+        window.setInterval(
+            function (): void {
+                console.log(allUFOs.length, ufoShoots);
+                allUFOs[ufoShoots].shoot();
+                randomLaserpoint = getRandom(10000, 12000);
+            },
+            randomLaserpoint);
     }
 
     function createMoveable(_type: string, _xPos: number): void {
@@ -134,7 +138,11 @@ namespace prototype10_Two {
 
         if (_type == "planet") {
             let img: HTMLImageElement = allImg[randomNmbr];
-            let planet: Planet = new Planet(_xPos, -50, img, randomSize, planetIndex);
+            let type: string = "orange";
+            if (img.classList.contains("pink")) {
+                type = "pink";
+            }
+            let planet: Planet = new Planet(_xPos, -50, img, randomSize, planetIndex, type);
             planetIndex++;
             allPlanets.push(planet);
         }
@@ -149,7 +157,7 @@ namespace prototype10_Two {
 
     function handleTouch(_event: PointerEvent): void {
         let endX: number = rocket.newPos + 20;
-        let endY: number = rocket.startPosY;  
+        let endY: number = rocket.startPosY;
 
         let ball: Ball = new Ball(endX, endY, rocketBallIndex, "lightgreen");
         rocketBallIndex++;
