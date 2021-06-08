@@ -13,7 +13,6 @@ var prototype10_Two;
     let lanes = ["right", "right", "left", "left", "middle"];
     window.addEventListener("load", handleLoad);
     window.addEventListener("pointerup", handleTouch);
-    let info;
     function handleLoad() {
         /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
         const startScreen: StartScreen = new StartScreen("start-screen");
@@ -55,7 +54,6 @@ var prototype10_Two;
         prototype10_Two.startY = (prototype10_Two.height / 2) + 60;
         prototype10_Two.rocket = new prototype10_Two.Rocket(prototype10_Two.startX, prototype10_Two.startY, prototype10_Two.rocketImg, prototype10_Two.rocketImgO, prototype10_Two.rocketImgT);
         prototype10_Two.rocket.drawRocket();
-        info = document.querySelector("#info");
         update();
     }
     function update() {
@@ -91,9 +89,7 @@ var prototype10_Two;
         }
     }
     function handleTouch(_event) {
-        /* let endX: number = rocket.newPos - 60  + x;
-        let endY: number = rocket.startPosY - 80 + y; */
-        let endX = prototype10_Two.rocket.newPos + 10;
+        let endX = prototype10_Two.rocket.newPos + 20;
         let endY = prototype10_Two.rocket.startPosY;
         let ball = new prototype10_Two.Ball(endX, endY, rocketBallIndex, "lightgreen");
         rocketBallIndex++;
@@ -101,8 +97,6 @@ var prototype10_Two;
         ball.draw();
         console.log(endX, endY);
         prototype10_Two.rocketLaserpoints.push(ball);
-        info.innerHTML += endX + "   " + endY + "    " + prototype10_Two.rocket.newPos + "\n";
-        console.log("Pew pew");
     }
     function getLane() {
         let numbr = Math.floor(Math.random() * lanes.length);

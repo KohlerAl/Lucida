@@ -43,7 +43,6 @@ namespace prototype10_Two {
     window.addEventListener("load", handleLoad);
     window.addEventListener("pointerup", handleTouch);
 
-    let info: HTMLDivElement;
 
     function handleLoad(): void {
         /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
@@ -103,8 +102,6 @@ namespace prototype10_Two {
 
         rocket = new Rocket(startX, startY, rocketImg, rocketImgO, rocketImgT);
         rocket.drawRocket();
-
-        info = <HTMLDivElement>document.querySelector("#info");
         update();
     }
 
@@ -151,10 +148,7 @@ namespace prototype10_Two {
 
 
     function handleTouch(_event: PointerEvent): void {
-        /* let endX: number = rocket.newPos - 60  + x;
-        let endY: number = rocket.startPosY - 80 + y; */
-
-        let endX: number = rocket.newPos + 10;
+        let endX: number = rocket.newPos + 20;
         let endY: number = rocket.startPosY;  
 
         let ball: Ball = new Ball(endX, endY, rocketBallIndex, "lightgreen");
@@ -163,9 +157,6 @@ namespace prototype10_Two {
         ball.draw();
         console.log(endX, endY);
         rocketLaserpoints.push(ball);
-
-        info.innerHTML +=  endX + "   " + endY +  "    " + rocket.newPos + "\n";
-        console.log("Pew pew");
     }
 
     function getLane(): number {
