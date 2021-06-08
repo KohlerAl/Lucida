@@ -1,6 +1,10 @@
 namespace prototype10_One {
-    export let canvasBarrel: HTMLCanvasElement;
-    export let ctxBarrel: CanvasRenderingContext2D;
+    interface Update {
+        selector: string; 
+        data: string; 
+    }
+
+    let socket: WebSocket = new WebSocket("wss://agkeia.herokuapp.com/"); 
 
     export let canvasPoint: HTMLCanvasElement;
     export let ctxPoint: CanvasRenderingContext2D;
@@ -61,9 +65,6 @@ namespace prototype10_One {
             allImg.push(planetImgs[i]);
         }
 
-        canvasBarrel = <HTMLCanvasElement>document.querySelector("#barrelCanvas");
-        ctxBarrel = <CanvasRenderingContext2D>canvasBarrel.getContext("2d");
-
         canvasPoint = <HTMLCanvasElement>document.querySelector("#pointCanvas");
         ctxPoint = <CanvasRenderingContext2D>canvasPoint.getContext("2d");
 
@@ -82,9 +83,6 @@ namespace prototype10_One {
 
         canvasPlanet.setAttribute("width", width + "px");
         canvasPlanet.setAttribute("height", height + "px");
-
-        canvasBarrel.setAttribute("width", width + "px");
-        canvasBarrel.setAttribute("height", height + "px");
 
         canvasPoint.setAttribute("width", width + "px");
         canvasPoint.setAttribute("height", height + "px");
@@ -209,6 +207,69 @@ namespace prototype10_One {
         for (let balls of rocketLaserpoints) {
             balls.move();
             balls.draw();
+        }
+    }
+
+    function sendRocketPosition(_newPos: number): void {
+        let update: Update = {
+            selector : "rocket", 
+            data: _newPos + ""
+        }; 
+
+        socket.send(JSON.stringify(update)); 
+    }
+
+    function sendPlanetData(_xPos: number, _yPos: number, _size: number, _index: number, _type: string) {
+        let update: Update = {
+            selector: "planet", 
+            data: _xPos + "&a&" + _yPos + "&a&" + _size + "&a&" + _index + "&a&" + _type
+        }; 
+
+        socket.send(JSON.stringify(update)); 
+    }
+
+    function getData(_event: any): void {
+        let carrier: Update = <Update>JSON.parse(_event.data); 
+        let selector: string = carrier.selector; 
+        let data: string = carrier.data; 
+
+        switch (selector) {
+            case "ufo" : 
+                let pretty: string[] = data.split("&a&"); 
+                let posX: number = Number(pretty[0]); 
+                let posY: number = Number(pretty[1]); 
+                let sizeX: number = Number(pretty[2]); 
+                let sizeY: number = Number(pretty[3]); 
+                let index: number = Number(pretty[4]); 
+
+                let newUfo: UFO = new UFO (posX, posY, sizeX, sizeY, ufoImg, index); 
+                allUFOs.push(newUfo); 
+                break;
+
+            case "shoot": 
+                let ufoIndex: number = Number(data); 
+                for (let ufo of allUFOs) {
+                    if (ufo.index == ufoIndex) {
+                        ufo.shoot(); 
+                    }
+                } 
+                break; 
+            case "ball": 
+                let arr: string[] = data.split("&a&"); 
+                let ind: number = Number(arr[0]); 
+                let color: string = arr[1]; 
+                let elevationX: number = Number(arr[2]); 
+                let elevationY: number = Number(arr[3]); 
+
+                let ball: Ball = new Ball(rocket.newPos, rocket.startPosY, ind, color); 
+                ball.getElevation(elevationX, elevationY); 
+
+                if (color == "lightgreen") {
+                    rocketLaserpoints.push(ball); 
+                }
+                else {
+                    ufoLaserpoints.push(ball); 
+                }
         }
     }
 }

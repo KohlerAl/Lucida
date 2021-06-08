@@ -13,7 +13,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "transpile": "tsc *.ts",
-    "start": "node script/prototype09/server.js"
+    "start": "node script/prototype10/server/server.js"
   },
   "author": "Alida",
   "license": "ISC"

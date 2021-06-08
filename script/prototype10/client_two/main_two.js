@@ -1,11 +1,14 @@
 "use strict";
 var prototype10_Two;
 (function (prototype10_Two) {
+    let socket = new WebSocket("wss://agkeia.herokuapp.com/");
     prototype10_Two.allImg = [];
     prototype10_Two.allPlanets = [];
     prototype10_Two.allUFOs = [];
     prototype10_Two.ufoLaserpoints = [];
     prototype10_Two.rocketLaserpoints = [];
+    let pinkPlanet;
+    let orangePlanet;
     prototype10_Two.ufoBallIndex = 0;
     let planetIndex = 0;
     let ufoIndex = 0;
@@ -27,8 +30,6 @@ var prototype10_Two;
         for (let i = 0; i < planetImgs.length; i++) {
             prototype10_Two.allImg.push(planetImgs[i]);
         }
-        prototype10_Two.canvasBarrel = document.querySelector("#barrelCanvas");
-        prototype10_Two.ctxBarrel = prototype10_Two.canvasBarrel.getContext("2d");
         prototype10_Two.canvasPoint = document.querySelector("#pointCanvas");
         prototype10_Two.ctxPoint = prototype10_Two.canvasPoint.getContext("2d");
         prototype10_Two.canvasPlanet = document.querySelector("#canvasPlanet");
@@ -37,13 +38,13 @@ var prototype10_Two;
         prototype10_Two.ctxRocket = prototype10_Two.canvasRocket.getContext("2d");
         prototype10_Two.canvasUfo = document.querySelector("#canvasUfo");
         prototype10_Two.ctxUfo = prototype10_Two.canvasUfo.getContext("2d");
+        pinkPlanet = document.querySelector(".pink");
+        orangePlanet = document.querySelector(".orange");
         let html = document.querySelector("html");
         prototype10_Two.width = html.clientWidth;
         prototype10_Two.height = html.clientHeight;
         prototype10_Two.canvasPlanet.setAttribute("width", prototype10_Two.width + "px");
         prototype10_Two.canvasPlanet.setAttribute("height", prototype10_Two.height + "px");
-        prototype10_Two.canvasBarrel.setAttribute("width", prototype10_Two.width + "px");
-        prototype10_Two.canvasBarrel.setAttribute("height", prototype10_Two.height + "px");
         prototype10_Two.canvasPoint.setAttribute("width", prototype10_Two.width + "px");
         prototype10_Two.canvasPoint.setAttribute("height", prototype10_Two.height + "px");
         prototype10_Two.canvasRocket.setAttribute("width", prototype10_Two.width + "px");
@@ -77,7 +78,11 @@ var prototype10_Two;
         let randomSize = getRandom(50, 120);
         if (_type == "planet") {
             let img = prototype10_Two.allImg[randomNmbr];
-            let planet = new prototype10_Two.Planet(_xPos, -50, img, randomSize, planetIndex);
+            let type = "orange";
+            if (img.classList.contains("pink")) {
+                type = "pink";
+            }
+            let planet = new prototype10_Two.Planet(_xPos, -50, img, randomSize, planetIndex, type);
             planetIndex++;
             prototype10_Two.allPlanets.push(planet);
         }
@@ -95,7 +100,6 @@ var prototype10_Two;
         rocketBallIndex++;
         ball.getElevation(_event.clientX, _event.clientY);
         ball.draw();
-        console.log(endX, endY);
         prototype10_Two.rocketLaserpoints.push(ball);
     }
     function getLane() {
@@ -152,6 +156,53 @@ var prototype10_Two;
         for (let balls of prototype10_Two.rocketLaserpoints) {
             balls.move();
             balls.draw();
+        }
+    }
+    function sendUFONew(_xPosition, _yPosition, _sizeX, _sizeY, _index) {
+        let update = {
+            selector: "ufo",
+            data: _xPosition + "&a&" + _yPosition + "&a&" + _sizeX + "&a&" + _sizeY + "&a&" + _index
+        };
+        socket.send(JSON.stringify(update));
+    }
+    function sendUFOshoot(_index) {
+        let update = {
+            selector: "shoot",
+            data: _index + ""
+        };
+        socket.send(JSON.stringify(update));
+    }
+    function sendBall(_index, _color, _elevationX, _elevationY) {
+        let update = {
+            selector: "ball",
+            data: _index + "&a&" + _color + "&a&" + _elevationX + "&a&" + _elevationY
+        };
+        socket.send(JSON.stringify(update));
+    }
+    function getData(_event) {
+        let carrier = JSON.parse(_event.data);
+        let selector = carrier.selector;
+        let data = carrier.data;
+        switch (selector) {
+            case "rocket":
+                let nmbr = Number(data);
+                prototype10_Two.rocket.move(nmbr);
+                break;
+            case "planet":
+                let pretty = data.split("&a&");
+                let posX = Number(pretty[0]);
+                let posY = Number(pretty[1]);
+                let size = Number(pretty[2]);
+                let index = Number(pretty[3]);
+                if (pretty[4] == "pink") {
+                    let planet = new prototype10_Two.Planet(posX, posY, pinkPlanet, size, index, "pink");
+                    prototype10_Two.allPlanets.push(planet);
+                }
+                else {
+                    let planet = new prototype10_Two.Planet(posX, posY, orangePlanet, size, index, "orange");
+                    prototype10_Two.allPlanets.push(planet);
+                }
+                break;
         }
     }
 })(prototype10_Two || (prototype10_Two = {}));

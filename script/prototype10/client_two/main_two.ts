@@ -1,6 +1,10 @@
 namespace prototype10_Two {
-    export let canvasBarrel: HTMLCanvasElement;
-    export let ctxBarrel: CanvasRenderingContext2D;
+    interface Update {
+        selector: string;
+        data: string;
+    }
+
+    let socket: WebSocket = new WebSocket("wss://agkeia.herokuapp.com/");
 
     export let canvasPoint: HTMLCanvasElement;
     export let ctxPoint: CanvasRenderingContext2D;
@@ -31,6 +35,9 @@ namespace prototype10_Two {
     export let allUFOs: UFO[] = [];
     export let ufoLaserpoints: Ball[] = [];
     export let rocketLaserpoints: Ball[] = [];
+
+    let pinkPlanet: HTMLImageElement;
+    let orangePlanet: HTMLImageElement;
 
     export let rocket: Rocket;
 
@@ -63,9 +70,6 @@ namespace prototype10_Two {
             allImg.push(planetImgs[i]);
         }
 
-        canvasBarrel = <HTMLCanvasElement>document.querySelector("#barrelCanvas");
-        ctxBarrel = <CanvasRenderingContext2D>canvasBarrel.getContext("2d");
-
         canvasPoint = <HTMLCanvasElement>document.querySelector("#pointCanvas");
         ctxPoint = <CanvasRenderingContext2D>canvasPoint.getContext("2d");
 
@@ -78,15 +82,15 @@ namespace prototype10_Two {
         canvasUfo = <HTMLCanvasElement>document.querySelector("#canvasUfo");
         ctxUfo = <CanvasRenderingContext2D>canvasUfo.getContext("2d");
 
+        pinkPlanet = <HTMLImageElement>document.querySelector(".pink");
+        orangePlanet = <HTMLImageElement>document.querySelector(".orange");
+
         let html: HTMLElement = <HTMLElement>document.querySelector("html");
         width = html.clientWidth;
         height = html.clientHeight;
 
         canvasPlanet.setAttribute("width", width + "px");
         canvasPlanet.setAttribute("height", height + "px");
-
-        canvasBarrel.setAttribute("width", width + "px");
-        canvasBarrel.setAttribute("height", height + "px");
 
         canvasPoint.setAttribute("width", width + "px");
         canvasPoint.setAttribute("height", height + "px");
@@ -163,7 +167,6 @@ namespace prototype10_Two {
         rocketBallIndex++;
         ball.getElevation(_event.clientX, _event.clientY);
         ball.draw();
-        console.log(endX, endY);
         rocketLaserpoints.push(ball);
     }
 
@@ -229,6 +232,62 @@ namespace prototype10_Two {
         for (let balls of rocketLaserpoints) {
             balls.move();
             balls.draw();
+        }
+    }
+
+    function sendUFONew(_xPosition: number, _yPosition: number, _sizeX: number, _sizeY: number, _index: number): void {
+        let update: Update = {
+            selector: "ufo",
+            data: _xPosition + "&a&" + _yPosition + "&a&" + _sizeX + "&a&" + _sizeY + "&a&" + _index
+        };
+
+        socket.send(JSON.stringify(update));
+    }
+
+    function sendUFOshoot(_index: number): void {
+        let update: Update = {
+            selector: "shoot",
+            data: _index + ""
+        };
+
+        socket.send(JSON.stringify(update));
+    }
+
+    function sendBall(_index: number, _color: string, _elevationX: number, _elevationY: number): void {
+        let update: Update = {
+            selector: "ball",
+            data: _index + "&a&" + _color + "&a&" + _elevationX + "&a&" + _elevationY
+        };
+
+        socket.send(JSON.stringify(update));
+    }
+
+    function getData(_event: any): void {
+        let carrier: Update = <Update>JSON.parse(_event.data);
+        let selector: string = carrier.selector;
+        let data: string = carrier.data;
+
+        switch (selector) {
+            case "rocket":
+                let nmbr: number = Number(data);
+                rocket.move(nmbr);
+                break;
+            case "planet":
+                let pretty: string[] = data.split("&a&");
+                let posX: number = Number(pretty[0]);
+                let posY: number = Number(pretty[1]);
+                let size: number = Number(pretty[2]);
+                let index: number = Number(pretty[3]);
+
+                if (pretty[4] == "pink") {
+                    let planet: Planet = new Planet(posX, posY, pinkPlanet, size, index, "pink"); 
+                    allPlanets.push(planet); 
+                }
+                else {
+                    let planet: Planet = new Planet(posX, posY, orangePlanet, size, index, "orange"); 
+                    allPlanets.push(planet); 
+                }
+                break; 
         }
     }
 }

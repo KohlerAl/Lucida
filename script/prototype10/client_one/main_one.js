@@ -1,6 +1,7 @@
 "use strict";
 var prototype10_One;
 (function (prototype10_One) {
+    let socket = new WebSocket("wss://agkeia.herokuapp.com/");
     prototype10_One.allImg = [];
     prototype10_One.allPlanets = [];
     prototype10_One.allUFOs = [];
@@ -27,8 +28,6 @@ var prototype10_One;
         for (let i = 0; i < planetImgs.length; i++) {
             prototype10_One.allImg.push(planetImgs[i]);
         }
-        prototype10_One.canvasBarrel = document.querySelector("#barrelCanvas");
-        prototype10_One.ctxBarrel = prototype10_One.canvasBarrel.getContext("2d");
         prototype10_One.canvasPoint = document.querySelector("#pointCanvas");
         prototype10_One.ctxPoint = prototype10_One.canvasPoint.getContext("2d");
         prototype10_One.canvasPlanet = document.querySelector("#canvasPlanet");
@@ -42,8 +41,6 @@ var prototype10_One;
         prototype10_One.height = html.clientHeight;
         prototype10_One.canvasPlanet.setAttribute("width", prototype10_One.width + "px");
         prototype10_One.canvasPlanet.setAttribute("height", prototype10_One.height + "px");
-        prototype10_One.canvasBarrel.setAttribute("width", prototype10_One.width + "px");
-        prototype10_One.canvasBarrel.setAttribute("height", prototype10_One.height + "px");
         prototype10_One.canvasPoint.setAttribute("width", prototype10_One.width + "px");
         prototype10_One.canvasPoint.setAttribute("height", prototype10_One.height + "px");
         prototype10_One.canvasRocket.setAttribute("width", prototype10_One.width + "px");
@@ -76,7 +73,11 @@ var prototype10_One;
         let randomSize = getRandom(50, 120);
         if (_type == "planet") {
             let img = prototype10_One.allImg[randomNmbr];
-            let planet = new prototype10_One.Planet(_xPos, -50, img, randomSize, planetIndex);
+            let type = "orange";
+            if (img.classList.contains("pink")) {
+                type = "pink";
+            }
+            let planet = new prototype10_One.Planet(_xPos, -50, img, randomSize, planetIndex, type);
             planetIndex++;
             prototype10_One.allPlanets.push(planet);
         }
@@ -141,6 +142,59 @@ var prototype10_One;
         for (let balls of prototype10_One.rocketLaserpoints) {
             balls.move();
             balls.draw();
+        }
+    }
+    function sendRocketPosition(_newPos) {
+        let update = {
+            selector: "rocket",
+            data: _newPos + ""
+        };
+        socket.send(JSON.stringify(update));
+    }
+    function sendPlanetData(_xPos, _yPos, _size, _index, _type) {
+        let update = {
+            selector: "planet",
+            data: _xPos + "&a&" + _yPos + "&a&" + _size + "&a&" + _index + "&a&" + _type
+        };
+        socket.send(JSON.stringify(update));
+    }
+    function getData(_event) {
+        let carrier = JSON.parse(_event.data);
+        let selector = carrier.selector;
+        let data = carrier.data;
+        switch (selector) {
+            case "ufo":
+                let pretty = data.split("&a&");
+                let posX = Number(pretty[0]);
+                let posY = Number(pretty[1]);
+                let sizeX = Number(pretty[2]);
+                let sizeY = Number(pretty[3]);
+                let index = Number(pretty[4]);
+                let newUfo = new prototype10_One.UFO(posX, posY, sizeX, sizeY, prototype10_One.ufoImg, index);
+                prototype10_One.allUFOs.push(newUfo);
+                break;
+            case "shoot":
+                let ufoIndex = Number(data);
+                for (let ufo of prototype10_One.allUFOs) {
+                    if (ufo.index == ufoIndex) {
+                        ufo.shoot();
+                    }
+                }
+                break;
+            case "ball":
+                let arr = data.split("&a&");
+                let ind = Number(arr[0]);
+                let color = arr[1];
+                let elevationX = Number(arr[2]);
+                let elevationY = Number(arr[3]);
+                let ball = new prototype10_One.Ball(prototype10_One.rocket.newPos, prototype10_One.rocket.startPosY, ind, color);
+                ball.getElevation(elevationX, elevationY);
+                if (color == "lightgreen") {
+                    prototype10_One.rocketLaserpoints.push(ball);
+                }
+                else {
+                    prototype10_One.ufoLaserpoints.push(ball);
+                }
         }
     }
 })(prototype10_One || (prototype10_One = {}));
