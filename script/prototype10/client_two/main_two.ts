@@ -129,7 +129,6 @@ namespace prototype10_Two {
 
         window.setInterval(
             function (): void {
-                console.log(allUFOs.length, ufoShoots);
                 allUFOs[ufoShoots].shoot();
                 randomLaserpoint = getRandom(10000, 12000);
             },
@@ -241,6 +240,7 @@ namespace prototype10_Two {
             data: _xPosition + "&a&" + _yPosition + "&a&" + _sizeX + "&a&" + _sizeY + "&a&" + _index
         };
 
+        console.log(update); 
         socket.send(JSON.stringify(update));
     }
 
@@ -250,6 +250,7 @@ namespace prototype10_Two {
             data: _index + ""
         };
 
+        console.log(update); 
         socket.send(JSON.stringify(update));
     }
 
@@ -258,7 +259,8 @@ namespace prototype10_Two {
             selector: "ball",
             data: _index + "&a&" + _elevationX + "&a&" + _elevationY
         };
-
+        
+        console.log(update); 
         socket.send(JSON.stringify(update));
     }
 

@@ -225,15 +225,16 @@ namespace prototype10_One {
             data: _newPos + ""
         }; 
 
+        console.log(update); 
         socket.send(JSON.stringify(update)); 
     }
 
-    function sendPlanetData(_xPos: number, _yPos: number, _size: number, _index: number, _type: string) {
+    function sendPlanetData(_xPos: number, _yPos: number, _size: number, _index: number, _type: string): void {
         let update: Update = {
             selector: "planet", 
             data: _xPos + "&a&" + _yPos + "&a&" + _size + "&a&" + _index + "&a&" + _type
         }; 
-
+        console.log(update); 
         socket.send(JSON.stringify(update)); 
     }
 
