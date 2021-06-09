@@ -155,6 +155,7 @@ var prototype10_One;
             selector: "rocket",
             data: _newPos + ""
         };
+        console.log(update);
         socket.send(JSON.stringify(update));
     }
     function sendPlanetData(_xPos, _yPos, _size, _index, _type) {
@@ -162,6 +163,7 @@ var prototype10_One;
             selector: "planet",
             data: _xPos + "&a&" + _yPos + "&a&" + _size + "&a&" + _index + "&a&" + _type
         };
+        console.log(update);
         socket.send(JSON.stringify(update));
     }
     function getData(_event) {

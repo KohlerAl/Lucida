@@ -14,7 +14,7 @@ interface Update {
 server.on("connection", (_socket: any) => {
     clientSockets.add(_socket); 
 
-    _socket.on("message", (message: Update) => {
+    _socket.on("message", (message: Update | any) => {
         for (let socket of clientSockets) {
             socket.send(message); 
         }

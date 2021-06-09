@@ -45,7 +45,6 @@ var prototype10_One;
                     if (this.newPos <= maxX && minX <= (this.newPos + this.sizeX) && this.startPosY <= maxY && minY <= (this.startPosY + this.sizeY)) {
                         this.damageUpdate();
                         planet.didDamage = true;
-                        console.log("Planet did damage");
                     }
                 }
             }
@@ -58,7 +57,6 @@ var prototype10_One;
                     if (this.newPos <= maxX && minX <= (this.newPos + this.sizeX) && this.startPosY <= maxY && minY <= (this.startPosY + this.sizeY)) {
                         this.damageUpdate();
                         ufo.didDamage = true;
-                        console.log("UFO did damage");
                         let index = prototype10_One.allUFOs.indexOf(ufo);
                         prototype10_One.allUFOs.splice(index, 1);
                     }
@@ -72,7 +70,6 @@ var prototype10_One;
                 if (ball.didDamage == false) {
                     if (this.newPos <= maxX && minX <= (this.newPos + this.sizeX) && this.startPosY <= maxY && minY <= (this.startPosY + this.sizeY)) {
                         this.damageUpdate();
-                        console.log("Ball did damage");
                         ball.didDamage = true;
                         let index = prototype10_One.ufoLaserpoints.indexOf(ball);
                         prototype10_One.ufoLaserpoints.splice(index, 1);
