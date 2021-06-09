@@ -44,10 +44,6 @@ namespace prototype10_Two {
 
     export let rocket: Rocket;
 
-    export let planetInterval: any;
-    export let createUfoInterval: any;
-    export let ufoInterval: any;
-
     export let ufoBallIndex: number = 0;
     let planetIndex: number = 0;
     let ufoIndex: number = 0;
@@ -130,29 +126,31 @@ namespace prototype10_Two {
     }
 
     function update(): void {
-        planetInterval = window.setInterval(movePlanets, 40);
+        if (gameover == false) {
+            window.setInterval(movePlanets, 40);
 
-        let random: number = getRandom(2000, 5000);
-        createUfoInterval = window.setInterval(
-            function (): void {
-                let pos: number = getLane();
-                createMoveable("ufo", pos);
-                random = getRandom(2000, 5000);
+            let random: number = getRandom(2000, 5000);
+            window.setInterval(
+                function (): void {
+                    let pos: number = getLane();
+                    createMoveable("ufo", pos);
+                    random = getRandom(2000, 5000);
 
-            },
-            random);
+                },
+                random);
 
-        let randomLaserpoint: number = getRandom(10000, 12000);
+            let randomLaserpoint: number = getRandom(10000, 12000);
 
 
-        ufoInterval = window.setInterval(
-            function (): void {
-                let ufoShoots: number = Math.floor(Math.random() * allUFOs.length);
-                allUFOs[ufoShoots].shoot();
-                randomLaserpoint = getRandom(10000, 12000);
-                sendUFOshoot(ufoShoots);
-            },
-            randomLaserpoint);
+            window.setInterval(
+                function (): void {
+                    let ufoShoots: number = Math.floor(Math.random() * allUFOs.length);
+                    allUFOs[ufoShoots].shoot();
+                    randomLaserpoint = getRandom(10000, 12000);
+                    sendUFOshoot(ufoShoots);
+                },
+                randomLaserpoint);
+        }
     }
 
     function createMoveable(_type: string, _xPos: number): void {
@@ -304,51 +302,54 @@ namespace prototype10_Two {
             let update: Update = {
                 selector: "ready",
                 data: "user2"
-            }
+            }; 
             socket.send(JSON.stringify(update));
         }
     }
 
+    // tslint:disable-next-line: no-any
     function getData(_event: any): void {
-        let carrier: Update = <Update>JSON.parse(_event.data);
-        let selector: string = carrier.selector;
-        let data: string = carrier.data;
+        if (gameover == false) {
+            let carrier: Update = <Update>JSON.parse(_event.data);
+            let selector: string = carrier.selector;
+            let data: string = carrier.data;
 
-        switch (selector) {
-            case "rocket":
-                let nmbr: number = Number(data);
-                rocket.move(nmbr);
-                rocket.drawRocket();
-                break;
-            case "planet":
-                let pretty: string[] = data.split("&a&");
-                let posX: number = Number(pretty[0]);
-                let posY: number = Number(pretty[1]);
-                let size: number = Number(pretty[2]);
-                let index: number = Number(pretty[3]);
+            switch (selector) {
+                case "rocket":
+                    let nmbr: number = Number(data);
+                    rocket.move(nmbr);
+                    rocket.drawRocket();
+                    break;
+                case "planet":
+                    let pretty: string[] = data.split("&a&");
+                    let posX: number = Number(pretty[0]);
+                    let posY: number = Number(pretty[1]);
+                    let size: number = Number(pretty[2]);
+                    let index: number = Number(pretty[3]);
 
-                if (pretty[4] == "pink") {
-                    let planet: Planet = new Planet(posX, posY, pinkPlanet, size, index, "pink");
-                    allPlanets.push(planet);
-                }
-                else {
-                    let planet: Planet = new Planet(posX, posY, orangePlanet, size, index, "orange");
-                    allPlanets.push(planet);
-                }
-                planetIndex++;
-                break;
-            case "damage":
-                let damageValue: number = Number(data);
-                rocket.damageStatus = damageValue;
-                rocket.drawRocket();
-                break;
-            case "ready":
-                readyCount++;
-                console.log(readyCount);
-                if (readyCount == 3) {
-                    startGame();
-                }
-                break;
+                    if (pretty[4] == "pink") {
+                        let planet: Planet = new Planet(posX, posY, pinkPlanet, size, index, "pink");
+                        allPlanets.push(planet);
+                    }
+                    else {
+                        let planet: Planet = new Planet(posX, posY, orangePlanet, size, index, "orange");
+                        allPlanets.push(planet);
+                    }
+                    planetIndex++;
+                    break;
+                case "damage":
+                    let damageValue: number = Number(data);
+                    rocket.damageStatus = damageValue;
+                    rocket.drawRocket();
+                    break;
+                case "ready":
+                    readyCount++;
+                    console.log(readyCount);
+                    if (readyCount == 3) {
+                        startGame();
+                    }
+                    break;
+            }
         }
     }
 }

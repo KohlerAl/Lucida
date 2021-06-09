@@ -50,8 +50,6 @@ namespace prototype10_One {
                 rocketLaserpoints = []; 
                 allPlanets = []; 
                 allUFOs = [];  
-                planetInterval.clearInterval(); 
-                createPlanetInterval.clearInterval(); 
                 gameover = true; 
             }
         }

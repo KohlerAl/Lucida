@@ -49,9 +49,6 @@ namespace prototype10_Two {
                 rocketLaserpoints = []; 
                 allPlanets = []; 
                 allUFOs = [];  
-                planetInterval.clearInterval(); 
-                createUfoInterval.clearInterval();  
-                ufoInterval.clearInterval(); 
                 gameover = true; 
             }
         }

@@ -41,9 +41,6 @@ namespace prototype10_One {
 
     export let rocket: Rocket;
 
-    export let planetInterval: any;
-    export let createPlanetInterval: any;
-
     export let ufoBallIndex: number = 0;
     let planetIndex: number = 0;
     let ufoIndex: number = 0;
@@ -129,10 +126,10 @@ namespace prototype10_One {
     }
 
     function update(): void {
-        planetInterval = window.setInterval(movePlanets, 40);
+        window.setInterval(movePlanets, 40);
 
         let random: number = getRandom(2000, 5000);
-        createPlanetInterval = window.setInterval(
+        window.setInterval(
             function (): void {
                 let pos: number = getLane();
                 createMoveable("planet", pos);
@@ -267,11 +264,12 @@ namespace prototype10_One {
             let update: Update = {
                 selector: "ready",
                 data: "user1"
-            }
+            };
             socket.send(JSON.stringify(update));
         }
     }
 
+    // tslint:disable-next-line: no-any
     function getData(_event: any): void {
         let carrier: Update = <Update>JSON.parse(_event.data);
         let selector: string = carrier.selector;
