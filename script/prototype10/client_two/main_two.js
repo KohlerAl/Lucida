@@ -2,6 +2,7 @@
 var prototype10_Two;
 (function (prototype10_Two) {
     let socket = new WebSocket("wss://agkeia.herokuapp.com/");
+    let readyTwo = false;
     prototype10_Two.allImg = [];
     prototype10_Two.allPlanets = [];
     prototype10_Two.allUFOs = [];
@@ -15,13 +16,14 @@ var prototype10_Two;
     let rocketBallIndex = 0;
     let lanes = ["right", "right", "left", "left", "middle"];
     window.addEventListener("load", handleLoad);
-    window.addEventListener("pointerup", handleTouch);
     socket.addEventListener("message", getData);
-    function handleLoad() {
-        /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
-        const startScreen: StartScreen = new StartScreen("start-screen");
+    async function handleLoad() {
+        const motionManager = new DeviceMotionAndOrientationManager();
+        const startScreen = new StartScreen("start-screen");
         startScreen.addResourceManager(motionManager);
-        startScreen.start(); */
+        await startScreen.start();
+        readyTwo = true;
+        sendStart();
         prototype10_Two.rocketImg = document.querySelector("#normal");
         prototype10_Two.rocketImgO = document.querySelector("#damageOne");
         prototype10_Two.rocketImgT = document.querySelector("#damageTwo");
@@ -43,6 +45,10 @@ var prototype10_Two;
         orangePlanet = document.querySelector(".orange");
         prototype10_Two.width = 360;
         prototype10_Two.height = 560;
+    }
+    function startGame() {
+        window.addEventListener("pointerup", handleTouch);
+        console.log("Game started");
         setSize();
         prototype10_Two.startX = (prototype10_Two.width / 2) - 25;
         prototype10_Two.startY = (prototype10_Two.height / 2) + 60;
@@ -192,10 +198,18 @@ var prototype10_Two;
         socket.send(JSON.stringify(update));
     }
     prototype10_Two.sendDamageUpdate = sendDamageUpdate;
+    function sendStart() {
+        let update = {
+            selector: "ready",
+            data: "user2"
+        };
+        socket.send(JSON.stringify(update));
+    }
     function getData(_event) {
         let carrier = JSON.parse(_event.data);
         let selector = carrier.selector;
         let data = carrier.data;
+        console.log(selector);
         switch (selector) {
             case "rocket":
                 let nmbr = Number(data);
@@ -222,6 +236,9 @@ var prototype10_Two;
                 let damageValue = Number(data);
                 prototype10_Two.rocket.damageStatus = damageValue;
                 prototype10_Two.rocket.drawRocket();
+                break;
+            case "start":
+                startGame();
                 break;
         }
     }

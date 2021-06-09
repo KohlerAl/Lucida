@@ -6,6 +6,8 @@ namespace prototype10_Two {
 
     let socket: WebSocket = new WebSocket("wss://agkeia.herokuapp.com/");
 
+    let readyTwo: boolean = false;
+
     export let canvasPoint: HTMLCanvasElement;
     export let ctxPoint: CanvasRenderingContext2D;
 
@@ -48,14 +50,15 @@ namespace prototype10_Two {
     let lanes: string[] = ["right", "right", "left", "left", "middle"];
 
     window.addEventListener("load", handleLoad);
-    window.addEventListener("pointerup", handleTouch);
-    socket.addEventListener("message", getData); 
+    socket.addEventListener("message", getData);
 
-    function handleLoad(): void {
-        /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
+    async function handleLoad(): Promise<void> {
+        const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
         const startScreen: StartScreen = new StartScreen("start-screen");
         startScreen.addResourceManager(motionManager);
-        startScreen.start(); */
+        await startScreen.start();
+        readyTwo = true;
+        sendStart();
 
         rocketImg = <HTMLImageElement>document.querySelector("#normal");
         rocketImgO = <HTMLImageElement>document.querySelector("#damageOne");
@@ -87,7 +90,12 @@ namespace prototype10_Two {
 
         width = 360;
         height = 560;
-        setSize(); 
+    }
+
+    function startGame(): void {
+        window.addEventListener("pointerup", handleTouch);
+        console.log("Game started");
+        setSize();
 
         startX = (width / 2) - 25;
         startY = (height / 2) + 60;
@@ -126,14 +134,14 @@ namespace prototype10_Two {
             random);
 
         let randomLaserpoint: number = getRandom(10000, 12000);
-        
+
 
         window.setInterval(
             function (): void {
                 let ufoShoots: number = Math.floor(Math.random() * allUFOs.length);
                 allUFOs[ufoShoots].shoot();
                 randomLaserpoint = getRandom(10000, 12000);
-                sendUFOshoot(ufoShoots); 
+                sendUFOshoot(ufoShoots);
             },
             randomLaserpoint);
     }
@@ -157,7 +165,7 @@ namespace prototype10_Two {
             let ufo: UFO = new UFO(_xPos, -50, randomSize, randomSize, img, ufoIndex);
             ufoIndex++;
             allUFOs.push(ufo);
-            sendUFONew(_xPos, -50, randomSize, randomSize, ufoIndex); 
+            sendUFONew(_xPos, -50, randomSize, randomSize, ufoIndex);
         }
     }
 
@@ -171,7 +179,7 @@ namespace prototype10_Two {
         ball.getElevation(_event.clientX, _event.clientY);
         ball.draw();
         rocketLaserpoints.push(ball);
-        sendBall(rocketBallIndex, "lightgreen", _event.clientX, _event.clientY); 
+        sendBall(rocketBallIndex, "lightgreen", _event.clientX, _event.clientY);
     }
 
     function getLane(): number {
@@ -262,16 +270,24 @@ namespace prototype10_Two {
             selector: "ball",
             data: _index + "&a&" + _elevationX + "&a&" + _elevationY
         };
-        
+
         socket.send(JSON.stringify(update));
     }
 
     export function sendDamageUpdate(): void {
         let update: Update = {
-            selector: "damage", 
+            selector: "damage",
             data: rocket.damageStatus + ""
-        }; 
-        socket.send(JSON.stringify(update)); 
+        };
+        socket.send(JSON.stringify(update));
+    }
+
+    function sendStart(): void {
+        let update: Update = {
+            selector: "ready",
+            data: "user2"
+        }
+        socket.send(JSON.stringify(update));
     }
 
     function getData(_event: any): void {
@@ -279,6 +295,7 @@ namespace prototype10_Two {
         let selector: string = carrier.selector;
         let data: string = carrier.data;
 
+        console.log(selector);
         switch (selector) {
             case "rocket":
                 let nmbr: number = Number(data);
@@ -293,20 +310,23 @@ namespace prototype10_Two {
                 let index: number = Number(pretty[3]);
 
                 if (pretty[4] == "pink") {
-                    let planet: Planet = new Planet(posX, posY, pinkPlanet, size, index, "pink"); 
-                    allPlanets.push(planet); 
+                    let planet: Planet = new Planet(posX, posY, pinkPlanet, size, index, "pink");
+                    allPlanets.push(planet);
                 }
                 else {
-                    let planet: Planet = new Planet(posX, posY, orangePlanet, size, index, "orange"); 
-                    allPlanets.push(planet); 
+                    let planet: Planet = new Planet(posX, posY, orangePlanet, size, index, "orange");
+                    allPlanets.push(planet);
                 }
-                planetIndex++; 
-                break; 
-            case "damage": 
-                let damageValue: number = Number(data); 
-                rocket.damageStatus = damageValue; 
-                rocket.drawRocket(); 
-                break; 
+                planetIndex++;
+                break;
+            case "damage":
+                let damageValue: number = Number(data);
+                rocket.damageStatus = damageValue;
+                rocket.drawRocket();
+                break;
+            case "start":
+                startGame();
+                break;
         }
     }
 }

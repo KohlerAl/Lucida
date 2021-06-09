@@ -6,6 +6,8 @@ namespace prototype10_One {
 
     let socket: WebSocket = new WebSocket("wss://agkeia.herokuapp.com/");
 
+    let readyOne: boolean = false;
+
     export let canvasPoint: HTMLCanvasElement;
     export let ctxPoint: CanvasRenderingContext2D;
 
@@ -44,14 +46,15 @@ namespace prototype10_One {
     let lanes: string[] = ["right", "right", "left", "left", "middle"];
 
     window.addEventListener("load", handleLoad);
-    window.addEventListener("deviceorientation", handleMove);
     socket.addEventListener("message", getData);
 
-    function handleLoad(): void {
-        /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
+    async function handleLoad(): Promise<void> {
+        const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
         const startScreen: StartScreen = new StartScreen("start-screen");
         startScreen.addResourceManager(motionManager);
-        startScreen.start(); */
+        await startScreen.start();
+        readyOne = true;
+        sendStart();
 
         rocketImg = <HTMLImageElement>document.querySelector("#normal");
         rocketImgO = <HTMLImageElement>document.querySelector("#damageOne");
@@ -79,6 +82,11 @@ namespace prototype10_One {
 
         width = 360;
         height = 560;
+    }
+
+    function startGame(): void {
+        window.addEventListener("deviceorientation", handleMove);
+        console.log("game started");
         setSize();
 
         startX = (width / 2) - 25;
@@ -240,11 +248,20 @@ namespace prototype10_One {
         socket.send(JSON.stringify(update));
     }
 
+    function sendStart(): void {
+        let update: Update = {
+            selector: "ready",
+            data: "user1"
+        }
+        socket.send(JSON.stringify(update));
+    }
+
     function getData(_event: any): void {
         let carrier: Update = <Update>JSON.parse(_event.data);
         let selector: string = carrier.selector;
         let data: string = carrier.data;
 
+        console.log(selector);
         switch (selector) {
             case "ufo":
                 let pretty: string[] = data.split("&a&");
@@ -279,6 +296,10 @@ namespace prototype10_One {
                 let damageValue: number = Number(data);
                 rocket.damageStatus = damageValue;
                 rocket.drawRocket();
+                break;
+            case "start":
+                startGame();
+
                 break;
         }
     }
