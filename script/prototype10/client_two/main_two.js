@@ -2,7 +2,7 @@
 var prototype10_Two;
 (function (prototype10_Two) {
     let socket = new WebSocket("wss://agkeia.herokuapp.com/");
-    let readyTwo = false;
+    let readyCount = 0;
     prototype10_Two.allImg = [];
     prototype10_Two.allPlanets = [];
     prototype10_Two.allUFOs = [];
@@ -22,7 +22,7 @@ var prototype10_Two;
         const startScreen = new StartScreen("start-screen");
         startScreen.addResourceManager(motionManager);
         await startScreen.start();
-        readyTwo = true;
+        readyCount++;
         sendStart();
         prototype10_Two.rocketImg = document.querySelector("#normal");
         prototype10_Two.rocketImgO = document.querySelector("#damageOne");
@@ -45,6 +45,9 @@ var prototype10_Two;
         orangePlanet = document.querySelector(".orange");
         prototype10_Two.width = 360;
         prototype10_Two.height = 560;
+        if (readyCount == 2) {
+            startGame();
+        }
     }
     function startGame() {
         window.addEventListener("pointerup", handleTouch);
@@ -237,8 +240,11 @@ var prototype10_Two;
                 prototype10_Two.rocket.damageStatus = damageValue;
                 prototype10_Two.rocket.drawRocket();
                 break;
-            case "start":
-                startGame();
+            case "ready":
+                readyCount++;
+                if (readyCount == 2) {
+                    startGame();
+                }
                 break;
         }
     }

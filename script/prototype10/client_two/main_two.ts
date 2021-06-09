@@ -6,7 +6,7 @@ namespace prototype10_Two {
 
     let socket: WebSocket = new WebSocket("wss://agkeia.herokuapp.com/");
 
-    let readyTwo: boolean = false;
+    let readyCount = 0;
 
     export let canvasPoint: HTMLCanvasElement;
     export let ctxPoint: CanvasRenderingContext2D;
@@ -57,7 +57,7 @@ namespace prototype10_Two {
         const startScreen: StartScreen = new StartScreen("start-screen");
         startScreen.addResourceManager(motionManager);
         await startScreen.start();
-        readyTwo = true;
+        readyCount++;
         sendStart();
 
         rocketImg = <HTMLImageElement>document.querySelector("#normal");
@@ -90,6 +90,10 @@ namespace prototype10_Two {
 
         width = 360;
         height = 560;
+
+        if (readyCount == 2) {
+            startGame();
+        }
     }
 
     function startGame(): void {
@@ -324,8 +328,11 @@ namespace prototype10_Two {
                 rocket.damageStatus = damageValue;
                 rocket.drawRocket();
                 break;
-            case "start":
-                startGame();
+            case "ready":
+                readyCount++;
+                if (readyCount == 2) {
+                    startGame();
+                }
                 break;
         }
     }
