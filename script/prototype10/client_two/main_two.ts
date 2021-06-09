@@ -85,10 +85,20 @@ namespace prototype10_Two {
         pinkPlanet = <HTMLImageElement>document.querySelector(".pink");
         orangePlanet = <HTMLImageElement>document.querySelector(".orange");
 
-        let html: HTMLElement = <HTMLElement>document.querySelector("html");
-        width = html.clientWidth;
-        height = html.clientHeight;
+        width = 360;
+        height = 560;
+        setSize(); 
 
+        startX = (width / 2) - 25;
+        startY = (height / 2) + 60;
+
+        rocket = new Rocket(startX, startY, rocketImg, rocketImgO, rocketImgT);
+
+        rocket.drawRocket();
+        update();
+    }
+
+    function setSize(): void {
         canvasPlanet.setAttribute("width", width + "px");
         canvasPlanet.setAttribute("height", height + "px");
 
@@ -100,16 +110,7 @@ namespace prototype10_Two {
 
         canvasUfo.setAttribute("width", width + "px");
         canvasUfo.setAttribute("height", height + "px");
-
-        startX = (width / 2) - 25;
-        startY = (height / 2) + 60;
-
-        rocket = new Rocket(startX, startY, rocketImg, rocketImgO, rocketImgT);
-        rocket.drawRocket();
-        update();
     }
-
-
 
     function update(): void {
         window.setInterval(movePlanets, 40);
@@ -125,12 +126,15 @@ namespace prototype10_Two {
             random);
 
         let randomLaserpoint: number = getRandom(10000, 12000);
-        let ufoShoots: number = Math.floor(Math.random() * allUFOs.length);
+        
 
         window.setInterval(
             function (): void {
+                let ufoShoots: number = Math.floor(Math.random() * allUFOs.length);
                 allUFOs[ufoShoots].shoot();
                 randomLaserpoint = getRandom(10000, 12000);
+                sendUFOshoot(ufoShoots); 
+                console.log(allUFOs.length, ufoShoots); 
             },
             randomLaserpoint);
     }
@@ -154,6 +158,7 @@ namespace prototype10_Two {
             let ufo: UFO = new UFO(_xPos, -50, randomSize, randomSize, img, ufoIndex);
             ufoIndex++;
             allUFOs.push(ufo);
+            sendUFONew(_xPos, -50, randomSize, randomSize, ufoIndex); 
         }
     }
 
@@ -167,6 +172,7 @@ namespace prototype10_Two {
         ball.getElevation(_event.clientX, _event.clientY);
         ball.draw();
         rocketLaserpoints.push(ball);
+        sendBall(rocketBallIndex, "lightgreen", _event.clientX, _event.clientY); 
     }
 
     function getLane(): number {
@@ -264,16 +270,25 @@ namespace prototype10_Two {
         socket.send(JSON.stringify(update));
     }
 
+    export function sendDamageUpdate(): void {
+        let update: Update = {
+            selector: "damage", 
+            data: rocket.damageStatus + ""
+        }; 
+        socket.send(JSON.stringify(update)); 
+    }
+
     function getData(_event: any): void {
         let carrier: Update = <Update>JSON.parse(_event.data);
         let selector: string = carrier.selector;
         let data: string = carrier.data;
 
-        console.log(selector); 
         switch (selector) {
             case "rocket":
                 let nmbr: number = Number(data);
                 rocket.move(nmbr);
+                rocket.drawRocket();
+                console.log(nmbr); 
                 break;
             case "planet":
                 let pretty: string[] = data.split("&a&");
@@ -291,6 +306,10 @@ namespace prototype10_Two {
                     allPlanets.push(planet); 
                 }
                 planetIndex++; 
+                break; 
+            case "damage": 
+                let damageValue: number = Number(data); 
+                rocket.damageStatus = damageValue; 
                 break; 
         }
     }

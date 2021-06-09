@@ -43,9 +43,10 @@ namespace prototype10_One {
         public damageUpdate(): void {
             this.damageStatus++;
             this.drawRocket(); 
+            sendDamageUpdate(); 
 
             if (this.damageStatus >= 3) {
-                window.alert("The Rocket is irreparable damaged");
+                //
             }
         }
 

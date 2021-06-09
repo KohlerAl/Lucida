@@ -31,6 +31,7 @@ var prototype10_Two;
         damageUpdate() {
             this.damageStatus++;
             this.drawRocket();
+            prototype10_Two.sendDamageUpdate();
             if (this.damageStatus >= 3) {
                 //
             }

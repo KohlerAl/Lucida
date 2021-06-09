@@ -43,7 +43,7 @@ namespace prototype10_Two {
         public damageUpdate(): void {
             this.damageStatus++;
             this.drawRocket(); 
-
+            sendDamageUpdate(); 
             if (this.damageStatus >= 3) {
                 //
             }

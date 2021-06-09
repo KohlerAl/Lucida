@@ -1,10 +1,10 @@
 namespace prototype10_One {
     interface Update {
-        selector: string; 
-        data: string; 
+        selector: string;
+        data: string;
     }
 
-    let socket: WebSocket = new WebSocket("wss://agkeia.herokuapp.com/"); 
+    let socket: WebSocket = new WebSocket("wss://agkeia.herokuapp.com/");
 
     export let canvasPoint: HTMLCanvasElement;
     export let ctxPoint: CanvasRenderingContext2D;
@@ -36,9 +36,6 @@ namespace prototype10_One {
     export let ufoLaserpoints: Ball[] = [];
     export let rocketLaserpoints: Ball[] = [];
 
-    let pinkPlanet: HTMLImageElement;
-    let orangePlanet: HTMLImageElement;
-
     export let rocket: Rocket;
 
     export let ufoBallIndex: number = 0;
@@ -48,7 +45,7 @@ namespace prototype10_One {
 
     window.addEventListener("load", handleLoad);
     window.addEventListener("deviceorientation", handleMove);
-    socket.addEventListener("message", getData); 
+    socket.addEventListener("message", getData);
 
     function handleLoad(): void {
         /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
@@ -80,13 +77,19 @@ namespace prototype10_One {
         canvasUfo = <HTMLCanvasElement>document.querySelector("#canvasUfo");
         ctxUfo = <CanvasRenderingContext2D>canvasUfo.getContext("2d");
 
-        let html: HTMLElement = <HTMLElement>document.querySelector("html");
-        width = html.clientWidth;
-        height = html.clientHeight;
-        
-        pinkPlanet = <HTMLImageElement>document.querySelector(".pink");
-        orangePlanet = <HTMLImageElement>document.querySelector(".orange");
+        width = 360;
+        height = 560;
 
+        startX = (width / 2) - 25;
+        startY = (height / 2) + 60;
+
+        rocket = new Rocket(startX, startY, rocketImg, rocketImgO, rocketImgT);
+        rocket.drawRocket();
+
+        update();
+    }
+
+    function setSize(): void {
         canvasPlanet.setAttribute("width", width + "px");
         canvasPlanet.setAttribute("height", height + "px");
 
@@ -98,21 +101,13 @@ namespace prototype10_One {
 
         canvasUfo.setAttribute("width", width + "px");
         canvasUfo.setAttribute("height", height + "px");
-
-        startX = (width / 2) - 25;
-        startY = (height / 2) + 60;
-
-        rocket = new Rocket(startX, startY, rocketImg, rocketImgO, rocketImgT);
-        rocket.drawRocket();
-
-        update();
     }
 
     function handleMove(_event: DeviceOrientationEvent): void {
         if (_event.gamma) {
             rocket.move(_event.gamma);
             rocket.drawRocket();
-            sendRocketPosition(_event.gamma); 
+            sendRocketPosition(_event.gamma);
         }
     }
 
@@ -143,8 +138,8 @@ namespace prototype10_One {
             let planet: Planet = new Planet(_xPos, -50, img, randomSize, planetIndex, type);
             planetIndex++;
             allPlanets.push(planet);
-            
-            sendPlanetData(_xPos, -50, randomSize, planetIndex, type); 
+
+            sendPlanetData(_xPos, -50, randomSize, planetIndex, type);
         }
         else if (_type == "ufo") {
             let img: HTMLImageElement = ufoImg;
@@ -221,60 +216,75 @@ namespace prototype10_One {
 
     function sendRocketPosition(_newPos: number): void {
         let update: Update = {
-            selector : "rocket", 
+            selector: "rocket",
             data: _newPos + ""
-        }; 
+        };
 
-        console.log(update); 
-        socket.send(JSON.stringify(update)); 
+        console.log(update);
+        socket.send(JSON.stringify(update));
     }
 
     function sendPlanetData(_xPos: number, _yPos: number, _size: number, _index: number, _type: string): void {
         let update: Update = {
-            selector: "planet", 
+            selector: "planet",
             data: _xPos + "&a&" + _yPos + "&a&" + _size + "&a&" + _index + "&a&" + _type
-        }; 
-        console.log(update); 
-        socket.send(JSON.stringify(update)); 
+        };
+        console.log(update);
+        socket.send(JSON.stringify(update));
+    }
+
+    export function sendDamageUpdate(): void {
+        let update: Update = {
+            selector: "damage",
+            data: rocket.damageStatus + ""
+        };
+        socket.send(JSON.stringify(update));
     }
 
     function getData(_event: any): void {
-        console.log(_event.data); 
-        let carrier: Update = <Update>JSON.parse(_event.data); 
-        let selector: string = carrier.selector; 
-        let data: string = carrier.data; 
+        let carrier: Update = <Update>JSON.parse(_event.data);
+        let selector: string = carrier.selector;
+        let data: string = carrier.data;
 
         switch (selector) {
-            case "ufo" : 
-                let pretty: string[] = data.split("&a&"); 
-                let posX: number = Number(pretty[0]); 
-                let posY: number = Number(pretty[1]); 
-                let sizeX: number = Number(pretty[2]); 
-                let sizeY: number = Number(pretty[3]); 
-                let index: number = Number(pretty[4]); 
+            case "ufo":
+                let pretty: string[] = data.split("&a&");
+                let posX: number = Number(pretty[0]);
+                let posY: number = Number(pretty[1]);
+                let sizeX: number = Number(pretty[2]);
+                let sizeY: number = Number(pretty[3]);
+                let index: number = Number(pretty[4]);
 
-                let newUfo: UFO = new UFO (posX, posY, sizeX, sizeY, ufoImg, index); 
-                ufoIndex = index + 1; 
-                allUFOs.push(newUfo); 
+                let newUfo: UFO = new UFO(posX, posY, sizeX, sizeY, ufoImg, index);
+                ufoIndex = index + 1;
+                allUFOs.push(newUfo);
                 break;
 
-            case "shoot": 
-                let ufoIndexNmbr: number = Number(data); 
+            case "shoot":
+                console.warn(data, allUFOs.length + 1);
+                let ufoIndexNmbr: number = Number(data);
                 for (let ufo of allUFOs) {
                     if (ufo.index == ufoIndexNmbr) {
-                        ufo.shoot(); 
+                        ufo.shoot();
                         ufoBallIndex++;
                     }
-                } 
-                break; 
-            case "ball": 
-                let arr: string[] = data.split("&a&"); 
-                let ind: number = Number(arr[0]); 
-                let elevationX: number = Number(arr[1]); 
-                let elevationY: number = Number(arr[2]); 
+                }
+                break;
+            case "ball":
+                let arr: string[] = data.split("&a&");
+                let ind: number = Number(arr[0]);
+                let elevationX: number = Number(arr[1]);
+                let elevationY: number = Number(arr[2]);
 
-                let ball: Ball = new Ball(rocket.newPos, rocket.startPosY, ind, "lightgreen"); 
-                ball.getElevation(elevationX, elevationY); 
+                let ball: Ball = new Ball(rocket.newPos, rocket.startPosY, ind, "lightgreen");
+                ball.getElevation(elevationX, elevationY);
+                ball.draw();
+                rocketLaserpoints.push(ball);
+                break;
+            case "damage":
+                let damageValue: number = Number(data);
+                rocket.damageStatus = damageValue;
+                break;
         }
     }
 }

@@ -41,9 +41,16 @@ var prototype10_Two;
         prototype10_Two.ctxUfo = prototype10_Two.canvasUfo.getContext("2d");
         pinkPlanet = document.querySelector(".pink");
         orangePlanet = document.querySelector(".orange");
-        let html = document.querySelector("html");
-        prototype10_Two.width = html.clientWidth;
-        prototype10_Two.height = html.clientHeight;
+        prototype10_Two.width = 360;
+        prototype10_Two.height = 560;
+        setSize();
+        prototype10_Two.startX = (prototype10_Two.width / 2) - 25;
+        prototype10_Two.startY = (prototype10_Two.height / 2) + 60;
+        prototype10_Two.rocket = new prototype10_Two.Rocket(prototype10_Two.startX, prototype10_Two.startY, prototype10_Two.rocketImg, prototype10_Two.rocketImgO, prototype10_Two.rocketImgT);
+        prototype10_Two.rocket.drawRocket();
+        update();
+    }
+    function setSize() {
         prototype10_Two.canvasPlanet.setAttribute("width", prototype10_Two.width + "px");
         prototype10_Two.canvasPlanet.setAttribute("height", prototype10_Two.height + "px");
         prototype10_Two.canvasPoint.setAttribute("width", prototype10_Two.width + "px");
@@ -52,11 +59,6 @@ var prototype10_Two;
         prototype10_Two.canvasRocket.setAttribute("height", prototype10_Two.height + "px");
         prototype10_Two.canvasUfo.setAttribute("width", prototype10_Two.width + "px");
         prototype10_Two.canvasUfo.setAttribute("height", prototype10_Two.height + "px");
-        prototype10_Two.startX = (prototype10_Two.width / 2) - 25;
-        prototype10_Two.startY = (prototype10_Two.height / 2) + 60;
-        prototype10_Two.rocket = new prototype10_Two.Rocket(prototype10_Two.startX, prototype10_Two.startY, prototype10_Two.rocketImg, prototype10_Two.rocketImgO, prototype10_Two.rocketImgT);
-        prototype10_Two.rocket.drawRocket();
-        update();
     }
     function update() {
         window.setInterval(movePlanets, 40);
@@ -67,10 +69,12 @@ var prototype10_Two;
             random = getRandom(2000, 5000);
         }, random);
         let randomLaserpoint = getRandom(10000, 12000);
-        let ufoShoots = Math.floor(Math.random() * prototype10_Two.allUFOs.length);
         window.setInterval(function () {
+            let ufoShoots = Math.floor(Math.random() * prototype10_Two.allUFOs.length);
             prototype10_Two.allUFOs[ufoShoots].shoot();
             randomLaserpoint = getRandom(10000, 12000);
+            sendUFOshoot(ufoShoots);
+            console.log(prototype10_Two.allUFOs.length, ufoShoots);
         }, randomLaserpoint);
     }
     function createMoveable(_type, _xPos) {
@@ -91,6 +95,7 @@ var prototype10_Two;
             let ufo = new prototype10_Two.UFO(_xPos, -50, randomSize, randomSize, img, ufoIndex);
             ufoIndex++;
             prototype10_Two.allUFOs.push(ufo);
+            sendUFONew(_xPos, -50, randomSize, randomSize, ufoIndex);
         }
     }
     function handleTouch(_event) {
@@ -101,6 +106,7 @@ var prototype10_Two;
         ball.getElevation(_event.clientX, _event.clientY);
         ball.draw();
         prototype10_Two.rocketLaserpoints.push(ball);
+        sendBall(rocketBallIndex, "lightgreen", _event.clientX, _event.clientY);
     }
     function getLane() {
         let numbr = Math.floor(Math.random() * lanes.length);
@@ -182,15 +188,24 @@ var prototype10_Two;
         console.log(update);
         socket.send(JSON.stringify(update));
     }
+    function sendDamageUpdate() {
+        let update = {
+            selector: "damage",
+            data: prototype10_Two.rocket.damageStatus + ""
+        };
+        socket.send(JSON.stringify(update));
+    }
+    prototype10_Two.sendDamageUpdate = sendDamageUpdate;
     function getData(_event) {
         let carrier = JSON.parse(_event.data);
         let selector = carrier.selector;
         let data = carrier.data;
-        console.log(selector);
         switch (selector) {
             case "rocket":
                 let nmbr = Number(data);
                 prototype10_Two.rocket.move(nmbr);
+                prototype10_Two.rocket.drawRocket();
+                console.log(nmbr);
                 break;
             case "planet":
                 let pretty = data.split("&a&");
@@ -207,6 +222,10 @@ var prototype10_Two;
                     prototype10_Two.allPlanets.push(planet);
                 }
                 planetIndex++;
+                break;
+            case "damage":
+                let damageValue = Number(data);
+                prototype10_Two.rocket.damageStatus = damageValue;
                 break;
         }
     }

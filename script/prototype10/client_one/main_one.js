@@ -7,8 +7,6 @@ var prototype10_One;
     prototype10_One.allUFOs = [];
     prototype10_One.ufoLaserpoints = [];
     prototype10_One.rocketLaserpoints = [];
-    let pinkPlanet;
-    let orangePlanet;
     prototype10_One.ufoBallIndex = 0;
     let planetIndex = 0;
     let ufoIndex = 0;
@@ -38,11 +36,15 @@ var prototype10_One;
         prototype10_One.ctxRocket = prototype10_One.canvasRocket.getContext("2d");
         prototype10_One.canvasUfo = document.querySelector("#canvasUfo");
         prototype10_One.ctxUfo = prototype10_One.canvasUfo.getContext("2d");
-        let html = document.querySelector("html");
-        prototype10_One.width = html.clientWidth;
-        prototype10_One.height = html.clientHeight;
-        pinkPlanet = document.querySelector(".pink");
-        orangePlanet = document.querySelector(".orange");
+        prototype10_One.width = 360;
+        prototype10_One.height = 560;
+        prototype10_One.startX = (prototype10_One.width / 2) - 25;
+        prototype10_One.startY = (prototype10_One.height / 2) + 60;
+        prototype10_One.rocket = new prototype10_One.Rocket(prototype10_One.startX, prototype10_One.startY, prototype10_One.rocketImg, prototype10_One.rocketImgO, prototype10_One.rocketImgT);
+        prototype10_One.rocket.drawRocket();
+        update();
+    }
+    function setSize() {
         prototype10_One.canvasPlanet.setAttribute("width", prototype10_One.width + "px");
         prototype10_One.canvasPlanet.setAttribute("height", prototype10_One.height + "px");
         prototype10_One.canvasPoint.setAttribute("width", prototype10_One.width + "px");
@@ -51,11 +53,6 @@ var prototype10_One;
         prototype10_One.canvasRocket.setAttribute("height", prototype10_One.height + "px");
         prototype10_One.canvasUfo.setAttribute("width", prototype10_One.width + "px");
         prototype10_One.canvasUfo.setAttribute("height", prototype10_One.height + "px");
-        prototype10_One.startX = (prototype10_One.width / 2) - 25;
-        prototype10_One.startY = (prototype10_One.height / 2) + 60;
-        prototype10_One.rocket = new prototype10_One.Rocket(prototype10_One.startX, prototype10_One.startY, prototype10_One.rocketImg, prototype10_One.rocketImgO, prototype10_One.rocketImgT);
-        prototype10_One.rocket.drawRocket();
-        update();
     }
     function handleMove(_event) {
         if (_event.gamma) {
@@ -166,8 +163,15 @@ var prototype10_One;
         console.log(update);
         socket.send(JSON.stringify(update));
     }
+    function sendDamageUpdate() {
+        let update = {
+            selector: "damage",
+            data: prototype10_One.rocket.damageStatus + ""
+        };
+        socket.send(JSON.stringify(update));
+    }
+    prototype10_One.sendDamageUpdate = sendDamageUpdate;
     function getData(_event) {
-        console.log(_event.data);
         let carrier = JSON.parse(_event.data);
         let selector = carrier.selector;
         let data = carrier.data;
@@ -184,6 +188,7 @@ var prototype10_One;
                 prototype10_One.allUFOs.push(newUfo);
                 break;
             case "shoot":
+                console.warn(data, prototype10_One.allUFOs.length + 1);
                 let ufoIndexNmbr = Number(data);
                 for (let ufo of prototype10_One.allUFOs) {
                     if (ufo.index == ufoIndexNmbr) {
@@ -199,6 +204,13 @@ var prototype10_One;
                 let elevationY = Number(arr[2]);
                 let ball = new prototype10_One.Ball(prototype10_One.rocket.newPos, prototype10_One.rocket.startPosY, ind, "lightgreen");
                 ball.getElevation(elevationX, elevationY);
+                ball.draw();
+                prototype10_One.rocketLaserpoints.push(ball);
+                break;
+            case "damage":
+                let damageValue = Number(data);
+                prototype10_One.rocket.damageStatus = damageValue;
+                break;
         }
     }
 })(prototype10_One || (prototype10_One = {}));
