@@ -221,6 +221,7 @@ var prototype10_Two;
             case "damage":
                 let damageValue = Number(data);
                 prototype10_Two.rocket.damageStatus = damageValue;
+                prototype10_Two.rocket.drawRocket();
                 break;
         }
     }

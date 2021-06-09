@@ -305,6 +305,7 @@ namespace prototype10_Two {
             case "damage": 
                 let damageValue: number = Number(data); 
                 rocket.damageStatus = damageValue; 
+                rocket.drawRocket(); 
                 break; 
         }
     }

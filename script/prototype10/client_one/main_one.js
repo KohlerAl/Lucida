@@ -188,12 +188,8 @@ var prototype10_One;
                 break;
             case "shoot":
                 let ufoIndexNmbr = Number(data);
-                for (let ufo of prototype10_One.allUFOs) {
-                    if (ufo.index == ufoIndexNmbr) {
-                        ufo.shoot();
-                        prototype10_One.ufoBallIndex++;
-                    }
-                }
+                prototype10_One.allUFOs[ufoIndexNmbr].shoot();
+                prototype10_One.ufoBallIndex++;
                 break;
             case "ball":
                 let arr = data.split("&a&");
@@ -208,6 +204,7 @@ var prototype10_One;
             case "damage":
                 let damageValue = Number(data);
                 prototype10_One.rocket.damageStatus = damageValue;
+                prototype10_One.rocket.drawRocket();
                 break;
         }
     }

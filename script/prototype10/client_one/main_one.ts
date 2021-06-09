@@ -261,12 +261,8 @@ namespace prototype10_One {
 
             case "shoot":
                 let ufoIndexNmbr: number = Number(data);
-                for (let ufo of allUFOs) {
-                    if (ufo.index == ufoIndexNmbr) {
-                        ufo.shoot();
-                        ufoBallIndex++;
-                    }
-                }
+                allUFOs[ufoIndexNmbr].shoot();
+                ufoBallIndex++;
                 break;
             case "ball":
                 let arr: string[] = data.split("&a&");
@@ -282,6 +278,7 @@ namespace prototype10_One {
             case "damage":
                 let damageValue: number = Number(data);
                 rocket.damageStatus = damageValue;
+                rocket.drawRocket();
                 break;
         }
     }
