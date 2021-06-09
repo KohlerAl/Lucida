@@ -71,20 +71,22 @@ var prototype10_Two;
         prototype10_Two.canvasUfo.setAttribute("height", prototype10_Two.height + "px");
     }
     function update() {
-        prototype10_Two.planetInterval = window.setInterval(movePlanets, 40);
-        let random = getRandom(2000, 5000);
-        prototype10_Two.createUfoInterval = window.setInterval(function () {
-            let pos = getLane();
-            createMoveable("ufo", pos);
-            random = getRandom(2000, 5000);
-        }, random);
-        let randomLaserpoint = getRandom(10000, 12000);
-        prototype10_Two.ufoInterval = window.setInterval(function () {
-            let ufoShoots = Math.floor(Math.random() * prototype10_Two.allUFOs.length);
-            prototype10_Two.allUFOs[ufoShoots].shoot();
-            randomLaserpoint = getRandom(10000, 12000);
-            sendUFOshoot(ufoShoots);
-        }, randomLaserpoint);
+        if (prototype10_Two.gameover == false) {
+            window.setInterval(movePlanets, 40);
+            let random = getRandom(2000, 5000);
+            window.setInterval(function () {
+                let pos = getLane();
+                createMoveable("ufo", pos);
+                random = getRandom(2000, 5000);
+            }, random);
+            let randomLaserpoint = getRandom(10000, 12000);
+            window.setInterval(function () {
+                let ufoShoots = Math.floor(Math.random() * prototype10_Two.allUFOs.length);
+                prototype10_Two.allUFOs[ufoShoots].shoot();
+                randomLaserpoint = getRandom(10000, 12000);
+                sendUFOshoot(ufoShoots);
+            }, randomLaserpoint);
+        }
     }
     function createMoveable(_type, _xPos) {
         let randomNmbr = Math.floor(Math.random() * prototype10_Two.allImg.length);
@@ -219,44 +221,47 @@ var prototype10_Two;
             socket.send(JSON.stringify(update));
         }
     }
+    // tslint:disable-next-line: no-any
     function getData(_event) {
-        let carrier = JSON.parse(_event.data);
-        let selector = carrier.selector;
-        let data = carrier.data;
-        switch (selector) {
-            case "rocket":
-                let nmbr = Number(data);
-                prototype10_Two.rocket.move(nmbr);
-                prototype10_Two.rocket.drawRocket();
-                break;
-            case "planet":
-                let pretty = data.split("&a&");
-                let posX = Number(pretty[0]);
-                let posY = Number(pretty[1]);
-                let size = Number(pretty[2]);
-                let index = Number(pretty[3]);
-                if (pretty[4] == "pink") {
-                    let planet = new prototype10_Two.Planet(posX, posY, pinkPlanet, size, index, "pink");
-                    prototype10_Two.allPlanets.push(planet);
-                }
-                else {
-                    let planet = new prototype10_Two.Planet(posX, posY, orangePlanet, size, index, "orange");
-                    prototype10_Two.allPlanets.push(planet);
-                }
-                planetIndex++;
-                break;
-            case "damage":
-                let damageValue = Number(data);
-                prototype10_Two.rocket.damageStatus = damageValue;
-                prototype10_Two.rocket.drawRocket();
-                break;
-            case "ready":
-                readyCount++;
-                console.log(readyCount);
-                if (readyCount == 3) {
-                    startGame();
-                }
-                break;
+        if (prototype10_Two.gameover == false) {
+            let carrier = JSON.parse(_event.data);
+            let selector = carrier.selector;
+            let data = carrier.data;
+            switch (selector) {
+                case "rocket":
+                    let nmbr = Number(data);
+                    prototype10_Two.rocket.move(nmbr);
+                    prototype10_Two.rocket.drawRocket();
+                    break;
+                case "planet":
+                    let pretty = data.split("&a&");
+                    let posX = Number(pretty[0]);
+                    let posY = Number(pretty[1]);
+                    let size = Number(pretty[2]);
+                    let index = Number(pretty[3]);
+                    if (pretty[4] == "pink") {
+                        let planet = new prototype10_Two.Planet(posX, posY, pinkPlanet, size, index, "pink");
+                        prototype10_Two.allPlanets.push(planet);
+                    }
+                    else {
+                        let planet = new prototype10_Two.Planet(posX, posY, orangePlanet, size, index, "orange");
+                        prototype10_Two.allPlanets.push(planet);
+                    }
+                    planetIndex++;
+                    break;
+                case "damage":
+                    let damageValue = Number(data);
+                    prototype10_Two.rocket.damageStatus = damageValue;
+                    prototype10_Two.rocket.drawRocket();
+                    break;
+                case "ready":
+                    readyCount++;
+                    console.log(readyCount);
+                    if (readyCount == 3) {
+                        startGame();
+                    }
+                    break;
+            }
         }
     }
 })(prototype10_Two || (prototype10_Two = {}));

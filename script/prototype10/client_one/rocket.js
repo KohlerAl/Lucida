@@ -37,8 +37,6 @@ var prototype10_One;
                 prototype10_One.rocketLaserpoints = [];
                 prototype10_One.allPlanets = [];
                 prototype10_One.allUFOs = [];
-                prototype10_One.planetInterval.clearInterval();
-                prototype10_One.createPlanetInterval.clearInterval();
                 prototype10_One.gameover = true;
             }
         }

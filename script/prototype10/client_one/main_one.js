@@ -73,9 +73,9 @@ var prototype10_One;
         }
     }
     function update() {
-        prototype10_One.planetInterval = window.setInterval(movePlanets, 40);
+        window.setInterval(movePlanets, 40);
         let random = getRandom(2000, 5000);
-        prototype10_One.createPlanetInterval = window.setInterval(function () {
+        window.setInterval(function () {
             let pos = getLane();
             createMoveable("planet", pos);
             random = getRandom(2000, 5000);
@@ -195,6 +195,7 @@ var prototype10_One;
             socket.send(JSON.stringify(update));
         }
     }
+    // tslint:disable-next-line: no-any
     function getData(_event) {
         let carrier = JSON.parse(_event.data);
         let selector = carrier.selector;
