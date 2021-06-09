@@ -46,7 +46,13 @@ namespace prototype10_One {
             sendDamageUpdate(); 
 
             if (this.damageStatus >= 3) {
-                //
+                ufoLaserpoints = [];
+                rocketLaserpoints = []; 
+                allPlanets = []; 
+                allUFOs = [];  
+                planetInterval.clearInterval(); 
+                createPlanetInterval.clearInterval(); 
+                gameover = true; 
             }
         }
 

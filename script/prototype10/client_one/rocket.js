@@ -33,7 +33,13 @@ var prototype10_One;
             this.drawRocket();
             prototype10_One.sendDamageUpdate();
             if (this.damageStatus >= 3) {
-                //
+                prototype10_One.ufoLaserpoints = [];
+                prototype10_One.rocketLaserpoints = [];
+                prototype10_One.allPlanets = [];
+                prototype10_One.allUFOs = [];
+                prototype10_One.planetInterval.clearInterval();
+                prototype10_One.createPlanetInterval.clearInterval();
+                prototype10_One.gameover = true;
             }
         }
         checkCollision() {

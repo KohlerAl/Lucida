@@ -6,7 +6,8 @@ namespace prototype10_Two {
 
     let socket: WebSocket = new WebSocket("wss://agkeia.herokuapp.com/");
 
-    let readyCount = 0;
+    let readyCount: number = 0;
+    export let gameover: boolean = false;
 
     export let canvasPoint: HTMLCanvasElement;
     export let ctxPoint: CanvasRenderingContext2D;
@@ -42,6 +43,10 @@ namespace prototype10_Two {
     let orangePlanet: HTMLImageElement;
 
     export let rocket: Rocket;
+
+    export let planetInterval: any;
+    export let createUfoInterval: any;
+    export let ufoInterval: any;
 
     export let ufoBallIndex: number = 0;
     let planetIndex: number = 0;
@@ -91,7 +96,7 @@ namespace prototype10_Two {
         width = 360;
         height = 560;
 
-        if (readyCount == 2) {
+        if (readyCount == 3) {
             startGame();
         }
     }
@@ -125,10 +130,10 @@ namespace prototype10_Two {
     }
 
     function update(): void {
-        window.setInterval(movePlanets, 40);
+        planetInterval = window.setInterval(movePlanets, 40);
 
         let random: number = getRandom(2000, 5000);
-        window.setInterval(
+        createUfoInterval = window.setInterval(
             function (): void {
                 let pos: number = getLane();
                 createMoveable("ufo", pos);
@@ -140,7 +145,7 @@ namespace prototype10_Two {
         let randomLaserpoint: number = getRandom(10000, 12000);
 
 
-        window.setInterval(
+        ufoInterval = window.setInterval(
             function (): void {
                 let ufoShoots: number = Math.floor(Math.random() * allUFOs.length);
                 allUFOs[ufoShoots].shoot();
@@ -252,46 +257,56 @@ namespace prototype10_Two {
     }
 
     function sendUFONew(_xPosition: number, _yPosition: number, _sizeX: number, _sizeY: number, _index: number): void {
-        let update: Update = {
-            selector: "ufo",
-            data: _xPosition + "&a&" + _yPosition + "&a&" + _sizeX + "&a&" + _sizeY + "&a&" + _index
-        };
+        if (gameover == false) {
+            let update: Update = {
+                selector: "ufo",
+                data: _xPosition + "&a&" + _yPosition + "&a&" + _sizeX + "&a&" + _sizeY + "&a&" + _index
+            };
 
-        socket.send(JSON.stringify(update));
+            socket.send(JSON.stringify(update));
+        }
     }
 
     function sendUFOshoot(_index: number): void {
-        let update: Update = {
-            selector: "shoot",
-            data: _index + ""
-        };
+        if (gameover == false) {
+            let update: Update = {
+                selector: "shoot",
+                data: _index + ""
+            };
 
-        socket.send(JSON.stringify(update));
+            socket.send(JSON.stringify(update));
+        }
     }
 
     function sendBall(_index: number, _color: string, _elevationX: number, _elevationY: number): void {
-        let update: Update = {
-            selector: "ball",
-            data: _index + "&a&" + _elevationX + "&a&" + _elevationY
-        };
+        if (gameover == false) {
+            let update: Update = {
+                selector: "ball",
+                data: _index + "&a&" + _elevationX + "&a&" + _elevationY
+            };
 
-        socket.send(JSON.stringify(update));
+            socket.send(JSON.stringify(update));
+        }
     }
 
     export function sendDamageUpdate(): void {
-        let update: Update = {
-            selector: "damage",
-            data: rocket.damageStatus + ""
-        };
-        socket.send(JSON.stringify(update));
+        if (gameover == false) {
+            let update: Update = {
+                selector: "damage",
+                data: rocket.damageStatus + ""
+            };
+            socket.send(JSON.stringify(update));
+        }
     }
 
     function sendStart(): void {
-        let update: Update = {
-            selector: "ready",
-            data: "user2"
+        if (gameover == false) {
+            let update: Update = {
+                selector: "ready",
+                data: "user2"
+            }
+            socket.send(JSON.stringify(update));
         }
-        socket.send(JSON.stringify(update));
     }
 
     function getData(_event: any): void {
@@ -299,7 +314,6 @@ namespace prototype10_Two {
         let selector: string = carrier.selector;
         let data: string = carrier.data;
 
-        console.log(selector);
         switch (selector) {
             case "rocket":
                 let nmbr: number = Number(data);
@@ -330,7 +344,8 @@ namespace prototype10_Two {
                 break;
             case "ready":
                 readyCount++;
-                if (readyCount == 2) {
+                console.log(readyCount);
+                if (readyCount == 3) {
                     startGame();
                 }
                 break;

@@ -44,8 +44,15 @@ namespace prototype10_Two {
             this.damageStatus++;
             this.drawRocket(); 
             sendDamageUpdate(); 
-            if (this.damageStatus >= 3) {
-                //
+            if (this.damageStatus == 3) {
+                ufoLaserpoints = [];
+                rocketLaserpoints = []; 
+                allPlanets = []; 
+                allUFOs = [];  
+                planetInterval.clearInterval(); 
+                createUfoInterval.clearInterval();  
+                ufoInterval.clearInterval(); 
+                gameover = true; 
             }
         }
 

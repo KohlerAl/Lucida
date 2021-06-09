@@ -2,7 +2,8 @@
 var prototype10_One;
 (function (prototype10_One) {
     let socket = new WebSocket("wss://agkeia.herokuapp.com/");
-    let readyOne = false;
+    let readyCount = 0;
+    prototype10_One.gameover = false;
     prototype10_One.allImg = [];
     prototype10_One.allPlanets = [];
     prototype10_One.allUFOs = [];
@@ -19,7 +20,7 @@ var prototype10_One;
         const startScreen = new StartScreen("start-screen");
         startScreen.addResourceManager(motionManager);
         await startScreen.start();
-        readyOne = true;
+        readyCount++;
         sendStart();
         prototype10_One.rocketImg = document.querySelector("#normal");
         prototype10_One.rocketImgO = document.querySelector("#damageOne");
@@ -40,6 +41,9 @@ var prototype10_One;
         prototype10_One.ctxUfo = prototype10_One.canvasUfo.getContext("2d");
         prototype10_One.width = 360;
         prototype10_One.height = 560;
+        if (readyCount == 3) {
+            startGame();
+        }
     }
     function startGame() {
         window.addEventListener("deviceorientation", handleMove);
@@ -69,9 +73,9 @@ var prototype10_One;
         }
     }
     function update() {
-        window.setInterval(movePlanets, 40);
+        prototype10_One.planetInterval = window.setInterval(movePlanets, 40);
         let random = getRandom(2000, 5000);
-        window.setInterval(function () {
+        prototype10_One.createPlanetInterval = window.setInterval(function () {
             let pos = getLane();
             createMoveable("planet", pos);
             random = getRandom(2000, 5000);
@@ -155,39 +159,46 @@ var prototype10_One;
         }
     }
     function sendRocketPosition(_newPos) {
-        let update = {
-            selector: "rocket",
-            data: _newPos + ""
-        };
-        socket.send(JSON.stringify(update));
+        if (prototype10_One.gameover == false) {
+            let update = {
+                selector: "rocket",
+                data: _newPos + ""
+            };
+            socket.send(JSON.stringify(update));
+        }
     }
     function sendPlanetData(_xPos, _yPos, _size, _index, _type) {
-        let update = {
-            selector: "planet",
-            data: _xPos + "&a&" + _yPos + "&a&" + _size + "&a&" + _index + "&a&" + _type
-        };
-        socket.send(JSON.stringify(update));
+        if (prototype10_One.gameover == false) {
+            let update = {
+                selector: "planet",
+                data: _xPos + "&a&" + _yPos + "&a&" + _size + "&a&" + _index + "&a&" + _type
+            };
+            socket.send(JSON.stringify(update));
+        }
     }
     function sendDamageUpdate() {
-        let update = {
-            selector: "damage",
-            data: prototype10_One.rocket.damageStatus + ""
-        };
-        socket.send(JSON.stringify(update));
+        if (prototype10_One.gameover == false) {
+            let update = {
+                selector: "damage",
+                data: prototype10_One.rocket.damageStatus + ""
+            };
+            socket.send(JSON.stringify(update));
+        }
     }
     prototype10_One.sendDamageUpdate = sendDamageUpdate;
     function sendStart() {
-        let update = {
-            selector: "ready",
-            data: "user1"
-        };
-        socket.send(JSON.stringify(update));
+        if (prototype10_One.gameover == false) {
+            let update = {
+                selector: "ready",
+                data: "user1"
+            };
+            socket.send(JSON.stringify(update));
+        }
     }
     function getData(_event) {
         let carrier = JSON.parse(_event.data);
         let selector = carrier.selector;
         let data = carrier.data;
-        console.log(selector);
         switch (selector) {
             case "ufo":
                 let pretty = data.split("&a&");
@@ -220,8 +231,12 @@ var prototype10_One;
                 prototype10_One.rocket.damageStatus = damageValue;
                 prototype10_One.rocket.drawRocket();
                 break;
-            case "start":
-                startGame();
+            case "ready":
+                console.log(readyCount);
+                readyCount++;
+                if (readyCount == 3) {
+                    startGame();
+                }
                 break;
         }
     }
