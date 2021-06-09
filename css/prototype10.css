@@ -1,3 +1,32 @@
+@font-face {
+    font-family: 'Arual';
+    src: url(https://kohleral.github.io/Lucida/fonts/Arual.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url(https://kohleral.github.io/Lucida/fonts/Roboto-Thin.ttf) format('truetype');
+}
+
+body {
+    background-color: #222222; 
+    color: #eee;
+    font-family: 'Roboto';
+}
+
+h1, h2, h3 {
+    font-family: 'Arual';
+    color: #c2ffc3;
+}
+
+#start-screen p.info {
+    bottom: 25%; 
+}
+
+#start-screen p.start {
+    bottom: 10%; 
+}
+
 body, html {
     overflow: hidden;
     height: 100%;

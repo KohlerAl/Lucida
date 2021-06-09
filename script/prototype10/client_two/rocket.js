@@ -38,6 +38,7 @@ var prototype10_Two;
                 prototype10_Two.allPlanets = [];
                 prototype10_Two.allUFOs = [];
                 prototype10_Two.gameover = true;
+                location.reload();
             }
         }
         checkCollision() {

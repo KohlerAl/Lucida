@@ -50,6 +50,7 @@ namespace prototype10_Two {
                 allPlanets = []; 
                 allUFOs = [];  
                 gameover = true; 
+                location.reload(); 
             }
         }
 

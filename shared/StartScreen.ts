@@ -9,7 +9,7 @@ class StartScreen {
 
   constructor(id: string) {
     this.screenDiv = <HTMLDivElement>document.getElementById(id);
-    this.textDiv = <HTMLDivElement>this.screenDiv.querySelector("p");
+    this.textDiv = <HTMLDivElement>this.screenDiv.querySelector(".start");
   }
 
   setText(text: string): void {
@@ -26,7 +26,7 @@ class StartScreen {
     return new Promise((resolve) => {
       this.screenDiv.style.display = "block";
 
-      this.setText("touch screen to start");
+      this.setText("Tippe auf den Bildschirm, um das Spiel zu starten");
 
       this.screenDiv.addEventListener("click", () => {
         this.setText("checking for resources...");

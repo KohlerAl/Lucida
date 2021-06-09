@@ -51,6 +51,7 @@ namespace prototype10_One {
                 allPlanets = []; 
                 allUFOs = [];  
                 gameover = true; 
+                location.reload(); 
             }
         }
 
