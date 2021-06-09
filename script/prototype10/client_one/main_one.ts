@@ -79,6 +79,7 @@ namespace prototype10_One {
 
         width = 360;
         height = 560;
+        setSize();
 
         startX = (width / 2) - 25;
         startY = (height / 2) + 60;
@@ -220,7 +221,6 @@ namespace prototype10_One {
             data: _newPos + ""
         };
 
-        console.log(update);
         socket.send(JSON.stringify(update));
     }
 
@@ -229,7 +229,6 @@ namespace prototype10_One {
             selector: "planet",
             data: _xPos + "&a&" + _yPos + "&a&" + _size + "&a&" + _index + "&a&" + _type
         };
-        console.log(update);
         socket.send(JSON.stringify(update));
     }
 
@@ -261,7 +260,6 @@ namespace prototype10_One {
                 break;
 
             case "shoot":
-                console.warn(data, allUFOs.length + 1);
                 let ufoIndexNmbr: number = Number(data);
                 for (let ufo of allUFOs) {
                     if (ufo.index == ufoIndexNmbr) {

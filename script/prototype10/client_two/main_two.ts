@@ -134,7 +134,6 @@ namespace prototype10_Two {
                 allUFOs[ufoShoots].shoot();
                 randomLaserpoint = getRandom(10000, 12000);
                 sendUFOshoot(ufoShoots); 
-                console.log(allUFOs.length, ufoShoots); 
             },
             randomLaserpoint);
     }
@@ -246,7 +245,6 @@ namespace prototype10_Two {
             data: _xPosition + "&a&" + _yPosition + "&a&" + _sizeX + "&a&" + _sizeY + "&a&" + _index
         };
 
-        console.log(update); 
         socket.send(JSON.stringify(update));
     }
 
@@ -256,7 +254,6 @@ namespace prototype10_Two {
             data: _index + ""
         };
 
-        console.log(update); 
         socket.send(JSON.stringify(update));
     }
 
@@ -266,7 +263,6 @@ namespace prototype10_Two {
             data: _index + "&a&" + _elevationX + "&a&" + _elevationY
         };
         
-        console.log(update); 
         socket.send(JSON.stringify(update));
     }
 
@@ -288,7 +284,6 @@ namespace prototype10_Two {
                 let nmbr: number = Number(data);
                 rocket.move(nmbr);
                 rocket.drawRocket();
-                console.log(nmbr); 
                 break;
             case "planet":
                 let pretty: string[] = data.split("&a&");

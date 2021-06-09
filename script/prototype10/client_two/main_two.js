@@ -74,7 +74,6 @@ var prototype10_Two;
             prototype10_Two.allUFOs[ufoShoots].shoot();
             randomLaserpoint = getRandom(10000, 12000);
             sendUFOshoot(ufoShoots);
-            console.log(prototype10_Two.allUFOs.length, ufoShoots);
         }, randomLaserpoint);
     }
     function createMoveable(_type, _xPos) {
@@ -169,7 +168,6 @@ var prototype10_Two;
             selector: "ufo",
             data: _xPosition + "&a&" + _yPosition + "&a&" + _sizeX + "&a&" + _sizeY + "&a&" + _index
         };
-        console.log(update);
         socket.send(JSON.stringify(update));
     }
     function sendUFOshoot(_index) {
@@ -177,7 +175,6 @@ var prototype10_Two;
             selector: "shoot",
             data: _index + ""
         };
-        console.log(update);
         socket.send(JSON.stringify(update));
     }
     function sendBall(_index, _color, _elevationX, _elevationY) {
@@ -185,7 +182,6 @@ var prototype10_Two;
             selector: "ball",
             data: _index + "&a&" + _elevationX + "&a&" + _elevationY
         };
-        console.log(update);
         socket.send(JSON.stringify(update));
     }
     function sendDamageUpdate() {
@@ -205,7 +201,6 @@ var prototype10_Two;
                 let nmbr = Number(data);
                 prototype10_Two.rocket.move(nmbr);
                 prototype10_Two.rocket.drawRocket();
-                console.log(nmbr);
                 break;
             case "planet":
                 let pretty = data.split("&a&");

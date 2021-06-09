@@ -38,6 +38,7 @@ var prototype10_One;
         prototype10_One.ctxUfo = prototype10_One.canvasUfo.getContext("2d");
         prototype10_One.width = 360;
         prototype10_One.height = 560;
+        setSize();
         prototype10_One.startX = (prototype10_One.width / 2) - 25;
         prototype10_One.startY = (prototype10_One.height / 2) + 60;
         prototype10_One.rocket = new prototype10_One.Rocket(prototype10_One.startX, prototype10_One.startY, prototype10_One.rocketImg, prototype10_One.rocketImgO, prototype10_One.rocketImgT);
@@ -152,7 +153,6 @@ var prototype10_One;
             selector: "rocket",
             data: _newPos + ""
         };
-        console.log(update);
         socket.send(JSON.stringify(update));
     }
     function sendPlanetData(_xPos, _yPos, _size, _index, _type) {
@@ -160,7 +160,6 @@ var prototype10_One;
             selector: "planet",
             data: _xPos + "&a&" + _yPos + "&a&" + _size + "&a&" + _index + "&a&" + _type
         };
-        console.log(update);
         socket.send(JSON.stringify(update));
     }
     function sendDamageUpdate() {
@@ -188,7 +187,6 @@ var prototype10_One;
                 prototype10_One.allUFOs.push(newUfo);
                 break;
             case "shoot":
-                console.warn(data, prototype10_One.allUFOs.length + 1);
                 let ufoIndexNmbr = Number(data);
                 for (let ufo of prototype10_One.allUFOs) {
                     if (ufo.index == ufoIndexNmbr) {
