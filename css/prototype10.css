@@ -19,8 +19,12 @@ h1, h2, h3 {
     color: #c2ffc3;
 }
 
+#start-screen h1 {
+    top: 8% !important;
+}
+
 #start-screen p.info {
-    bottom: 25%; 
+    bottom: 5%; 
 }
 
 #start-screen p.start {
@@ -59,6 +63,11 @@ canvas {
     background-size: cover;
     /*adjust s value for speed*/
     animation: animatedBackground 500s linear infinite;
+}
+.startPlanet {
+    display: block;
+    width: 200px;
+    position: absolute;
 }
 
 @keyframes animatedBackground {

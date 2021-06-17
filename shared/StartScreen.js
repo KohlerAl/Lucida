@@ -5,7 +5,8 @@ class StartScreen {
         this.textDiv = null;
         this.managers = [];
         this.screenDiv = document.getElementById(id);
-        this.textDiv = this.screenDiv.querySelector(".start");
+        this.startPlanet = document.querySelector(".startPlanet");
+        this.textDiv = document.querySelector(".start");
     }
     setText(text) {
         this.textDiv.classList.remove("error");
@@ -18,8 +19,8 @@ class StartScreen {
     start() {
         return new Promise((resolve) => {
             this.screenDiv.style.display = "block";
-            this.setText("Tippe auf den Bildschirm, um das Spiel zu starten");
-            this.screenDiv.addEventListener("click", () => {
+            //this.setText("Tippe auf den Bildschirm, um das Spiel zu starten");
+            this.startPlanet.addEventListener("click", () => {
                 this.setText("checking for resources...");
                 const promises = [];
                 for (let manager of this.managers) {

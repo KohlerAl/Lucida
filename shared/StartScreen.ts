@@ -6,10 +6,12 @@ class StartScreen {
   private screenDiv: HTMLDivElement = null;
   private textDiv: HTMLDivElement = null;
   private managers: ResourceManager[] = [];
+  private startPlanet: HTMLImageElement;
 
   constructor(id: string) {
     this.screenDiv = <HTMLDivElement>document.getElementById(id);
-    this.textDiv = <HTMLDivElement>this.screenDiv.querySelector(".start");
+    this.startPlanet = <HTMLImageElement>document.querySelector(".startPlanet");
+    this.textDiv = <HTMLDivElement>document.querySelector(".start");
   }
 
   setText(text: string): void {
@@ -26,9 +28,9 @@ class StartScreen {
     return new Promise((resolve) => {
       this.screenDiv.style.display = "block";
 
-      this.setText("Tippe auf den Bildschirm, um das Spiel zu starten");
+      //this.setText("Tippe auf den Bildschirm, um das Spiel zu starten");
 
-      this.screenDiv.addEventListener("click", () => {
+      this.startPlanet.addEventListener("click", () => {
         this.setText("checking for resources...");
 
         const promises: Promise<void>[] = [];
