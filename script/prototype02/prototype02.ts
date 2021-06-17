@@ -23,11 +23,11 @@ namespace prototype02 {
 
     function handleLoad(): void {
         // create device motion/orientation manager
-        const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
+        /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
         // create start screen and register device motion/orientation manager
         const startScreen: StartScreen = new StartScreen("start-screen");
         startScreen.addResourceManager(motionManager);
-        startScreen.start();
+        startScreen.start(); */
 
         //The canvas and the rendering divs and assigning the values to the prepared variables
         canvas = <HTMLCanvasElement>document.querySelector("canvas");
