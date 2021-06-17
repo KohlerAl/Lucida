@@ -46,11 +46,11 @@ var prototype04;
     function getUserPermission() {
         // Get Permission of User
         // create device motion/orientation manager
-        const motionManager = new DeviceMotionAndOrientationManager();
+        /* const motionManager: DeviceMotionAndOrientationManager = new DeviceMotionAndOrientationManager();
         // create start screen and register device motion/orientation manager
-        const startScreen = new StartScreen("start-screen");
+        const startScreen: StartScreen = new StartScreen("start-screen");
         startScreen.addResourceManager(motionManager);
-        startScreen.start();
+        startScreen.start(); */
     }
     function handleMove(_event) {
         //Handle Device Move

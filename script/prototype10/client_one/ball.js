@@ -7,13 +7,15 @@ var prototype10_One;
             this.angle = 0;
             this.speed = 2;
             this.didDamage = false;
+            //Setting the attributes to the given values
             this.positionX = _positionX;
             this.positionY = _positionY;
             this.index = _index;
             this.color = _color;
         }
         getElevation(_endX, _endY) {
-            //Warning: Maths involved, i have no idea what i am doing 
+            //We want the ball to fly in a straight line. We have to points of that line: the rocket-postion and the point where the user touched the screen or the ufo-position 
+            //and the position of the rocket. So we calculate the values we need to add to the x and y position
             let ty = _endY - this.positionY;
             let tx = _endX - this.positionX;
             this.distance = Math.sqrt(tx * tx + ty * ty);
@@ -21,13 +23,14 @@ var prototype10_One;
             this.angle = rad / Math.PI * 180;
             this.velocityX = (tx / this.distance) * this.speed;
             this.velocityY = (ty / this.distance) * this.speed;
-            console.log(this.velocityX, this.velocityY);
         }
         move() {
+            //The ball moves on the line we calculated earlier so now we can add the values (and multiply them with 4 so the balls are faster)
             this.positionX += this.velocityX * 4;
             this.positionY += this.velocityY * 4;
         }
         draw() {
+            //Drawing a glowy ball in the given color (the balls of the rocket are green, the balls of the ufos are red)
             prototype10_One.ctxPoint.save();
             prototype10_One.ctxPoint.beginPath();
             prototype10_One.ctxPoint.strokeStyle = this.color;
